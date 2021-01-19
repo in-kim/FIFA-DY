@@ -8,7 +8,6 @@ const Container = styled.div`
   height:100%;
   padding:50px;
 `;
-const Item = styled.span``;
 const Cover = styled.div`
   position:absolute;
   left:0;
@@ -29,7 +28,7 @@ const Cover = styled.div`
   }
 `;
 
-const Form = styled.span`
+const Form = styled.form`
   position:absolute;
   top:calc(20% + 330px);
   left:50%;
@@ -58,11 +57,22 @@ const SearchButton = styled.button`
   cursor:pointer;
 `;
 
-const HomePrecenter = ({matchList, error, loading}) => (
+const HomePrecenter = ({
+  matchList, 
+  searchTerm, 
+  handleSubmit,
+  updateTerm, 
+  error, 
+  loading
+}) => (
   <Container>
     <Cover bgImage="https://fo4.dn.nexoncdn.co.kr/live/externalAssets/common/playersAction/p101000250.png"></Cover>
-    <Form>
-      <Input placeholder="구단주명을 입력하세요."/>
+    <Form onSubmit={handleSubmit}>
+      <Input 
+        placeholder="구단주명을 입력하세요."
+        value={searchTerm}
+        onChange={updateTerm}
+      />
       <SearchButton></SearchButton>
     </Form>
   </Container>
@@ -70,8 +80,9 @@ const HomePrecenter = ({matchList, error, loading}) => (
 
 HomePrecenter.propTypes = {
   matchList:PropTypes.array,
-  error:PropTypes.string,
-  loading:PropTypes.bool.isRequired,  
+  searchTerm:PropTypes.string,
+  handleSubmit:PropTypes.func.isRequired,
+  updateTerm:PropTypes.func.isRequired
 }
 
 export default HomePrecenter;

@@ -1,36 +1,49 @@
 import React from 'react';
 import HomePrecenter from 'Routes/Home/HomePresenter';
-import { matchList } from 'api';
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default class extends React.Component {
   state= {
     matchList:null,
-    matchDetail:null,
+    searchTerm:"",
+    notFound:'',
     error:null,
-    loading:true
   }
 
-  async componentDidMount(){
-    try{
-    }catch{
-      this.setState({
-        error:'검색하신 구단주를 찾을 수 없습니다.'
-      })
-    }finally{
-      this.setState({
-        loading:false
-      })
+  handleSubmit = event => {
+    //reload 제어
+    event.preventDefault();
+    const {target} = event;
+    const { 0 :{defaultValue : inputValue} } = target.children;
+    const { searchTerm } = this.state;
+    this.setState({
+      notFound:inputValue
+    })
+    if(searchTerm !== ""){
+      this.searchByTerm();
     }
   }
 
+  searchByTerm = () => {
+    const { searchTerm } = this.state;
+    console.log(searchTerm);
+  }
+
+  updateTerm = event => {
+    const { target: {value} } = event;
+    this.setState({
+      searchTerm:value
+    })
+  }
+
   render(){
-    const {matchList, error, loading} = this.state;
+    const {matchList, searchTerm} = this.state;
     return(
       <HomePrecenter 
         matchList={matchList}
-        error={error}
-        loading={loading}
+        searchTerm={searchTerm}
+        handleSubmit={this.handleSubmit}
+        updateTerm={this.updateTerm}
       />
     )
   }
