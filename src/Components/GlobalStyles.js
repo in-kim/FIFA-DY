@@ -28,9 +28,12 @@ const globalStyles = createGlobalStyle`
     font-family:'SDKukdetopokki';
     font-size:14px;
     font-weight:400;
-    background-color:rgba(20, 20, 20, 1);
+    background-color:#222;
     color:#fff;
-    padding-top:50px;
+  }
+  html, body, #root{
+    width:100%;
+    height:100%;
   }
 `;
 
