@@ -52,7 +52,7 @@ const SearchButton = styled.button`
   top:5px;
   width:20px;
   height:20px;
-  background:url('../../../assets/image/button/btn-search.png') no-repeat #fff;
+  background:url('/assets/image/button/btn-search.png') no-repeat;
   background-size:cover;
   border:0;
   cursor:pointer;
