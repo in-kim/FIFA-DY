@@ -4,7 +4,7 @@
 
 # Screens
 
-- [] Main & search
+- [] 메인 화면 검색 시 상세페이지로 링크
 - [] Macth Detail
 
 # API Verbs
