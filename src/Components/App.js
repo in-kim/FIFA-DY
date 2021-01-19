@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Router from 'Components/Router';
 import GlobalStyles from "Components/GlobalStyles";
 
 class App extends Component{
@@ -6,7 +7,7 @@ class App extends Component{
     return (
       <>
         <GlobalStyles />
-        <div className="App">안녕하세요. 폰트 테스트 입니다.</div>
+        <Router/>
       </>
     )
   }
