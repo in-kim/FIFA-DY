@@ -45,5 +45,6 @@
   "devDependencies": {
     "file-loader": "6.2.0",
     "url-loader": "4.1.1"
-  }
+  },
+  "proxy": "http://15.164.15.7:8081"
 }
