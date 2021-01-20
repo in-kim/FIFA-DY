@@ -1,39 +1,38 @@
 import React from "react";
 import PropTypes from 'prop-types';
 import styled from "styled-components";
+import Link from 'react-router-dom';
 
 const Container = styled.div`
-  position:relative;
+  display:flex;
+  flex-direction:column;
   width:100%;
   height:100%;
-  padding:50px;
+  padding:30px;
+`;
+const Logo = styled.div`
+  position:absolute;
+  right:0;
+  bottom:0;
+  width:320px;  
+  height:320px;
+  background:url(${props => props.logoImage}) no-repeat center;
+  background-size:320px;
+  opacity:0.2;
 `;
 const Cover = styled.div`
-  position:absolute;
-  left:0;
-  top:0;
   width:100%;
-  height:100%;
-  &:after{
-    content:'';
-    position:absolute;
-    left:50%;
-    top:20%;
-    width:320px;
-    height:320px;
-    transform:translateX(-50%);
-    background:url(${props => props.bgImage}) no-repeat center;
-    background-size:320px;
-    opacity:0.5;
-  }
+  flex:0 0 300px;
+  max-height:300px;
+  background:url(${props => props.bgImage}) no-repeat center;
+  background-size:300px;
 `;
 
 const Form = styled.form`
-  position:absolute;
-  top:calc(20% + 330px);
-  left:50%;
-  transform:translateX(-50%);
-  
+  position:relative;
+  width:320px;
+  flex:0 0 43px;
+  margin:10px auto 0 auto;
 `;
 
 const Input = styled.input`
@@ -43,6 +42,7 @@ const Input = styled.input`
   background-color:#222;
   padding:0 10px 15px 10px;
   border-bottom:5px solid #fff;
+  box-sizing:border-box;
 `;
 
 const SearchButton = styled.button`
@@ -57,8 +57,54 @@ const SearchButton = styled.button`
   cursor:pointer;
 `;
 
+const MacthContainer = styled.div`
+  width:80%;
+  flex:unset;
+  margin:30px auto 0 auto;
+  padding:20px;
+  background-color:#ecf0f1;
+  border-radius:5px;
+  box-shadow:-1px -1px 11px 0px rgba(255, 255, 255, 0.3);
+  color:#34495e;
+  text-align:center;
+`;
+const MacthHeader = styled.div`
+  display:flex;
+`;
+const HeaderItem = styled.span`
+  flex:1;
+  padding-bottom:5px;
+  border-bottom:3px solid #34495e;
+  margin-bottom:20px;
+`;
+const MacthItem = styled.div`
+  display:flex;
+  align-items:center;
+  
+  &:not(:last-child){
+    margin-bottom:30px;
+  }
+`;
+const Name = styled.span`
+  flex:1; 
+  color:#9b59b6;
+`;
+const Score = styled.span`flex:1; font-size:18px;`;
+const Date = styled.span`flex:1;`;
+const MacthResult = styled.span`
+  flex:1;
+  color:${props => props.color};
+`;
+const DetailButton = styled.span`
+  font-size:14px;
+  padding:5px;
+  border:1px solid #34495e;
+  border-radius:5px;
+  margin:0 10px;
+`;
+
 const HomePrecenter = ({
-  matchList, 
+  list, 
   searchTerm, 
   handleSubmit,
   updateTerm, 
@@ -66,6 +112,7 @@ const HomePrecenter = ({
   loading
 }) => (
   <Container>
+    <Logo logoImage="/assets/image/logo.png" />
     <Cover bgImage="https://fo4.dn.nexoncdn.co.kr/live/externalAssets/common/playersAction/p101000250.png"></Cover>
     <Form onSubmit={handleSubmit}>
       <Input 
@@ -75,14 +122,47 @@ const HomePrecenter = ({
       />
       <SearchButton></SearchButton>
     </Form>
+
+    <MacthContainer>
+      <MacthHeader>
+        <HeaderItem>매치일시</HeaderItem>
+        <HeaderItem>내팀</HeaderItem>
+        <HeaderItem>스코어</HeaderItem>
+        <HeaderItem>상대팀</HeaderItem>
+        <HeaderItem>결과</HeaderItem>
+      </MacthHeader>
+      {
+        loading ? "검색 결과가 없습니다." : 
+        list && list.length > 0 && list.map(match => (
+          <MacthItem key={match.matchId}>
+            <Date>{match.matchDate.substring(0,10)}</Date>
+            <Name>{match.myNickName}</Name>
+            <Score>
+              {match.myScore}
+              <DetailButton>자세히 보기</DetailButton>
+              {match.enemyScore}
+            </Score>
+            <Name>{match.enemyNickName}</Name>
+            <MacthResult
+              color={
+                match.gameResult === '승' ? '#3498db' : 
+                match.gameResult === '패' ? '#e74c3c' : '#34495e'
+              }
+            >{match.gameResult}</MacthResult>
+          </MacthItem>
+        ))
+      }
+    </MacthContainer>
   </Container>
 )
 
 HomePrecenter.propTypes = {
-  matchList:PropTypes.array,
+  list:PropTypes.array,
   searchTerm:PropTypes.string,
   handleSubmit:PropTypes.func.isRequired,
-  updateTerm:PropTypes.func.isRequired
+  updateTerm:PropTypes.func.isRequired,
+  loading:PropTypes.bool.isRequired,
+  error:PropTypes.string
 }
 
 export default HomePrecenter;
