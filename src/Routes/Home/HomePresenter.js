@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from 'prop-types';
 import styled from "styled-components";
-import Link from 'react-router-dom';
+import {Link} from 'react-router-dom';
 
 const Container = styled.div`
   display:flex;
@@ -139,7 +139,11 @@ const HomePrecenter = ({
             <Name>{match.myNickName}</Name>
             <Score>
               {match.myScore}
-              <DetailButton>자세히 보기</DetailButton>
+              <DetailButton>
+                <Link to={`/detail/${searchTerm}/${match.matchId}`}>
+                  자세히 보기
+                </Link>
+              </DetailButton>
               {match.enemyScore}
             </Score>
             <Name>{match.enemyNickName}</Name>
