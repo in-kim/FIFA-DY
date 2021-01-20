@@ -1,11 +1,11 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL:"https://15.164.15.7:8081/api/record",
+  baseURL:"/api/record",
 })
 
 export const matchList = {
-  search: (term,offset,limit) => api.get(`/match/${term}`,{
+  list: (term,offset,limit) => api.get(`/match/${term}`,{
     params:{
       offset:offset,
       limit:limit
