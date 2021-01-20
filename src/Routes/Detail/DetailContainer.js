@@ -13,9 +13,9 @@ export default class extends React.Component {
 
   async componentDidMount(){
     try{
-      const {match: {params:{id}}, match: {params:{name}}} = this.props;
+      const {match: {params:{id}}, match: {params:{nickname}}} = this.props;
       
-      console.log(await matchList.detail(id))
+      console.log(await matchList.detail(nickname,id))
     }catch{
 
     }finally{
