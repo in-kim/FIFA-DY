@@ -4,12 +4,17 @@
 
 # Screens
 
-- [] 메인 화면 검색 시 상세페이지로 링크
+- [x] 메인 검색 화면
 - [] Macth Detail
+
+# function
+
+- [x] 메인 검색 화면 검색 시 하단에 리스트 노출
+- [] 메인 검색 화면 더보기 기능
 
 # API Verbs
 
-- [] Macth List
+- [x] Macth List
 - [] Macth Detail
 - [] club value
 
