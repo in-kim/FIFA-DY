@@ -11,7 +11,7 @@ export const matchList = {
       limit:limit
     }
   }),
-  detail: (nickname) => 
-  api.get(`/match-info/${nickname}`),
+  detail: (nickname,id) => 
+  api.get(`/match-info/${nickname}/${id}`),
   clubPrice: (nickname,id) => api.get(`/match-club-price?nickName=${nickname}&matchId=${id}`)
 }
