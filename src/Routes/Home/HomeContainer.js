@@ -1,13 +1,15 @@
 import React from 'react';
 import HomePrecenter from 'Routes/Home/HomePresenter';
+import { matchList } from 'api';
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default class extends React.Component {
   state= {
-    matchList:null,
+    list:null,
     searchTerm:"",
     notFound:'',
     error:null,
+    loading:true,
   }
 
   handleSubmit = event => {
@@ -24,9 +26,25 @@ export default class extends React.Component {
     }
   }
 
-  searchByTerm = () => {
+  searchByTerm = async () => {
     const { searchTerm } = this.state;
-    console.log(searchTerm);
+    try{
+      const { data : list } = await matchList.list(searchTerm,10,10);
+
+      this.setState({
+        list
+      })
+    }catch{
+      this.setState({
+        error:'검색결과가 없습니다.'
+      })
+    }finally{
+      this.setState({
+        loading:false
+      })
+    }
+
+    
   }
 
   updateTerm = event => {
@@ -37,13 +55,16 @@ export default class extends React.Component {
   }
 
   render(){
-    const {matchList, searchTerm} = this.state;
+    const {list, searchTerm, loading, error} = this.state;
+    console.log(list)
     return(
       <HomePrecenter 
-        matchList={matchList}
+        list={list}
         searchTerm={searchTerm}
         handleSubmit={this.handleSubmit}
         updateTerm={this.updateTerm}
+        loading={loading}
+        error={error}
       />
     )
   }
