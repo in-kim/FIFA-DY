@@ -1,7 +1,6 @@
 import React from 'react';
 import DetailPrecenter from 'Routes/Detail/DetailPresenter';
 import {matchList} from 'api';
-// import api from api;
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default class extends React.Component {
@@ -15,11 +14,19 @@ export default class extends React.Component {
     try{
       const {match: {params:{id}}, match: {params:{nickname}}} = this.props;
       
-      console.log(await matchList.detail(nickname,id))
+      const {data:result} = await matchList.detail(nickname,id);
+
+      this.setState({
+        result
+      })
     }catch{
-
+      this.setState({
+        error:'not found'
+      })
     }finally{
-
+      this.setState({
+        loading:false
+      })
     }
   }
 
