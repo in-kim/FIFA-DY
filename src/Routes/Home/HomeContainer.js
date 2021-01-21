@@ -29,7 +29,7 @@ export default class extends React.Component {
   searchByTerm = async () => {
     const { searchTerm } = this.state;
     try{
-      const { data : list } = await matchList.list(searchTerm,10,10);
+      const { data : list } = await matchList.list(searchTerm,0,10);
 
       this.setState({
         list
