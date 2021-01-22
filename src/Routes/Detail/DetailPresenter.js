@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from 'prop-types';
 import styled from "styled-components";
 import Loading from 'Components/Loding';
+import Player from 'Components/Player';
 
 const Container = styled.div`
   width:100%;
@@ -58,40 +59,21 @@ const SoccerField = styled.div`
 `;
 
 const TeamContainer = styled.div`
+  display:flex;
   flex:1;
-  position:relative;
   max-width:50%;
+  position:relative;
 `;
 
-const Player = styled.span`
-  display:block;
-  margin-bottom:10px;
+const PositionArea = styled.div`
+  position:relative;
+  flex:0 0 12.5%;
+  max-width:12.5%;
 `;
-const Name = styled.span`
-  padding:3px;
-  background-color:#2c3e50;
-  color:#fff;
-  border-radius:3px;
-`;
-const Position = styled.span`
-  padding:3px;
-  color:#fff;
-  background-color:#222;
-  border-radius:5px;
-  margin-left:5px;
-`;
-const PlayerImage = styled.span`
-  display:block;
-  width:50px;
-  height:50px;
-  border:1px solid #222;
-  border-radius:50%;
-  background:url(${props=> props.bgImage}) no-repeat center #fff;
-  background-size:cover;
-  margin-bottom:10px;
-`;
-const DetailPrecenter = ({result, error, loading}) => (
+
+const DetailPrecenter = ({result, HOMEPOSITION, error, loading}) => (
   <>
+    {console.log(HOMEPOSITION)}
     {
       loading ? <Loading /> :
       <Container>
@@ -106,30 +88,262 @@ const DetailPrecenter = ({result, error, loading}) => (
         </VersusContainer>
         <SoccerField bgImage="/assets/image/bg_field.jpg">
           <TeamContainer>
-            {
-              result.myPlayer.map((home,index) => (
-                home.spPosition !== 28 ? (
-                  <Player key={index}>
-                    <PlayerImage bgImage={`https://fo4.dn.nexoncdn.co.kr/live/externalAssets/common/players/p${String(home.spId).slice(-6)}.png`}></PlayerImage>
-                    <Name>{home.name}</Name>
-                    <Position>{home.spPosition}</Position>
-                  </Player>
-                ) : null
-              ))
-            }
+            <PositionArea>
+              {
+                result.myPlayer.map((home,index) => (
+                  home.spPosition === 0 ? (
+                      <Player 
+                        key={index}
+                        bgImage={`https://fo4.dn.nexoncdn.co.kr/live/externalAssets/common/players/p${home.imageId}.png`}
+                        team="home"
+                        name={home.name}
+                        positionName={home.positionDescription}
+                        spPosition={home.spPosition}
+                        spGrade={home.spGrade}
+                        status={home.status}
+                      />
+                  ) : null
+                ))
+              }
+            </PositionArea>
+            <PositionArea>
+              {
+                result.myPlayer.map((home,index) => (
+                  home.spPosition >= 1 && home.spPosition <= 8 ? (
+                      <Player 
+                        key={index}
+                        bgImage={`https://fo4.dn.nexoncdn.co.kr/live/externalAssets/common/players/p${home.imageId}.png`}
+                        team="home"
+                        name={home.name}
+                        positionName={home.positionDescription}
+                        spPosition={home.spPosition}
+                        spGrade={home.spGrade}
+                        status={home.status}
+                      />
+                  ) : null
+                ))
+              }
+            </PositionArea>
+            <PositionArea>
+              {
+                result.myPlayer.map((home,index) => (
+                  home.spPosition >= 9 && home.spPosition <= 11 ? (
+                      <Player 
+                        key={index}
+                        bgImage={`https://fo4.dn.nexoncdn.co.kr/live/externalAssets/common/players/p${home.imageId}.png`}
+                        team="home"
+                        name={home.name}
+                        positionName={home.positionDescription}
+                        spPosition={home.spPosition}
+                        spGrade={home.spGrade}
+                        status={home.status}
+                      />
+                  ) : null
+                ))
+              }
+            </PositionArea>
+            <PositionArea>
+              {
+                result.myPlayer.map((home,index) => (
+                  home.spPosition >= 12 && home.spPosition <= 16 ? (
+                      <Player 
+                        key={index}
+                        bgImage={`https://fo4.dn.nexoncdn.co.kr/live/externalAssets/common/players/p${home.imageId}.png`}
+                        team="home"
+                        name={home.name}
+                        positionName={home.positionDescription}
+                        spPosition={home.spPosition}
+                        spGrade={home.spGrade}
+                        status={home.status}
+                      />
+                  ) : null
+                ))
+              }
+            </PositionArea>
+            <PositionArea>
+              {
+                result.myPlayer.map((home,index) => (
+                  home.spPosition >= 17 && home.spPosition <= 19 ? (
+                      <Player 
+                        key={index}
+                        bgImage={`https://fo4.dn.nexoncdn.co.kr/live/externalAssets/common/players/p${home.imageId}.png`}
+                        team="home"
+                        name={home.name}
+                        positionName={home.positionDescription}
+                        spPosition={home.spPosition}
+                        spGrade={home.spGrade}
+                        status={home.status}
+                      />
+                  ) : null
+                ))
+              }
+            </PositionArea>
+            <PositionArea>
+              {
+                result.myPlayer.map((home,index) => (
+                  home.spPosition >= 20 && home.spPosition <= 22 ? (
+                      <Player 
+                        key={index}
+                        bgImage={`https://fo4.dn.nexoncdn.co.kr/live/externalAssets/common/players/p${home.imageId}.png`}
+                        team="home"
+                        name={home.name}
+                        positionName={home.positionDescription}
+                        spPosition={home.spPosition}
+                        spGrade={home.spGrade}
+                        status={home.status}
+                      />
+                  ) : null
+                ))
+              }
+            </PositionArea>
+            <PositionArea>
+              {
+                result.myPlayer.map((home,index) => (
+                  home.spPosition >= 23 && home.spPosition <= 27 ? (
+                      <Player 
+                        key={index}
+                        bgImage={`https://fo4.dn.nexoncdn.co.kr/live/externalAssets/common/players/p${home.imageId}.png`}
+                        team="home"
+                        name={home.name}
+                        positionName={home.positionDescription}
+                        spPosition={home.spPosition}
+                        spGrade={home.spGrade}
+                        status={home.status}
+                      />
+                  ) : null
+                ))
+              }
+            </PositionArea>
           </TeamContainer>
+
+          {/* away */}
           <TeamContainer>
-            {
-              result.enemyPlayer.map((away,index) => (
-                away.spPosition !== 28 ? (
-                  <Player key={index}>
-                    <PlayerImage bgImage={`https://fo4.dn.nexoncdn.co.kr/live/externalAssets/common/players/p${String(away.spId).slice(-6)}.png`}></PlayerImage>
-                    <Name>{away.name}</Name>
-                    <Position>{away.spPosition}</Position>
-                  </Player>
-                ) : null
-              ))
-            }
+            <PositionArea>
+              {
+                result.enemyPlayer.map((away,index) => (
+                  away.spPosition >= 23 && away.spPosition <= 27 ? (
+                      <Player 
+                        key={index}
+                        bgImage={`https://fo4.dn.nexoncdn.co.kr/live/externalAssets/common/players/p${away.imageId}.png`}
+                        team="away"
+                        name={away.name}
+                        positionName={away.positionDescription}
+                        spPosition={away.spPosition}
+                        spGrade={away.spGrade}
+                        status={away.status}
+                      />
+                  ) : null
+                ))
+              }
+            </PositionArea>
+            <PositionArea>
+              {
+                result.enemyPlayer.map((away,index) => (
+                  away.spPosition >= 20 && away.spPosition <= 22 ? (
+                      <Player 
+                        key={index}
+                        bgImage={`https://fo4.dn.nexoncdn.co.kr/live/externalAssets/common/players/p${away.imageId}.png`}
+                        team="away"
+                        name={away.name}
+                        positionName={away.positionDescription}
+                        spPosition={away.spPosition}
+                        spGrade={away.spGrade}
+                        status={away.status}
+                      />
+                  ) : null
+                ))
+              }
+            </PositionArea>
+            <PositionArea>
+              {
+                result.enemyPlayer.map((away,index) => (
+                  away.spPosition >= 17 && away.spPosition <= 19 ? (
+                      <Player 
+                        key={index}
+                        bgImage={`https://fo4.dn.nexoncdn.co.kr/live/externalAssets/common/players/p${away.imageId}.png`}
+                        team="away"
+                        name={away.name}
+                        positionName={away.positionDescription}
+                        spPosition={away.spPosition}
+                        spGrade={away.spGrade}
+                        status={away.status}
+                      />
+                  ) : null
+                ))
+              }
+            </PositionArea>
+            <PositionArea>
+              {
+                result.enemyPlayer.map((away,index) => (
+                  away.spPosition >= 12 && away.spPosition <= 16 ? (
+                      <Player 
+                        key={index}
+                        bgImage={`https://fo4.dn.nexoncdn.co.kr/live/externalAssets/common/players/p${away.imageId}.png`}
+                        team="away"
+                        name={away.name}
+                        positionName={away.positionDescription}
+                        spPosition={away.spPosition}
+                        spGrade={away.spGrade}
+                        status={away.status}
+                      />
+                  ) : null
+                ))
+              }
+            </PositionArea>
+            <PositionArea>
+              {
+                result.enemyPlayer.map((away,index) => (
+                  away.spPosition >= 9 && away.spPosition <= 11 ? (
+                      <Player 
+                        key={index}
+                        bgImage={`https://fo4.dn.nexoncdn.co.kr/live/externalAssets/common/players/p${away.imageId}.png`}
+                        team="away"
+                        name={away.name}
+                        positionName={away.positionDescription}
+                        spPosition={away.spPosition}
+                        spGrade={away.spGrade}
+                        status={away.status}
+                      />
+                  ) : null
+                ))
+              }
+            </PositionArea>
+            <PositionArea>
+              {
+                result.enemyPlayer.map((away,index) => (
+                  away.spPosition >= 1 && away.spPosition <= 8 ? (
+                      <Player 
+                        key={index}
+                        bgImage={`https://fo4.dn.nexoncdn.co.kr/live/externalAssets/common/players/p${away.imageId}.png`}
+                        team="away"
+                        name={away.name}
+                        positionName={away.positionDescription}
+                        spPosition={away.spPosition}
+                        spGrade={away.spGrade}
+                        status={away.status}
+                      />
+                  ) : null
+                ))
+              }
+            </PositionArea>
+            <PositionArea>
+              {
+                result.enemyPlayer.map((away,index) => (
+                  away.spPosition === 0 ? (
+                      <Player 
+                        key={index}
+                        bgImage={`https://fo4.dn.nexoncdn.co.kr/live/externalAssets/common/players/p${away.imageId}.png`}
+                        team="away"
+                        name={away.name}
+                        positionName={away.positionDescription}
+                        spPosition={away.spPosition}
+                        spGrade={away.spGrade}
+                        status={away.status}
+                      />
+                  ) : null
+                ))
+              }
+            </PositionArea>
           </TeamContainer>
         </SoccerField>
       </Container>
@@ -139,6 +353,7 @@ const DetailPrecenter = ({result, error, loading}) => (
 
 DetailPrecenter.propTypes = {
   result:PropTypes.object,
+  HOMEPOSITION:PropTypes.object,
   error:PropTypes.string,
   loading:PropTypes.bool.isRequired,  
 }
