@@ -71,9 +71,22 @@ const PositionArea = styled.div`
   max-width:12.5%;
 `;
 
-const DetailPrecenter = ({result, HOMEPOSITION, error, loading}) => (
+const BackButton = styled.button`
+  position:fixed;
+  right:20px;
+  bottom:20px;
+  width:40px;
+  height:40px;
+  z-index:1;
+  background:url(${props=> props.bgImage}) no-repeat #222;
+  background-size:cover;
+  border-radius:50%;
+  border:2px solid #fff;
+  cursor:pointer;
+`;
+
+const DetailPrecenter = ({result, error, loading, goBack}) => (
   <>
-    {console.log(HOMEPOSITION)}
     {
       loading ? <Loading /> :
       <Container>
@@ -346,6 +359,7 @@ const DetailPrecenter = ({result, HOMEPOSITION, error, loading}) => (
             </PositionArea>
           </TeamContainer>
         </SoccerField>
+        <BackButton onClick={goBack} bgImage='/assets/image/button/btn_arrow.png'></BackButton>
       </Container>
     }
   </>
@@ -353,9 +367,9 @@ const DetailPrecenter = ({result, HOMEPOSITION, error, loading}) => (
 
 DetailPrecenter.propTypes = {
   result:PropTypes.object,
-  HOMEPOSITION:PropTypes.object,
   error:PropTypes.string,
-  loading:PropTypes.bool.isRequired,  
+  loading:PropTypes.bool.isRequired, 
+  goBack:PropTypes.func
 }
 
 export default DetailPrecenter;

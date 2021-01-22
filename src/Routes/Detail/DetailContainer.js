@@ -7,17 +7,21 @@ export default class extends React.Component {
   state= {
     result:null,
     error:null,
-    loading:true
+    loading:true,
+    goBack:null,
   }
 
   async componentDidMount(){
     try{
-      const {match: {params:{id}}, match: {params:{nickname}}} = this.props;
-      
+      const {
+        match: {params:{id}}, 
+        match: {params:{nickname}}, 
+        history:{goBack}
+      } = this.props;
       const {data:result} = await matchList.detail(nickname,id);
-
       this.setState({
-        result
+        result,
+        goBack
       })
     }catch{
       this.setState({
@@ -27,16 +31,20 @@ export default class extends React.Component {
       this.setState({
         loading:false
       })
-    }
+    };
+    
   }
 
+
   render(){
-    const { result, error, loading } = this.state;
+    const { result, error, loading, goBack } = this.state;
     return(
       <DetailPrecenter 
         result={result}
         error={error}
         loading={loading}
+        handleClick={this.handleClick}
+        goBack={goBack}
       />
     )
   }
