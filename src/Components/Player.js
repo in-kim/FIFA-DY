@@ -2,10 +2,45 @@ import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
+const InfoPopup = styled.div`
+  display:none;
+  position:absolute;
+  top:0;
+  left:0;
+  transform:translateX(-100%);
+  width:250px;
+  height:auto;
+  z-index:2;
+  background-color:rgba(0,0,0,0.8);
+  padding:10px;
+`;
+const InfoContainer = styled.span`
+  display:flex;
+  align-items:center;
+  margin-bottom:10px;
+`;
+const InfoItem = styled.span`
+  flex:1;
+  text-align:left;
+  font-size:12px;
+  color:#fff;
+  text-align:center;
+
+  &:nth-child(1){
+    text-align:left;
+  }
+`;
+
 const Container = styled.div`
   position:absolute;
   ${ props=> props.top };
   left:0;
+
+  &:hover{
+    ${InfoPopup}{
+      display:block;
+    }
+  }
 `;
 const Image = styled.span`
   position:relative;
@@ -16,7 +51,7 @@ const Image = styled.span`
   border-radius:50%;
   background:url(${props=> props.bgImage}) no-repeat center #fff;
   background-size:cover;
-  margin:0 auto 10px auto;
+  margin:0 auto 5px auto;
 `;
 const Grade = styled.span`
   position:absolute;
@@ -31,6 +66,7 @@ const Grade = styled.span`
   padding:2px 5px;
 `;
 const Name = styled.span`
+  display:block;
   font-size:10px;
   padding:3px;
   background-color:#2c3e50;
@@ -38,12 +74,15 @@ const Name = styled.span`
   border-radius:0 3px 3px 0;
 `;
 const Position = styled.span`
+  display:block;
   font-size:10px;
   padding:3px;
   color:#fff;
   background-color:#222;
   border-radius:3px 0 0 3px;
+  text-align:center;
 `;
+
 const Player = ({
   bgImage,
   team, 
@@ -51,9 +90,11 @@ const Player = ({
   positionName,
   spPosition,
   spGrade,
-  status
+  status,
+  handlePlayerInfoShow
 }) => (
   <Container
+    onMouseOver={handlePlayerInfoShow}
     top={
       team === 'home' ?
         spPosition === 0 ? 'top: 45%' :
@@ -126,6 +167,53 @@ const Player = ({
     </Image>
     <Position>{positionName}</Position>
     <Name>{name}</Name>
+
+      {
+        status && (
+          <InfoPopup>
+            <InfoContainer>
+              <InfoItem>{name}</InfoItem>
+              <InfoItem>{status.spRating}</InfoItem>
+            </InfoContainer>
+            <InfoContainer>
+              <InfoItem>어시스트</InfoItem>
+              <InfoItem>{status.block}</InfoItem>
+            </InfoContainer>
+            <InfoContainer>
+              <InfoItem>수비성공</InfoItem>
+              <InfoItem>{status.block}</InfoItem>
+            </InfoContainer>
+            <InfoContainer>
+              <InfoItem>드리블성공</InfoItem>
+              <InfoItem>{status.dribble}</InfoItem>
+            </InfoContainer>
+            <InfoContainer>
+              <InfoItem>유효슈팅</InfoItem>
+              <InfoItem>{status.effectiveShoot}</InfoItem>
+            </InfoContainer>
+            <InfoContainer>
+              <InfoItem>골</InfoItem>
+              <InfoItem>{status.goal}</InfoItem>
+            </InfoContainer>
+            <InfoContainer>
+              <InfoItem>슈팅횟수</InfoItem>
+              <InfoItem>{status.shoot}</InfoItem>
+            </InfoContainer>
+            <InfoContainer>
+              <InfoItem>패스시도</InfoItem>
+              <InfoItem>{status.passTry}</InfoItem>
+            </InfoContainer>
+            <InfoContainer>
+              <InfoItem>패스성공</InfoItem>
+              <InfoItem>{status.passSuccess}</InfoItem>
+            </InfoContainer>
+            <InfoContainer>
+              <InfoItem>태클성공</InfoItem>
+              <InfoItem>{status.tackle}</InfoItem>
+            </InfoContainer>
+          </InfoPopup>
+      )
+    }
   </Container>
 )
 
@@ -138,6 +226,7 @@ Player.propTypes = {
   spPosition:PropTypes.number.isRequired,
   spGrade:PropTypes.number,
   status:PropTypes.object,
+  isPlayerInfo:PropTypes.bool.isRequired,
 }
 
 export default Player;
