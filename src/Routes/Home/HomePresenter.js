@@ -132,29 +132,32 @@ const HomePrecenter = ({
         <HeaderItem>결과</HeaderItem>
       </MacthHeader>
       {
-        loading ? "검색 결과가 없습니다." : 
-        list && list.length > 0 && list.map(match => (
-          <MacthItem key={match.matchId}>
-            <Date>{match.matchDate.substring(0,10)}</Date>
-            <Name>{match.myNickName}</Name>
-            <Score>
-              {match.myScore}
-              <DetailButton>
-                <Link to={`/detail/${searchTerm}/${match.matchId}`}>
-                  자세히 보기
-                </Link>
-              </DetailButton>
-              {match.enemyScore}
-            </Score>
-            <Name>{match.enemyNickName}</Name>
-            <MacthResult
-              color={
-                match.gameResult === '승' ? '#3498db' : 
-                match.gameResult === '패' ? '#e74c3c' : '#34495e'
-              }
-            >{match.gameResult}</MacthResult>
-          </MacthItem>
-        ))
+        error && error.length > 0 ? error : 
+        (
+          loading ? '로딩중 입니다.' :
+          list && list.length > 0 && list.map(match => (
+            <MacthItem key={match.matchId}>
+              <Date>{match.matchDate.substring(0,10)}</Date>
+              <Name>{match.myNickName}</Name>
+              <Score>
+                {match.myScore}
+                <DetailButton>
+                  <Link to={`/detail/${searchTerm}/${match.matchId}`}>
+                    자세히 보기
+                  </Link>
+                </DetailButton>
+                {match.enemyScore}
+              </Score>
+              <Name>{match.enemyNickName}</Name>
+              <MacthResult
+                color={
+                  match.gameResult === '승' ? '#3498db' : 
+                  match.gameResult === '패' ? '#e74c3c' : '#34495e'
+                }
+              >{match.gameResult}</MacthResult>
+            </MacthItem>
+          ))
+        )
       }
     </MacthContainer>
   </Container>
