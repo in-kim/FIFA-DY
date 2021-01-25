@@ -239,7 +239,6 @@ Player.propTypes = {
   spPosition:PropTypes.number.isRequired,
   spGrade:PropTypes.number,
   status:PropTypes.object,
-  isPlayerInfo:PropTypes.bool.isRequired,
 }
 
 export default Player;
