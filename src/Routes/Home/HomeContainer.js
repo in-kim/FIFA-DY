@@ -9,7 +9,7 @@ export default class extends React.Component {
     searchTerm:"",
     notFound:'',
     error:null,
-    loading:true,
+    loading:false,
   }
 
   handleSubmit = event => {
@@ -19,10 +19,17 @@ export default class extends React.Component {
     const { 0 :{defaultValue : inputValue} } = target.children;
     const { searchTerm } = this.state;
     this.setState({
-      notFound:inputValue
+      loading:true,
+      notFound:inputValue,
+      list:null
     })
     if(searchTerm !== ""){
       this.searchByTerm();
+    }else{
+      this.setState({
+        error:'검색어를 입력 해주세요.',
+        loading:false
+      })
     }
   }
 
@@ -31,9 +38,10 @@ export default class extends React.Component {
     try{
       const { data : list } = await matchList.list(searchTerm,0,10);
 
-      this.setState({
-        list
-      })
+    this.setState({
+      list,
+      error:null
+    })
     }catch{
       this.setState({
         error:'검색결과가 없습니다.'
@@ -56,6 +64,8 @@ export default class extends React.Component {
 
   render(){
     const {list, searchTerm, loading, error} = this.state;
+
+    console.log(this.state)
     return(
       <HomePrecenter 
         list={list}
