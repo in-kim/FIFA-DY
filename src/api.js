@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL:"/api/record",
+  baseURL:"http://15.164.15.7:8080/api/record",
 })
 
 export const matchList = {
