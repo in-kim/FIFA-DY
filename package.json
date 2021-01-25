@@ -24,8 +24,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "predeploy": "npm run build",
-		"deploy": "gh-pages -d build"
+		"deploy": "gh-pages -d build",
+    "predeploy": "npm run build"
   },
   "eslintConfig": {
     "extends": [
@@ -50,5 +50,5 @@
     "url-loader": "4.1.1"
   },
   "proxy": "http://15.164.15.7:8080",
-  "hompage" : "https://in-kim.github.io/FIFA-DY"
+  "homepage": "https://in-kim.github.io/FIFA-DY"
 }
