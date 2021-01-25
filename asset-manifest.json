@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.js": "/FIFA-DY/static/js/main.6306ab92.chunk.js",
-    "main.js.map": "/FIFA-DY/static/js/main.6306ab92.chunk.js.map",
+    "main.js": "/FIFA-DY/static/js/main.150a4c11.chunk.js",
+    "main.js.map": "/FIFA-DY/static/js/main.150a4c11.chunk.js.map",
     "runtime-main.js": "/FIFA-DY/static/js/runtime-main.ef2cf659.js",
     "runtime-main.js.map": "/FIFA-DY/static/js/runtime-main.ef2cf659.js.map",
     "static/js/2.20809d5f.chunk.js": "/FIFA-DY/static/js/2.20809d5f.chunk.js",
@@ -12,6 +12,6 @@
   "entrypoints": [
     "static/js/runtime-main.ef2cf659.js",
     "static/js/2.20809d5f.chunk.js",
-    "static/js/main.6306ab92.chunk.js"
+    "static/js/main.150a4c11.chunk.js"
   ]
 }
