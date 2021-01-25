@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from 'prop-types';
 import styled from "styled-components";
+import {Link} from 'react-router-dom';
 import Loading from 'Components/Loding';
 import Player from 'Components/Player';
 
@@ -71,7 +72,7 @@ const PositionArea = styled.div`
   max-width:12.5%;
 `;
 
-const BackButton = styled.button`
+const BackIcon = styled.span`
   position:fixed;
   right:20px;
   bottom:20px;
@@ -83,9 +84,15 @@ const BackButton = styled.button`
   border-radius:50%;
   border:2px solid #fff;
   cursor:pointer;
+
+  & > a {
+    display:block;
+    width:100%;
+    height:100%;
+  }
 `;
 
-const DetailPrecenter = ({result, error, loading, goBack}) => (
+const DetailPrecenter = ({result, name, offset, error, loading}) => (
   <>
     {
       loading ? <Loading /> :
@@ -373,7 +380,10 @@ const DetailPrecenter = ({result, error, loading, goBack}) => (
             </PositionArea>
           </TeamContainer>
         </SoccerField>
-        <BackButton onClick={goBack} bgImage={`${process.env.REACT_APP_URL}/assets/image/button/btn_arrow.png`}></BackButton>
+          <BackIcon bgImage={`${process.env.REACT_APP_URL}/assets/image/button/btn_arrow.png`}>
+            <Link to={`/${name}/${offset}`}>
+            </Link>
+          </BackIcon>
       </Container>
     }
   </>
@@ -381,6 +391,8 @@ const DetailPrecenter = ({result, error, loading, goBack}) => (
 
 DetailPrecenter.propTypes = {
   result:PropTypes.object,
+  name:PropTypes.string,
+  offset:PropTypes.number,
   error:PropTypes.string,
   loading:PropTypes.bool.isRequired, 
   goBack:PropTypes.func
