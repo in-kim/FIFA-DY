@@ -6,9 +6,10 @@ import {matchList} from 'api';
 export default class extends React.Component {
   state= {
     result:null,
+    name:'',
     error:null,
     loading:true,
-    goBack:null,
+    offset:0
   }
 
   async componentDidMount(){
@@ -16,12 +17,14 @@ export default class extends React.Component {
       const {
         match: {params:{id}}, 
         match: {params:{name}}, 
-        history:{goBack}
+        match: {params:{offset}}
       } = this.props;
+
       const {data:result} = await matchList.detail(name,id);
       this.setState({
         result,
-        goBack
+        name,
+        offset:Number(offset)
       })
     }catch{
       this.setState({
@@ -37,14 +40,15 @@ export default class extends React.Component {
 
 
   render(){
-    const { result, error, loading, goBack } = this.state;
+    const { result, error, loading, name,offset } = this.state;
     return(
       <DetailPrecenter 
         result={result}
         error={error}
         loading={loading}
         handleClick={this.handleClick}
-        goBack={goBack}
+        name={name}
+        offset={offset}
       />
     )
   }
