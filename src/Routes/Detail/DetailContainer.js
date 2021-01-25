@@ -15,10 +15,10 @@ export default class extends React.Component {
     try{
       const {
         match: {params:{id}}, 
-        match: {params:{nickname}}, 
+        match: {params:{name}}, 
         history:{goBack}
       } = this.props;
-      const {data:result} = await matchList.detail(nickname,id);
+      const {data:result} = await matchList.detail(name,id);
       this.setState({
         result,
         goBack
