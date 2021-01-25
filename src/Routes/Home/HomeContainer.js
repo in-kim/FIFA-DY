@@ -10,7 +10,46 @@ export default class extends React.Component {
     notFound:'',
     error:null,
     loading:false,
-    limit:10,
+    offset:0,
+  }
+
+  async componentDidMount(){
+    const {match : {params}} = this.props;
+   
+    if(Object.keys(params).length !== 0){
+      this.setState({
+        loading:true
+      })
+
+      try{
+        const {
+          match: {params:{name}}, 
+          match: {params:{offset}}, 
+        } = this.props;
+
+        if(Number(offset) === 0){
+          const { data : list } = await matchList.list(name,offset,10);
+          this.setState({
+            list
+          })
+        }else{
+          const { data : list } = await matchList.list(name,0,offset);
+          this.setState({
+            list
+          })
+        }
+  
+        this.setState({
+          searchTerm:name,
+          offset:Number(offset)
+        })
+      }catch{
+      }finally{
+        this.setState({
+          loading:false
+        })
+      }
+    }
   }
 
   handleSubmit = event => {
@@ -35,14 +74,20 @@ export default class extends React.Component {
   }
 
   searchByTerm = async () => {
-    const { searchTerm, limit } = this.state;
+    const { searchTerm, offset, list:oldList} = this.state;
     try{
-      const { data : list } = await matchList.list(searchTerm,0,limit);
+      const { data : list } = await matchList.list(searchTerm,offset,10);
 
-      this.setState({
-        list,
-        error:null,
-      })
+      if(offset === 0){
+        this.setState({
+          list,
+          error:null,
+        })
+      }else {
+        this.setState({
+          list: [...oldList, ...list]
+        })
+      }
     }catch{
       this.setState({
         error:'검색결과가 없습니다.'
@@ -61,25 +106,28 @@ export default class extends React.Component {
     })
   }
   
-  handleUpdateList = async () => {
-    const {limit:oldLimit} = this.state;
+  UpdateOffset = async () => {
+    const {offset} = this.state;
 
     await this.setState({
-      limit:oldLimit+10
+      offset:offset+10
     })
+
     this.searchByTerm();
   }
 
+
+
   render(){
-    const {list, searchTerm, loading, error} = this.state;
-    console.log(this.state);
+    const {list, searchTerm, loading, error, offset} = this.state;
     return(
       <HomePrecenter 
         list={list}
         searchTerm={searchTerm}
         handleSubmit={this.handleSubmit}
         updateTerm={this.updateTerm}
-        handleUpdateList={this.handleUpdateList}
+        UpdateOffset={this.UpdateOffset}
+        offset={offset}
         loading={loading}
         error={error}
       />
