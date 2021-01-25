@@ -129,7 +129,8 @@ const HomePrecenter = ({
   searchTerm, 
   handleSubmit,
   updateTerm, 
-  handleUpdateList,
+  UpdateOffset,
+  offset,
   error, 
   loading
 }) => (
@@ -158,14 +159,14 @@ const HomePrecenter = ({
           error && error.length > 0 ? error : 
           (
             loading ? '로딩중 입니다.' :
-            list && list.length > 0 && list.map(match => (
+            list && list.length > 0 ? list.map(match => (
               <MacthItem key={match.matchId}>
                 <Date>{match.matchDate.substring(0,10)}</Date>
                 <Name>{match.myNickName}</Name>
                 <Score>
                   {match.myScore}
                   <DetailButton>
-                    <Link to={`/detail/${match.myNickName}/${match.matchId}`}>
+                    <Link to={`/detail/${match.myNickName}/${match.matchId}/${offset}`}>
                       자세히 보기
                     </Link>
                   </DetailButton>
@@ -179,12 +180,12 @@ const HomePrecenter = ({
                   }
                 >{match.gameResult}</MacthResult>
               </MacthItem>
-            ))
+            )): '검색어를 입력 해주세요.'
           )
         }
 
         {
-          list && list.length > 0 && <MoreButton onClick={handleUpdateList}>더보기</MoreButton>
+          list && list.length > 0 && <MoreButton onClick={UpdateOffset}>더보기</MoreButton>
         }
       </Scroll>
     </MacthContainer>
@@ -196,7 +197,8 @@ HomePrecenter.propTypes = {
   searchTerm:PropTypes.string,
   handleSubmit:PropTypes.func.isRequired,
   updateTerm:PropTypes.func.isRequired,
-  handleUpdateList:PropTypes.func.isRequired,
+  UpdateOffset:PropTypes.func.isRequired,
+  offset:PropTypes.number,
   loading:PropTypes.bool.isRequired,
   error:PropTypes.string
 }
