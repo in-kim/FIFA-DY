@@ -108,6 +108,35 @@ const Player = ({
       team === 'home' ?
         spPosition === 0 ? 'top: 45%' :
         spPosition === 1 ? 'top: 45%' :
+        spPosition === 2 ? 'bottom: 4%' :
+        spPosition === 3 ? 'bottom: 10%' :
+        spPosition === 4 ? 'bottom: 30%' :
+        spPosition === 5 ? 'top: 45%' :
+        spPosition === 6 ? 'top: 30%' :
+        spPosition === 7 ? 'top: 10%' :
+        spPosition === 8 ? 'top: 4%' :
+        spPosition === 9 ? 'bottom:30%' :
+        spPosition === 10 ? 'bottom:45%' :
+        spPosition === 11 ? 'top:30%' :
+        spPosition === 12 ? 'top:10%' :
+        spPosition === 13 ? 'top:30%' :
+        spPosition === 14 ? 'top:45%' :
+        spPosition === 15 ? 'bottom:30%' :
+        spPosition === 16 ? 'bottom:10%' :
+        spPosition === 17 ? 'top:30%' :
+        spPosition === 18 ? 'top:45%' :
+        spPosition === 19 ? 'bottom:30%' :
+        spPosition === 20 ? 'top:30%' :
+        spPosition === 21 ? 'top:45%' :
+        spPosition === 22 ? 'bottom:30%' :
+        spPosition === 23 ? 'top:10%' :
+        spPosition === 24 ? 'top:30%' :
+        spPosition === 25 ? 'top:45%' :
+        spPosition === 26 ? 'bottom:30%' :
+        spPosition === 27 ? 'bottom:10%' : ''
+      : 
+        spPosition === 0 ? 'top: 45%' :
+        spPosition === 1 ? 'top: 45%' :
         spPosition === 2 ? 'top: 4%' :
         spPosition === 3 ? 'top: 10%' :
         spPosition === 4 ? 'top: 30%' :
@@ -118,35 +147,6 @@ const Player = ({
         spPosition === 9 ? 'top:30%' :
         spPosition === 10 ? 'top:45%' :
         spPosition === 11 ? 'bottom:30%' :
-        spPosition === 12 ? 'bottom:10%' :
-        spPosition === 13 ? 'bottom:30%' :
-        spPosition === 14 ? 'top:45%' :
-        spPosition === 15 ? 'top:30%' :
-        spPosition === 16 ? 'top:10%' :
-        spPosition === 17 ? 'bottom:30%' :
-        spPosition === 18 ? 'top:45%' :
-        spPosition === 19 ? 'top:30%' :
-        spPosition === 20 ? 'bottom:30%' :
-        spPosition === 21 ? 'top:45%' :
-        spPosition === 22 ? 'top:30%' :
-        spPosition === 23 ? 'bottom:10%' :
-        spPosition === 24 ? 'bottom:30%' :
-        spPosition === 25 ? 'top:45%' :
-        spPosition === 26 ? 'top:30%' :
-        spPosition === 27 ? 'top:10%' : ''
-      : 
-        spPosition === 0 ? 'top: 45%' :
-        spPosition === 1 ? 'top: 45%' :
-        spPosition === 2 ? 'bottom: 4%' :
-        spPosition === 3 ? 'bottom: 10%' :
-        spPosition === 4 ? 'bottom: 30%' :
-        spPosition === 5 ? 'top: 45%' :
-        spPosition === 6 ? 'top: 30%' :
-        spPosition === 7 ? 'top: 10%' :
-        spPosition === 8 ? 'top: 4%' :
-        spPosition === 9 ? 'bottom:30%' :
-        spPosition === 10 ? 'top:45%' :
-        spPosition === 11 ? 'top:30%' :
         spPosition === 12 ? 'top:10%' :
         spPosition === 13 ? 'top:30%' :
         spPosition === 14 ? 'top:45%' :
