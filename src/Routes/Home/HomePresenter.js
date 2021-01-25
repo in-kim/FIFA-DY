@@ -51,12 +51,16 @@ const SearchButton = styled.button`
   top:5px;
   width:20px;
   height:20px;
-  background:url('https://in-kim.github.io/FIFA-DY/assets/image/button/btn-search.png') no-repeat;
+  background:url(${props=>props.searchIcon}) no-repeat;
   background-size:cover;
   border:0;
   cursor:pointer;
 `;
-
+const Scroll = styled.div`
+  max-height:480px;
+  padding-top:4px;
+  overflow:auto;
+`;
 const MacthContainer = styled.div`
   width:80%;
   flex:unset;
@@ -103,16 +107,34 @@ const DetailButton = styled.span`
   margin:0 10px;
 `;
 
+const MoreButton = styled.button`
+  width:100%;
+  height:29px;
+  font-family:'SDKukdetopokki';
+  font-size:15px;
+  color:#130f40;
+  text-align:center;
+  border:0;
+  cursor:pointer;
+  outline:none;
+  
+  &:hover{
+    font-size:1.3rem;
+    transition:.3s;
+  }
+`;
+
 const HomePrecenter = ({
   list, 
   searchTerm, 
   handleSubmit,
   updateTerm, 
+  handleUpdateList,
   error, 
   loading
 }) => (
   <Container>
-    <Logo logoImage="https://in-kim.github.io/FIFA-DY/assets/image/logo.png" />
+    <Logo logoImage={`${process.env.REACT_APP_URL}/assets/image/logo.png`} />
     <Cover bgImage="https://fo4.dn.nexoncdn.co.kr/live/externalAssets/common/playersAction/p101000250.png"></Cover>
     <Form onSubmit={handleSubmit}>
       <Input 
@@ -120,7 +142,7 @@ const HomePrecenter = ({
         value={searchTerm}
         onChange={updateTerm}
       />
-      <SearchButton></SearchButton>
+      <SearchButton searchIcon={`${process.env.REACT_APP_URL}/assets/image/button/btn-search.png`}></SearchButton>
     </Form>
 
     <MacthContainer>
@@ -131,34 +153,40 @@ const HomePrecenter = ({
         <HeaderItem>상대팀</HeaderItem>
         <HeaderItem>결과</HeaderItem>
       </MacthHeader>
-      {
-        error && error.length > 0 ? error : 
-        (
-          loading ? '로딩중 입니다.' :
-          list && list.length > 0 && list.map(match => (
-            <MacthItem key={match.matchId}>
-              <Date>{match.matchDate.substring(0,10)}</Date>
-              <Name>{match.myNickName}</Name>
-              <Score>
-                {match.myScore}
-                <DetailButton>
-                  <Link to={`/detail/${searchTerm}/${match.matchId}`}>
-                    자세히 보기
-                  </Link>
-                </DetailButton>
-                {match.enemyScore}
-              </Score>
-              <Name>{match.enemyNickName}</Name>
-              <MacthResult
-                color={
-                  match.gameResult === '승' ? '#3498db' : 
-                  match.gameResult === '패' ? '#e74c3c' : '#34495e'
-                }
-              >{match.gameResult}</MacthResult>
-            </MacthItem>
-          ))
-        )
-      }
+      <Scroll>
+        {
+          error && error.length > 0 ? error : 
+          (
+            loading ? '로딩중 입니다.' :
+            list && list.length > 0 && list.map(match => (
+              <MacthItem key={match.matchId}>
+                <Date>{match.matchDate.substring(0,10)}</Date>
+                <Name>{match.myNickName}</Name>
+                <Score>
+                  {match.myScore}
+                  <DetailButton>
+                    <Link to={`/detail/${match.myNickName}/${match.matchId}`}>
+                      자세히 보기
+                    </Link>
+                  </DetailButton>
+                  {match.enemyScore}
+                </Score>
+                <Name>{match.enemyNickName}</Name>
+                <MacthResult
+                  color={
+                    match.gameResult === '승' ? '#3498db' : 
+                    match.gameResult === '패' ? '#e74c3c' : '#34495e'
+                  }
+                >{match.gameResult}</MacthResult>
+              </MacthItem>
+            ))
+          )
+        }
+
+        {
+          list && list.length > 0 && <MoreButton onClick={handleUpdateList}>더보기</MoreButton>
+        }
+      </Scroll>
     </MacthContainer>
   </Container>
 )
@@ -168,6 +196,7 @@ HomePrecenter.propTypes = {
   searchTerm:PropTypes.string,
   handleSubmit:PropTypes.func.isRequired,
   updateTerm:PropTypes.func.isRequired,
+  handleUpdateList:PropTypes.func.isRequired,
   loading:PropTypes.bool.isRequired,
   error:PropTypes.string
 }
