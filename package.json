@@ -8,6 +8,7 @@
     "@testing-library/user-event": "12.6.0",
     "axios": "0.21.1",
     "cors": "2.8.5",
+    "gh-pages": "3.1.0",
     "helmet": "4.4.1",
     "prop-types": "15.7.2",
     "react": "^17.0.1",
@@ -22,7 +23,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+		"deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
@@ -46,5 +49,6 @@
     "file-loader": "6.2.0",
     "url-loader": "4.1.1"
   },
-  "proxy": "http://15.164.15.7:8080"
+  "proxy": "http://15.164.15.7:8080",
+  "hompage" : "https://in-kim.github.io/FIFA-DY"
 }
