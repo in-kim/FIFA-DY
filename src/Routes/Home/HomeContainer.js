@@ -15,8 +15,8 @@ export default class extends React.Component {
 
   async componentDidMount(){
     const {match : {params}} = this.props;
-   
-    if(Object.keys(params).length !== 0){
+
+    if (Object.keys(params).length !== 0){
       this.setState({
         loading:true
       })
@@ -55,13 +55,15 @@ export default class extends React.Component {
   handleSubmit = event => {
     //reload 제어
     event.preventDefault();
+    
     const {target} = event;
     const { 0 :{defaultValue : inputValue} } = target.children;
     const { searchTerm } = this.state;
+
     this.setState({
       loading:true,
       notFound:inputValue,
-      list:null
+      list:null,
     })
     if(searchTerm !== ""){
       this.searchByTerm();
