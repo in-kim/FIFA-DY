@@ -90,7 +90,7 @@ const DetailPrecenter = ({result, error, loading, goBack}) => (
     {
       loading ? <Loading /> :
       <Container>
-        <Cover bgImage={'/assets/image/bg_stadium.jpg'}></Cover>
+        <Cover bgImage={'https://in-kim.github.io/FIFA-DY/assets/image/bg_stadium.jpg'}></Cover>
         <VersusContainer>
           <Nickname>{result.myNickName}</Nickname>
           <Versus>
@@ -99,7 +99,7 @@ const DetailPrecenter = ({result, error, loading, goBack}) => (
           </Versus>
           <Nickname>{result.enemyNickName}</Nickname>
         </VersusContainer>
-        <SoccerField bgImage="/assets/image/bg_field.jpg">
+        <SoccerField bgImage="https://in-kim.github.io/FIFA-DY/assets/image/bg_field.jpg">
           <TeamContainer>
             <PositionArea>
               {
@@ -110,6 +110,7 @@ const DetailPrecenter = ({result, error, loading, goBack}) => (
                         bgImage={`https://fo4.dn.nexoncdn.co.kr/live/externalAssets/common/players/p${home.imageId}.png`}
                         team="home"
                         name={home.name}
+                        originalName={home.originalName}
                         positionName={home.positionDescription}
                         spPosition={home.spPosition}
                         spGrade={home.spGrade}
@@ -128,6 +129,7 @@ const DetailPrecenter = ({result, error, loading, goBack}) => (
                         bgImage={`https://fo4.dn.nexoncdn.co.kr/live/externalAssets/common/players/p${home.imageId}.png`}
                         team="home"
                         name={home.name}
+                        originalName={home.originalName}
                         positionName={home.positionDescription}
                         spPosition={home.spPosition}
                         spGrade={home.spGrade}
@@ -146,6 +148,7 @@ const DetailPrecenter = ({result, error, loading, goBack}) => (
                         bgImage={`https://fo4.dn.nexoncdn.co.kr/live/externalAssets/common/players/p${home.imageId}.png`}
                         team="home"
                         name={home.name}
+                        originalName={home.originalName}
                         positionName={home.positionDescription}
                         spPosition={home.spPosition}
                         spGrade={home.spGrade}
@@ -164,6 +167,7 @@ const DetailPrecenter = ({result, error, loading, goBack}) => (
                         bgImage={`https://fo4.dn.nexoncdn.co.kr/live/externalAssets/common/players/p${home.imageId}.png`}
                         team="home"
                         name={home.name}
+                        originalName={home.originalName}
                         positionName={home.positionDescription}
                         spPosition={home.spPosition}
                         spGrade={home.spGrade}
@@ -182,6 +186,7 @@ const DetailPrecenter = ({result, error, loading, goBack}) => (
                         bgImage={`https://fo4.dn.nexoncdn.co.kr/live/externalAssets/common/players/p${home.imageId}.png`}
                         team="home"
                         name={home.name}
+                        originalName={home.originalName}
                         positionName={home.positionDescription}
                         spPosition={home.spPosition}
                         spGrade={home.spGrade}
@@ -200,6 +205,7 @@ const DetailPrecenter = ({result, error, loading, goBack}) => (
                         bgImage={`https://fo4.dn.nexoncdn.co.kr/live/externalAssets/common/players/p${home.imageId}.png`}
                         team="home"
                         name={home.name}
+                        originalName={home.originalName}
                         positionName={home.positionDescription}
                         spPosition={home.spPosition}
                         spGrade={home.spGrade}
@@ -218,6 +224,7 @@ const DetailPrecenter = ({result, error, loading, goBack}) => (
                         bgImage={`https://fo4.dn.nexoncdn.co.kr/live/externalAssets/common/players/p${home.imageId}.png`}
                         team="home"
                         name={home.name}
+                        originalName={home.originalName}
                         positionName={home.positionDescription}
                         spPosition={home.spPosition}
                         spGrade={home.spGrade}
@@ -240,6 +247,7 @@ const DetailPrecenter = ({result, error, loading, goBack}) => (
                         bgImage={`https://fo4.dn.nexoncdn.co.kr/live/externalAssets/common/players/p${away.imageId}.png`}
                         team="away"
                         name={away.name}
+                        originalName={away.originalName}
                         positionName={away.positionDescription}
                         spPosition={away.spPosition}
                         spGrade={away.spGrade}
@@ -258,6 +266,7 @@ const DetailPrecenter = ({result, error, loading, goBack}) => (
                         bgImage={`https://fo4.dn.nexoncdn.co.kr/live/externalAssets/common/players/p${away.imageId}.png`}
                         team="away"
                         name={away.name}
+                        originalName={away.originalName}
                         positionName={away.positionDescription}
                         spPosition={away.spPosition}
                         spGrade={away.spGrade}
@@ -276,6 +285,7 @@ const DetailPrecenter = ({result, error, loading, goBack}) => (
                         bgImage={`https://fo4.dn.nexoncdn.co.kr/live/externalAssets/common/players/p${away.imageId}.png`}
                         team="away"
                         name={away.name}
+                        originalName={away.originalName}
                         positionName={away.positionDescription}
                         spPosition={away.spPosition}
                         spGrade={away.spGrade}
@@ -294,6 +304,7 @@ const DetailPrecenter = ({result, error, loading, goBack}) => (
                         bgImage={`https://fo4.dn.nexoncdn.co.kr/live/externalAssets/common/players/p${away.imageId}.png`}
                         team="away"
                         name={away.name}
+                        originalName={away.originalName}
                         positionName={away.positionDescription}
                         spPosition={away.spPosition}
                         spGrade={away.spGrade}
@@ -312,6 +323,7 @@ const DetailPrecenter = ({result, error, loading, goBack}) => (
                         bgImage={`https://fo4.dn.nexoncdn.co.kr/live/externalAssets/common/players/p${away.imageId}.png`}
                         team="away"
                         name={away.name}
+                        originalName={away.originalName}
                         positionName={away.positionDescription}
                         spPosition={away.spPosition}
                         spGrade={away.spGrade}
@@ -330,6 +342,7 @@ const DetailPrecenter = ({result, error, loading, goBack}) => (
                         bgImage={`https://fo4.dn.nexoncdn.co.kr/live/externalAssets/common/players/p${away.imageId}.png`}
                         team="away"
                         name={away.name}
+                        originalName={away.originalName}
                         positionName={away.positionDescription}
                         spPosition={away.spPosition}
                         spGrade={away.spGrade}
@@ -348,6 +361,7 @@ const DetailPrecenter = ({result, error, loading, goBack}) => (
                         bgImage={`https://fo4.dn.nexoncdn.co.kr/live/externalAssets/common/players/p${away.imageId}.png`}
                         team="away"
                         name={away.name}
+                        originalName={away.originalName}
                         positionName={away.positionDescription}
                         spPosition={away.spPosition}
                         spGrade={away.spGrade}
@@ -359,7 +373,7 @@ const DetailPrecenter = ({result, error, loading, goBack}) => (
             </PositionArea>
           </TeamContainer>
         </SoccerField>
-        <BackButton onClick={goBack} bgImage='/assets/image/button/btn_arrow.png'></BackButton>
+        <BackButton onClick={goBack} bgImage='https://in-kim.github.io/FIFA-DY/assets/image/button/btn_arrow.png'></BackButton>
       </Container>
     }
   </>

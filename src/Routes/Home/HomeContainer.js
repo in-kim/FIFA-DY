@@ -65,7 +65,6 @@ export default class extends React.Component {
   render(){
     const {list, searchTerm, loading, error} = this.state;
 
-    console.log(this.state)
     return(
       <HomePrecenter 
         list={list}
