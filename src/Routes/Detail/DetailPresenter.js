@@ -90,7 +90,7 @@ const DetailPrecenter = ({result, error, loading, goBack}) => (
     {
       loading ? <Loading /> :
       <Container>
-        <Cover bgImage={'https://in-kim.github.io/FIFA-DY/assets/image/bg_stadium.jpg'}></Cover>
+        <Cover bgImage={`${process.env.REACT_APP_URL}/assets/image/bg_stadium.jpg`}></Cover>
         <VersusContainer>
           <Nickname>{result.myNickName}</Nickname>
           <Versus>
@@ -99,7 +99,7 @@ const DetailPrecenter = ({result, error, loading, goBack}) => (
           </Versus>
           <Nickname>{result.enemyNickName}</Nickname>
         </VersusContainer>
-        <SoccerField bgImage="https://in-kim.github.io/FIFA-DY/assets/image/bg_field.jpg">
+        <SoccerField bgImage={`${process.env.REACT_APP_URL}/assets/image/bg_field.jpg`}>
           <TeamContainer>
             <PositionArea>
               {
@@ -107,7 +107,7 @@ const DetailPrecenter = ({result, error, loading, goBack}) => (
                   home.spPosition === 0 ? (
                       <Player 
                         key={index}
-                        bgImage={`https://fo4.dn.nexoncdn.co.kr/live/externalAssets/common/players/p${home.imageId}.png`}
+                        bgImage={`${process.env.REACT_APP_IMG_API_URL}${home.imageId}.png`}
                         team="home"
                         name={home.name}
                         originalName={home.originalName}
@@ -126,7 +126,7 @@ const DetailPrecenter = ({result, error, loading, goBack}) => (
                   home.spPosition >= 1 && home.spPosition <= 8 ? (
                       <Player 
                         key={index}
-                        bgImage={`https://fo4.dn.nexoncdn.co.kr/live/externalAssets/common/players/p${home.imageId}.png`}
+                        bgImage={`${process.env.REACT_APP_IMG_API_URL}${home.imageId}.png`}
                         team="home"
                         name={home.name}
                         originalName={home.originalName}
@@ -145,7 +145,7 @@ const DetailPrecenter = ({result, error, loading, goBack}) => (
                   home.spPosition >= 9 && home.spPosition <= 11 ? (
                       <Player 
                         key={index}
-                        bgImage={`https://fo4.dn.nexoncdn.co.kr/live/externalAssets/common/players/p${home.imageId}.png`}
+                        bgImage={`${process.env.REACT_APP_IMG_API_URL}${home.imageId}.png`}
                         team="home"
                         name={home.name}
                         originalName={home.originalName}
@@ -164,7 +164,7 @@ const DetailPrecenter = ({result, error, loading, goBack}) => (
                   home.spPosition >= 12 && home.spPosition <= 16 ? (
                       <Player 
                         key={index}
-                        bgImage={`https://fo4.dn.nexoncdn.co.kr/live/externalAssets/common/players/p${home.imageId}.png`}
+                        bgImage={`${process.env.REACT_APP_IMG_API_URL}${home.imageId}.png`}
                         team="home"
                         name={home.name}
                         originalName={home.originalName}
@@ -183,7 +183,7 @@ const DetailPrecenter = ({result, error, loading, goBack}) => (
                   home.spPosition >= 17 && home.spPosition <= 19 ? (
                       <Player 
                         key={index}
-                        bgImage={`https://fo4.dn.nexoncdn.co.kr/live/externalAssets/common/players/p${home.imageId}.png`}
+                        bgImage={`${process.env.REACT_APP_IMG_API_URL}${home.imageId}.png`}
                         team="home"
                         name={home.name}
                         originalName={home.originalName}
@@ -202,7 +202,7 @@ const DetailPrecenter = ({result, error, loading, goBack}) => (
                   home.spPosition >= 20 && home.spPosition <= 22 ? (
                       <Player 
                         key={index}
-                        bgImage={`https://fo4.dn.nexoncdn.co.kr/live/externalAssets/common/players/p${home.imageId}.png`}
+                        bgImage={`${process.env.REACT_APP_IMG_API_URL}${home.imageId}.png`}
                         team="home"
                         name={home.name}
                         originalName={home.originalName}
@@ -221,7 +221,7 @@ const DetailPrecenter = ({result, error, loading, goBack}) => (
                   home.spPosition >= 23 && home.spPosition <= 27 ? (
                       <Player 
                         key={index}
-                        bgImage={`https://fo4.dn.nexoncdn.co.kr/live/externalAssets/common/players/p${home.imageId}.png`}
+                        bgImage={`${process.env.REACT_APP_IMG_API_URL}${home.imageId}.png`}
                         team="home"
                         name={home.name}
                         originalName={home.originalName}
@@ -244,7 +244,7 @@ const DetailPrecenter = ({result, error, loading, goBack}) => (
                   away.spPosition >= 23 && away.spPosition <= 27 ? (
                       <Player 
                         key={index}
-                        bgImage={`https://fo4.dn.nexoncdn.co.kr/live/externalAssets/common/players/p${away.imageId}.png`}
+                        bgImage={`${process.env.REACT_APP_IMG_API_URL}${away.imageId}.png`}
                         team="away"
                         name={away.name}
                         originalName={away.originalName}
@@ -263,7 +263,7 @@ const DetailPrecenter = ({result, error, loading, goBack}) => (
                   away.spPosition >= 20 && away.spPosition <= 22 ? (
                       <Player 
                         key={index}
-                        bgImage={`https://fo4.dn.nexoncdn.co.kr/live/externalAssets/common/players/p${away.imageId}.png`}
+                        bgImage={`${process.env.REACT_APP_IMG_API_URL}${away.imageId}.png`}
                         team="away"
                         name={away.name}
                         originalName={away.originalName}
@@ -282,7 +282,7 @@ const DetailPrecenter = ({result, error, loading, goBack}) => (
                   away.spPosition >= 17 && away.spPosition <= 19 ? (
                       <Player 
                         key={index}
-                        bgImage={`https://fo4.dn.nexoncdn.co.kr/live/externalAssets/common/players/p${away.imageId}.png`}
+                        bgImage={`${process.env.REACT_APP_IMG_API_URL}${away.imageId}.png`}
                         team="away"
                         name={away.name}
                         originalName={away.originalName}
@@ -301,7 +301,7 @@ const DetailPrecenter = ({result, error, loading, goBack}) => (
                   away.spPosition >= 12 && away.spPosition <= 16 ? (
                       <Player 
                         key={index}
-                        bgImage={`https://fo4.dn.nexoncdn.co.kr/live/externalAssets/common/players/p${away.imageId}.png`}
+                        bgImage={`${process.env.REACT_APP_IMG_API_URL}${away.imageId}.png`}
                         team="away"
                         name={away.name}
                         originalName={away.originalName}
@@ -320,7 +320,7 @@ const DetailPrecenter = ({result, error, loading, goBack}) => (
                   away.spPosition >= 9 && away.spPosition <= 11 ? (
                       <Player 
                         key={index}
-                        bgImage={`https://fo4.dn.nexoncdn.co.kr/live/externalAssets/common/players/p${away.imageId}.png`}
+                        bgImage={`${process.env.REACT_APP_IMG_API_URL}${away.imageId}.png`}
                         team="away"
                         name={away.name}
                         originalName={away.originalName}
@@ -339,7 +339,7 @@ const DetailPrecenter = ({result, error, loading, goBack}) => (
                   away.spPosition >= 1 && away.spPosition <= 8 ? (
                       <Player 
                         key={index}
-                        bgImage={`https://fo4.dn.nexoncdn.co.kr/live/externalAssets/common/players/p${away.imageId}.png`}
+                        bgImage={`${process.env.REACT_APP_IMG_API_URL}${away.imageId}.png`}
                         team="away"
                         name={away.name}
                         originalName={away.originalName}
@@ -358,7 +358,7 @@ const DetailPrecenter = ({result, error, loading, goBack}) => (
                   away.spPosition === 0 ? (
                       <Player 
                         key={index}
-                        bgImage={`https://fo4.dn.nexoncdn.co.kr/live/externalAssets/common/players/p${away.imageId}.png`}
+                        bgImage={`${process.env.REACT_APP_IMG_API_URL}${away.imageId}.png`}
                         team="away"
                         name={away.name}
                         originalName={away.originalName}
@@ -373,7 +373,7 @@ const DetailPrecenter = ({result, error, loading, goBack}) => (
             </PositionArea>
           </TeamContainer>
         </SoccerField>
-        <BackButton onClick={goBack} bgImage='https://in-kim.github.io/FIFA-DY/assets/image/button/btn_arrow.png'></BackButton>
+        <BackButton onClick={goBack} bgImage={`${process.env.REACT_APP_URL}/assets/image/button/btn_arrow.png`}></BackButton>
       </Container>
     }
   </>
