@@ -31,6 +31,14 @@ const InfoItem = styled.span`
   }
 `;
 
+const InfoTitle = styled.span`
+  flex:1;
+  text-align:center;
+  font-size:15px;
+  font-weight:700;
+  color:#fff;
+`;
+
 const Container = styled.div`
   position:absolute;
   ${ props=> props.top };
@@ -87,6 +95,7 @@ const Player = ({
   bgImage,
   team, 
   name,
+  originalName,
   positionName,
   spPosition,
   spGrade,
@@ -172,8 +181,11 @@ const Player = ({
         status && (
           <InfoPopup>
             <InfoContainer>
-              <InfoItem>{name}</InfoItem>
-              <InfoItem>{status.spRating}</InfoItem>
+              <InfoTitle>{originalName}</InfoTitle>
+            </InfoContainer>
+            <InfoContainer>
+              <InfoItem>평점</InfoItem>
+              <InfoItem>⭐️{status.spRating}</InfoItem>
             </InfoContainer>
             <InfoContainer>
               <InfoItem>어시스트</InfoItem>
@@ -222,6 +234,7 @@ Player.propTypes = {
   bgImage:PropTypes.string,
   team:PropTypes.string,
   name:PropTypes.string,
+  originalName:PropTypes.string,
   positionName:PropTypes.string,
   spPosition:PropTypes.number.isRequired,
   spGrade:PropTypes.number,
