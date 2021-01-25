@@ -5,14 +5,14 @@ const globalStyles = createGlobalStyle`
   ${reset};
   @font-face {
     font-family: 'SDKukdetopokki';
-    src: url('/assets/fonts/SDKukdetopokki-aLt.woff') format('woff');
+    src: url('https://in-kim.github.io/FIFA-DY/assets/fonts/SDKukdetopokki-aLt.woff') format('woff');
     font-style: normal;
     font-weight: 400;
     font-display: fallback;
   }
   @font-face {
     font-family: 'SDKukdetopokki';
-    src: url('/assets/fonts/SDKukdetopokki-bBd.woff') format('woff');
+    src: url('https://in-kim.github.io/FIFA-DY/assets/fonts/SDKukdetopokki-bBd.woff') format('woff');
     font-style: normal;
     font-weight: 700;
     font-display: fallback;
