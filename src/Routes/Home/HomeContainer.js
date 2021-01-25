@@ -10,6 +10,7 @@ export default class extends React.Component {
     notFound:'',
     error:null,
     loading:false,
+    limit:10,
   }
 
   handleSubmit = event => {
@@ -34,14 +35,14 @@ export default class extends React.Component {
   }
 
   searchByTerm = async () => {
-    const { searchTerm } = this.state;
+    const { searchTerm, limit } = this.state;
     try{
-      const { data : list } = await matchList.list(searchTerm,0,10);
+      const { data : list } = await matchList.list(searchTerm,0,limit);
 
-    this.setState({
-      list,
-      error:null
-    })
+      this.setState({
+        list,
+        error:null,
+      })
     }catch{
       this.setState({
         error:'검색결과가 없습니다.'
@@ -51,8 +52,6 @@ export default class extends React.Component {
         loading:false
       })
     }
-
-    
   }
 
   updateTerm = event => {
@@ -61,16 +60,26 @@ export default class extends React.Component {
       searchTerm:value
     })
   }
+  
+  handleUpdateList = async () => {
+    const {limit:oldLimit} = this.state;
+
+    await this.setState({
+      limit:oldLimit+10
+    })
+    this.searchByTerm();
+  }
 
   render(){
     const {list, searchTerm, loading, error} = this.state;
-
+    console.log(this.state);
     return(
       <HomePrecenter 
         list={list}
         searchTerm={searchTerm}
         handleSubmit={this.handleSubmit}
         updateTerm={this.updateTerm}
+        handleUpdateList={this.handleUpdateList}
         loading={loading}
         error={error}
       />
