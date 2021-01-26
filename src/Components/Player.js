@@ -76,9 +76,10 @@ const Grade = styled.span`
 const Name = styled.span`
   display:block;
   font-size:10px;
-  padding:3px;
-  background-color:#2c3e50;
   color:#fff;
+  text-align:center;
+  background-color:#2c3e50;
+  padding:3px;
   border-radius:0 3px 3px 0;
 `;
 const Position = styled.span`
@@ -86,7 +87,7 @@ const Position = styled.span`
   font-size:10px;
   padding:3px;
   color:#fff;
-  background-color:#222;
+  background-color:${props=> props.bgColor};
   border-radius:3px 0 0 3px;
   text-align:center;
 `;
@@ -97,6 +98,7 @@ const Player = ({
   name,
   originalName,
   positionName,
+  positionId,
   spPosition,
   spGrade,
   status,
@@ -174,7 +176,13 @@ const Player = ({
         }
       >+ {spGrade}</Grade>
     </Image>
-    <Position>{positionName}</Position>
+    <Position bgColor={
+        positionId === "GK" ? '#e9a216' : 
+        positionId === "D" ? '#1476ff' :
+        positionId === "M" ? '#03cd7a' : '#f6425f'
+    }>
+      {positionName}
+    </Position>
     <Name>{name}</Name>
 
       {
@@ -235,6 +243,7 @@ Player.propTypes = {
   team:PropTypes.string,
   name:PropTypes.string,
   originalName:PropTypes.string,
+  positionId:PropTypes.string,
   positionName:PropTypes.string,
   spPosition:PropTypes.number.isRequired,
   spGrade:PropTypes.number,
