@@ -1,7 +1,6 @@
 import React from "react";
 import PropTypes from 'prop-types';
 import styled from "styled-components";
-import {Link} from 'react-router-dom';
 
 const Container = styled.div`
   display:flex;
@@ -130,7 +129,6 @@ const HomePrecenter = ({
   handleSubmit,
   updateTerm, 
   UpdateOffset,
-  offset,
   error, 
   loading
 }) => (
@@ -165,10 +163,8 @@ const HomePrecenter = ({
                 <Name>{match.myNickName}</Name>
                 <Score>
                   {match.myScore}
-                  <DetailButton>
-                    <Link to={`/detail/${match.myNickName}/${match.matchId}/${offset}`}>
+                  <DetailButton onClick={() => window.open(`/#/detail/${searchTerm}/${match.matchId}`,'_blank')}>
                       자세히 보기
-                    </Link>
                   </DetailButton>
                   {match.enemyScore}
                 </Score>
@@ -198,7 +194,6 @@ HomePrecenter.propTypes = {
   handleSubmit:PropTypes.func.isRequired,
   updateTerm:PropTypes.func.isRequired,
   UpdateOffset:PropTypes.func.isRequired,
-  offset:PropTypes.number,
   loading:PropTypes.bool.isRequired,
   error:PropTypes.string
 }
