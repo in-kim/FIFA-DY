@@ -1,7 +1,6 @@
 import React from "react";
 import PropTypes from 'prop-types';
 import styled from "styled-components";
-import {Link} from 'react-router-dom';
 import Loading from 'Components/Loding';
 import Player from 'Components/Player';
 
@@ -37,6 +36,14 @@ const Nickname = styled.span`
   font-size:50px;
   text-shadow: 4px 3px 0 #7A7A7A;
 `;
+
+const Price = styled.span`
+  display:block;
+  text-align:center;
+  font-size:25px;
+  margin-top:20px;
+  text-shadow:none;
+`;
 const Versus = styled.span`flex:0 0 100px;`;
 const VersusFirst = styled.span`
   font-size:70px;
@@ -68,49 +75,39 @@ const TeamContainer = styled.div`
 
 const PositionArea = styled.div`
   position:relative;
-  flex:0 0 12.5%;
-  max-width:12.5%;
+  flex:0 0 14.28%;
+  max-width:14.28%;
 `;
 
-const BackIcon = styled.span`
-  position:fixed;
-  right:20px;
-  bottom:20px;
-  width:40px;
-  height:40px;
-  z-index:1;
-  background:url(${props=> props.bgImage}) no-repeat #222;
-  background-size:cover;
-  border-radius:50%;
-  border:2px solid #fff;
-  cursor:pointer;
-
-  & > a {
-    display:block;
-    width:100%;
-    height:100%;
-  }
-`;
-
-const DetailPrecenter = ({result, name, offset, error, loading}) => (
+const DetailPrecenter = ({PlayerResult, ClubPrice, error, loading}) => (
   <>
     {
       loading ? <Loading /> :
       <Container>
         <Cover bgImage={`${process.env.REACT_APP_URL}/assets/image/bg_stadium.jpg`}></Cover>
         <VersusContainer>
-          <Nickname>{result.myNickName}</Nickname>
+          <Nickname>
+            {PlayerResult.myNickName}
+            <Price>
+              {ClubPrice.myClub.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} BP
+            </Price>
+          </Nickname>
           <Versus>
             <VersusFirst>V</VersusFirst>
             <VersusLast>S</VersusLast>
           </Versus>
-          <Nickname>{result.enemyNickName}</Nickname>
+          <Nickname>
+            {PlayerResult.enemyNickName}
+            <Price>
+              {ClubPrice.enemyClub.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} BP
+            </Price>
+          </Nickname>
         </VersusContainer>
         <SoccerField bgImage={`${process.env.REACT_APP_URL}/assets/image/bg_field.jpg`}>
           <TeamContainer>
             <PositionArea>
               {
-                result.myPlayer.map((home,index) => (
+                PlayerResult.myPlayer.map((home,index) => (
                   home.spPosition === 0 ? (
                       <Player 
                         key={index}
@@ -119,6 +116,7 @@ const DetailPrecenter = ({result, name, offset, error, loading}) => (
                         name={home.name}
                         originalName={home.originalName}
                         positionName={home.positionDescription}
+                        positionId="GK"
                         spPosition={home.spPosition}
                         spGrade={home.spGrade}
                         status={home.status}
@@ -129,7 +127,7 @@ const DetailPrecenter = ({result, name, offset, error, loading}) => (
             </PositionArea>
             <PositionArea>
               {
-                result.myPlayer.map((home,index) => (
+                PlayerResult.myPlayer.map((home,index) => (
                   home.spPosition >= 1 && home.spPosition <= 8 ? (
                       <Player 
                         key={index}
@@ -138,6 +136,7 @@ const DetailPrecenter = ({result, name, offset, error, loading}) => (
                         name={home.name}
                         originalName={home.originalName}
                         positionName={home.positionDescription}
+                        positionId="D"
                         spPosition={home.spPosition}
                         spGrade={home.spGrade}
                         status={home.status}
@@ -148,7 +147,7 @@ const DetailPrecenter = ({result, name, offset, error, loading}) => (
             </PositionArea>
             <PositionArea>
               {
-                result.myPlayer.map((home,index) => (
+                PlayerResult.myPlayer.map((home,index) => (
                   home.spPosition >= 9 && home.spPosition <= 11 ? (
                       <Player 
                         key={index}
@@ -156,6 +155,7 @@ const DetailPrecenter = ({result, name, offset, error, loading}) => (
                         team="home"
                         name={home.name}
                         originalName={home.originalName}
+                        positionId="M"
                         positionName={home.positionDescription}
                         spPosition={home.spPosition}
                         spGrade={home.spGrade}
@@ -167,7 +167,7 @@ const DetailPrecenter = ({result, name, offset, error, loading}) => (
             </PositionArea>
             <PositionArea>
               {
-                result.myPlayer.map((home,index) => (
+                PlayerResult.myPlayer.map((home,index) => (
                   home.spPosition >= 12 && home.spPosition <= 16 ? (
                       <Player 
                         key={index}
@@ -176,6 +176,7 @@ const DetailPrecenter = ({result, name, offset, error, loading}) => (
                         name={home.name}
                         originalName={home.originalName}
                         positionName={home.positionDescription}
+                        positionId="M"
                         spPosition={home.spPosition}
                         spGrade={home.spGrade}
                         status={home.status}
@@ -186,7 +187,7 @@ const DetailPrecenter = ({result, name, offset, error, loading}) => (
             </PositionArea>
             <PositionArea>
               {
-                result.myPlayer.map((home,index) => (
+                PlayerResult.myPlayer.map((home,index) => (
                   home.spPosition >= 17 && home.spPosition <= 19 ? (
                       <Player 
                         key={index}
@@ -195,6 +196,7 @@ const DetailPrecenter = ({result, name, offset, error, loading}) => (
                         name={home.name}
                         originalName={home.originalName}
                         positionName={home.positionDescription}
+                        positionId="M"
                         spPosition={home.spPosition}
                         spGrade={home.spGrade}
                         status={home.status}
@@ -205,7 +207,7 @@ const DetailPrecenter = ({result, name, offset, error, loading}) => (
             </PositionArea>
             <PositionArea>
               {
-                result.myPlayer.map((home,index) => (
+                PlayerResult.myPlayer.map((home,index) => (
                   home.spPosition >= 20 && home.spPosition <= 22 ? (
                       <Player 
                         key={index}
@@ -214,6 +216,7 @@ const DetailPrecenter = ({result, name, offset, error, loading}) => (
                         name={home.name}
                         originalName={home.originalName}
                         positionName={home.positionDescription}
+                        positionId="S"
                         spPosition={home.spPosition}
                         spGrade={home.spGrade}
                         status={home.status}
@@ -224,7 +227,7 @@ const DetailPrecenter = ({result, name, offset, error, loading}) => (
             </PositionArea>
             <PositionArea>
               {
-                result.myPlayer.map((home,index) => (
+                PlayerResult.myPlayer.map((home,index) => (
                   home.spPosition >= 23 && home.spPosition <= 27 ? (
                       <Player 
                         key={index}
@@ -233,6 +236,7 @@ const DetailPrecenter = ({result, name, offset, error, loading}) => (
                         name={home.name}
                         originalName={home.originalName}
                         positionName={home.positionDescription}
+                        positionId="S"
                         spPosition={home.spPosition}
                         spGrade={home.spGrade}
                         status={home.status}
@@ -247,7 +251,7 @@ const DetailPrecenter = ({result, name, offset, error, loading}) => (
           <TeamContainer>
             <PositionArea>
               {
-                result.enemyPlayer.map((away,index) => (
+                PlayerResult.enemyPlayer.map((away,index) => (
                   away.spPosition >= 23 && away.spPosition <= 27 ? (
                       <Player 
                         key={index}
@@ -256,6 +260,7 @@ const DetailPrecenter = ({result, name, offset, error, loading}) => (
                         name={away.name}
                         originalName={away.originalName}
                         positionName={away.positionDescription}
+                        positionId="S"
                         spPosition={away.spPosition}
                         spGrade={away.spGrade}
                         status={away.status}
@@ -266,7 +271,7 @@ const DetailPrecenter = ({result, name, offset, error, loading}) => (
             </PositionArea>
             <PositionArea>
               {
-                result.enemyPlayer.map((away,index) => (
+                PlayerResult.enemyPlayer.map((away,index) => (
                   away.spPosition >= 20 && away.spPosition <= 22 ? (
                       <Player 
                         key={index}
@@ -276,6 +281,7 @@ const DetailPrecenter = ({result, name, offset, error, loading}) => (
                         originalName={away.originalName}
                         positionName={away.positionDescription}
                         spPosition={away.spPosition}
+                        positionId="S"
                         spGrade={away.spGrade}
                         status={away.status}
                       />
@@ -285,7 +291,7 @@ const DetailPrecenter = ({result, name, offset, error, loading}) => (
             </PositionArea>
             <PositionArea>
               {
-                result.enemyPlayer.map((away,index) => (
+                PlayerResult.enemyPlayer.map((away,index) => (
                   away.spPosition >= 17 && away.spPosition <= 19 ? (
                       <Player 
                         key={index}
@@ -294,6 +300,7 @@ const DetailPrecenter = ({result, name, offset, error, loading}) => (
                         name={away.name}
                         originalName={away.originalName}
                         positionName={away.positionDescription}
+                        positionId="M"
                         spPosition={away.spPosition}
                         spGrade={away.spGrade}
                         status={away.status}
@@ -304,7 +311,7 @@ const DetailPrecenter = ({result, name, offset, error, loading}) => (
             </PositionArea>
             <PositionArea>
               {
-                result.enemyPlayer.map((away,index) => (
+                PlayerResult.enemyPlayer.map((away,index) => (
                   away.spPosition >= 12 && away.spPosition <= 16 ? (
                       <Player 
                         key={index}
@@ -314,6 +321,7 @@ const DetailPrecenter = ({result, name, offset, error, loading}) => (
                         originalName={away.originalName}
                         positionName={away.positionDescription}
                         spPosition={away.spPosition}
+                        positionId="M"
                         spGrade={away.spGrade}
                         status={away.status}
                       />
@@ -323,7 +331,7 @@ const DetailPrecenter = ({result, name, offset, error, loading}) => (
             </PositionArea>
             <PositionArea>
               {
-                result.enemyPlayer.map((away,index) => (
+                PlayerResult.enemyPlayer.map((away,index) => (
                   away.spPosition >= 9 && away.spPosition <= 11 ? (
                       <Player 
                         key={index}
@@ -332,6 +340,7 @@ const DetailPrecenter = ({result, name, offset, error, loading}) => (
                         name={away.name}
                         originalName={away.originalName}
                         positionName={away.positionDescription}
+                        positionId="M"
                         spPosition={away.spPosition}
                         spGrade={away.spGrade}
                         status={away.status}
@@ -342,7 +351,7 @@ const DetailPrecenter = ({result, name, offset, error, loading}) => (
             </PositionArea>
             <PositionArea>
               {
-                result.enemyPlayer.map((away,index) => (
+                PlayerResult.enemyPlayer.map((away,index) => (
                   away.spPosition >= 1 && away.spPosition <= 8 ? (
                       <Player 
                         key={index}
@@ -351,6 +360,7 @@ const DetailPrecenter = ({result, name, offset, error, loading}) => (
                         name={away.name}
                         originalName={away.originalName}
                         positionName={away.positionDescription}
+                        positionId="D"
                         spPosition={away.spPosition}
                         spGrade={away.spGrade}
                         status={away.status}
@@ -361,7 +371,7 @@ const DetailPrecenter = ({result, name, offset, error, loading}) => (
             </PositionArea>
             <PositionArea>
               {
-                result.enemyPlayer.map((away,index) => (
+                PlayerResult.enemyPlayer.map((away,index) => (
                   away.spPosition === 0 ? (
                       <Player 
                         key={index}
@@ -370,6 +380,7 @@ const DetailPrecenter = ({result, name, offset, error, loading}) => (
                         name={away.name}
                         originalName={away.originalName}
                         positionName={away.positionDescription}
+                        positionId="GK"
                         spPosition={away.spPosition}
                         spGrade={away.spGrade}
                         status={away.status}
@@ -380,22 +391,16 @@ const DetailPrecenter = ({result, name, offset, error, loading}) => (
             </PositionArea>
           </TeamContainer>
         </SoccerField>
-          <BackIcon bgImage={`${process.env.REACT_APP_URL}/assets/image/button/btn_arrow.png`}>
-            <Link to={`/${name}/${offset}`}>
-            </Link>
-          </BackIcon>
       </Container>
     }
   </>
 )
 
 DetailPrecenter.propTypes = {
-  result:PropTypes.object,
-  name:PropTypes.string,
-  offset:PropTypes.number,
+  PlayerResult:PropTypes.object,
+  ClubPrice:PropTypes.object,
   error:PropTypes.string,
   loading:PropTypes.bool.isRequired, 
-  goBack:PropTypes.func
 }
 
 export default DetailPrecenter;
