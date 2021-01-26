@@ -5,11 +5,11 @@ import {matchList} from 'api';
 // eslint-disable-next-line import/no-anonymous-default-export
 export default class extends React.Component {
   state= {
-    result:null,
+    PlayerResult:null,
+    ClubPrice:null,
     name:'',
     error:null,
     loading:true,
-    offset:0
   }
 
   async componentDidMount(){
@@ -17,14 +17,14 @@ export default class extends React.Component {
       const {
         match: {params:{id}}, 
         match: {params:{name}}, 
-        match: {params:{offset}}
       } = this.props;
 
-      const {data:result} = await matchList.detail(name,id);
+      const {data:PlayerResult} = await matchList.detail(name,id);
+      const {data:ClubPrice} = await matchList.ClubPrice(name,id);
       this.setState({
-        result,
+        PlayerResult,
+        ClubPrice,
         name,
-        offset:Number(offset)
       })
     }catch{
       this.setState({
@@ -40,15 +40,17 @@ export default class extends React.Component {
 
 
   render(){
-    const { result, error, loading, name,offset } = this.state;
+    const { PlayerResult, ClubPrice, error, loading, name } = this.state;
+
+    console.log(this.state)
     return(
       <DetailPrecenter 
-        result={result}
+        PlayerResult={PlayerResult}
+        ClubPrice={ClubPrice}
         error={error}
         loading={loading}
         handleClick={this.handleClick}
         name={name}
-        offset={offset}
       />
     )
   }
