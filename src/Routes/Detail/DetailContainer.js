@@ -20,7 +20,7 @@ export default class extends React.Component {
       } = this.props;
 
       const {data:PlayerResult} = await matchList.detail(name,id);
-      const {data:ClubPrice} = await matchList.ClubPrice(name,id);
+      const {data:ClubPrice} = await matchList.clubPrice(name,id);
       this.setState({
         PlayerResult,
         ClubPrice,
