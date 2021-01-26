@@ -8,62 +8,22 @@ export default class extends React.Component {
     list:null,
     searchTerm:"",
     notFound:'',
+    isDetail:'',
     error:null,
     loading:false,
     offset:0,
   }
 
-  async componentDidMount(){
-    const {match : {params}} = this.props;
-
-    if (Object.keys(params).length !== 0){
-      this.setState({
-        loading:true
-      })
-
-      try{
-        const {
-          match: {params:{name}}, 
-          match: {params:{offset}}, 
-        } = this.props;
-
-        if(Number(offset) === 0){
-          const { data : list } = await matchList.list(name,offset,10);
-          this.setState({
-            list
-          })
-        }else{
-          const { data : list } = await matchList.list(name,0,offset);
-          this.setState({
-            list
-          })
-        }
-  
-        this.setState({
-          searchTerm:name,
-          offset:Number(offset)
-        })
-      }catch{
-      }finally{
-        this.setState({
-          loading:false
-        })
-      }
-    }
-  }
-
   handleSubmit = event => {
     //reload 제어
     event.preventDefault();
-    
     const {target} = event;
     const { 0 :{defaultValue : inputValue} } = target.children;
     const { searchTerm } = this.state;
-
     this.setState({
       loading:true,
       notFound:inputValue,
-      list:null,
+      list:null
     })
     if(searchTerm !== ""){
       this.searchByTerm();
@@ -121,7 +81,7 @@ export default class extends React.Component {
 
 
   render(){
-    const {list, searchTerm, loading, error, offset} = this.state;
+    const {list, searchTerm, loading, error} = this.state;
     return(
       <HomePrecenter 
         list={list}
@@ -129,7 +89,6 @@ export default class extends React.Component {
         handleSubmit={this.handleSubmit}
         updateTerm={this.updateTerm}
         UpdateOffset={this.UpdateOffset}
-        offset={offset}
         loading={loading}
         error={error}
       />
