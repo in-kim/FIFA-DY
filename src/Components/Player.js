@@ -42,7 +42,8 @@ const InfoTitle = styled.span`
 const Container = styled.div`
   position:absolute;
   ${ props=> props.top };
-  left:0;
+  left:50%;
+  transform:translateX(-50%);
 
   &:hover{
     ${InfoPopup}{
@@ -171,7 +172,7 @@ const Player = ({
       <Grade 
         bgColor={
           spGrade === 1 ? "#45494f" : 
-          spGrade > 4 ? "#c2c5ca" : 
+          spGrade > 4 && spGrade < 8? "#c2c5ca" : 
           spGrade > 7 ? "#e8c337" : "#c37653"
         }
       >+ {spGrade}</Grade>
