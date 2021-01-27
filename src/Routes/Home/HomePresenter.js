@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from 'prop-types';
 import styled from "styled-components";
+import Footer from 'Components/Footer'
 
 const Container = styled.div`
   display:flex;
@@ -61,7 +62,7 @@ const Scroll = styled.div`
   overflow:auto;
 `;
 const MacthContainer = styled.div`
-  width:80%;
+  width:50%;
   flex:unset;
   margin:30px auto 0 auto;
   padding:20px;
@@ -98,12 +99,13 @@ const MacthResult = styled.span`
   flex:1;
   color:${props => props.color};
 `;
-const DetailButton = styled.span`
+const DetailButton = styled.a`
   font-size:14px;
   padding:5px;
   border:1px solid #34495e;
   border-radius:5px;
   margin:0 10px;
+  cursor:pointer;
 `;
 
 const MoreButton = styled.button`
@@ -185,6 +187,7 @@ const HomePrecenter = ({
         }
       </Scroll>
     </MacthContainer>
+    <Footer />
   </Container>
 )
 
