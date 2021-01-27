@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import Loading from 'Components/Loding';
 import Player from 'Components/Player';
 
 const Container = styled.div`
@@ -61,10 +60,10 @@ const SoccerField = styled.div`
   z-index:5;
   transform:translateX(-50%);
   display:flex;
-  width:69%;
+  width:70%;
   height:830px;
   background:url(${props => props.bgImage}) no-repeat;
-  background-size:contain;
+  background-size:cover;
 `;
 
 const TeamContainer = styled.div`
@@ -80,10 +79,9 @@ const PositionArea = styled.div`
   max-width:14.28%;
 `;
 
-const Stadium = ({PlayerResult, ClubPrice, error, loading}) => (
+const Stadium = ({PlayerResult, ClubPrice, error}) => (
   <>
     {
-      loading ? <Loading /> :
       <Container>
         <Cover bgImage={`${process.env.REACT_APP_URL}/assets/image/bg_stadium.jpg`}></Cover>
         <VersusContainer>
