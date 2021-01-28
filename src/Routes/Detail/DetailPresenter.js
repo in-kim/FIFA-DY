@@ -43,6 +43,12 @@ const PlayerListItem = styled.span`
 const Name = styled.span`
   margin-right:10px;
 `;
+
+const SeasonImage = styled.img`
+  width:20px;
+  vertical-align:-4px;
+  margin-right:5px;
+`;
 const Position = styled.span`
   display:inline-block;
   width:35px;
@@ -95,7 +101,10 @@ const DetailPrecenter = ({PlayerResult, ClubPrice, error, loading}) => (
                       }
                     >{player.positionDescription}</Position>
                     <Section>
-                      <Name>{player.originalName}</Name>
+                      <Name>
+                        <SeasonImage src={player.seasonImgUrl}/>
+                        {player.originalName}
+                      </Name>
                       <Price>{player.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} BP</Price>
                     </Section>
                   </Flex>
@@ -149,7 +158,10 @@ const DetailPrecenter = ({PlayerResult, ClubPrice, error, loading}) => (
                       }
                     >{player.positionDescription}</Position>
                     <Section>
-                      <Name>{player.originalName}</Name>
+                      <Name>
+                        <SeasonImage src={player.seasonImgUrl}/>
+                        {player.originalName}
+                      </Name>
                       <Price>{player.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} BP</Price>
                     </Section>
                   </Flex>
