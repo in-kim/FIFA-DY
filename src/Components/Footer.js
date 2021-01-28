@@ -20,8 +20,9 @@ const Item = styled.p`
 const Footer = () => (
   <Container>
     <Item>Data based on NEXON DEVELOPERS</Item>
-    <Item>Front Developer : Dongry (ehddls960617@gmail.com)</Item>
-    <Item>BackEnd Developer : Lee dobby (ehddls960617@gmail.com)</Item>
+    <Item>Frontend Developer : Dongry (ehddls960617@gmail.com)</Item>
+    <Item>Backend  Developer : Lee dobby (swj03095@naver.com)</Item>
+    <Item>Group : GSD (Generic Stupid Developer)</Item>
   </Container>
 )
 
