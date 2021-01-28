@@ -33,6 +33,12 @@ const VersusContainer = styled.div`
 const Nickname = styled.span`
   flex:1; 
   font-size:50px;
+  text-shadow: 4px 3px 0 ${props => props.color};
+`;
+
+const Score = styled.span`
+  flex:0 0 100px; 
+  font-size:80px;
   text-shadow: 4px 3px 0 #7A7A7A;
 `;
 
@@ -42,6 +48,7 @@ const Price = styled.span`
   font-size:25px;
   margin-top:20px;
   text-shadow:none;
+  color:#fff;
 `;
 const Versus = styled.span`flex:0 0 100px;`;
 const VersusFirst = styled.span`
@@ -85,17 +92,29 @@ const Stadium = ({PlayerResult, ClubPrice, error}) => (
       <Container>
         <Cover bgImage={`${process.env.REACT_APP_URL}/assets/image/bg_stadium.jpg`}></Cover>
         <VersusContainer>
-          <Nickname>
+          <Nickname 
+            color={
+              PlayerResult.gameResult === "무" ? "#7A7A7A": 
+              PlayerResult.gameResult === "승" ? "#3498db" : "#e74c3c"
+            }
+          >
             {PlayerResult.myNickName}
             <Price>
               {ClubPrice.myClub.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} BP
             </Price>
           </Nickname>
+          <Score>{PlayerResult.myScore}</Score>
           <Versus>
             <VersusFirst>V</VersusFirst>
             <VersusLast>S</VersusLast>
           </Versus>
-          <Nickname>
+          <Score>{PlayerResult.enemyScore}</Score>
+          <Nickname
+            color={
+              PlayerResult.gameResult === "무" ? "#7A7A7A": 
+              PlayerResult.gameResult === "승" ? "#e74c3c" : "#3498db"
+            }
+          >
             {PlayerResult.enemyNickName}
             <Price>
               {ClubPrice.enemyClub.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} BP
@@ -110,7 +129,7 @@ const Stadium = ({PlayerResult, ClubPrice, error}) => (
                   home.spPosition === 0 ? (
                       <Player 
                         key={index}
-                        bgImage={`${process.env.REACT_APP_IMG_API_URL}${home.imageId}.png`}
+                        bgImage={`${process.env.REACT_APP_IMG_API_URL}${home.imgaeId}.png`}
                         team="home"
                         name={home.name}
                         originalName={home.originalName}
@@ -130,7 +149,7 @@ const Stadium = ({PlayerResult, ClubPrice, error}) => (
                   home.spPosition >= 1 && home.spPosition <= 8 ? (
                       <Player 
                         key={index}
-                        bgImage={`${process.env.REACT_APP_IMG_API_URL}${home.imageId}.png`}
+                        bgImage={`${process.env.REACT_APP_IMG_API_URL}${home.imgaeId}.png`}
                         team="home"
                         name={home.name}
                         originalName={home.originalName}
@@ -150,7 +169,7 @@ const Stadium = ({PlayerResult, ClubPrice, error}) => (
                   home.spPosition >= 9 && home.spPosition <= 11 ? (
                       <Player 
                         key={index}
-                        bgImage={`${process.env.REACT_APP_IMG_API_URL}${home.imageId}.png`}
+                        bgImage={`${process.env.REACT_APP_IMG_API_URL}${home.imgaeId}.png`}
                         team="home"
                         name={home.name}
                         originalName={home.originalName}
@@ -170,7 +189,7 @@ const Stadium = ({PlayerResult, ClubPrice, error}) => (
                   home.spPosition >= 12 && home.spPosition <= 16 ? (
                       <Player 
                         key={index}
-                        bgImage={`${process.env.REACT_APP_IMG_API_URL}${home.imageId}.png`}
+                        bgImage={`${process.env.REACT_APP_IMG_API_URL}${home.imgaeId}.png`}
                         team="home"
                         name={home.name}
                         originalName={home.originalName}
@@ -190,7 +209,7 @@ const Stadium = ({PlayerResult, ClubPrice, error}) => (
                   home.spPosition >= 17 && home.spPosition <= 19 ? (
                       <Player 
                         key={index}
-                        bgImage={`${process.env.REACT_APP_IMG_API_URL}${home.imageId}.png`}
+                        bgImage={`${process.env.REACT_APP_IMG_API_URL}${home.imgaeId}.png`}
                         team="home"
                         name={home.name}
                         originalName={home.originalName}
@@ -210,7 +229,7 @@ const Stadium = ({PlayerResult, ClubPrice, error}) => (
                   home.spPosition >= 20 && home.spPosition <= 22 ? (
                       <Player 
                         key={index}
-                        bgImage={`${process.env.REACT_APP_IMG_API_URL}${home.imageId}.png`}
+                        bgImage={`${process.env.REACT_APP_IMG_API_URL}${home.imgaeId}.png`}
                         team="home"
                         name={home.name}
                         originalName={home.originalName}
@@ -230,7 +249,7 @@ const Stadium = ({PlayerResult, ClubPrice, error}) => (
                   home.spPosition >= 23 && home.spPosition <= 27 ? (
                       <Player 
                         key={index}
-                        bgImage={`${process.env.REACT_APP_IMG_API_URL}${home.imageId}.png`}
+                        bgImage={`${process.env.REACT_APP_IMG_API_URL}${home.imgaeId}.png`}
                         team="home"
                         name={home.name}
                         originalName={home.originalName}
@@ -254,7 +273,7 @@ const Stadium = ({PlayerResult, ClubPrice, error}) => (
                   away.spPosition >= 23 && away.spPosition <= 27 ? (
                       <Player 
                         key={index}
-                        bgImage={`${process.env.REACT_APP_IMG_API_URL}${away.imageId}.png`}
+                        bgImage={`${process.env.REACT_APP_IMG_API_URL}${away.imgaeId}.png`}
                         team="away"
                         name={away.name}
                         originalName={away.originalName}
@@ -263,6 +282,7 @@ const Stadium = ({PlayerResult, ClubPrice, error}) => (
                         spPosition={away.spPosition}
                         spGrade={away.spGrade}
                         status={away.status}
+                        seasonImage={away.seasonImgUrl}
                       />
                   ) : null
                 ))
@@ -274,7 +294,7 @@ const Stadium = ({PlayerResult, ClubPrice, error}) => (
                   away.spPosition >= 20 && away.spPosition <= 22 ? (
                       <Player 
                         key={index}
-                        bgImage={`${process.env.REACT_APP_IMG_API_URL}${away.imageId}.png`}
+                        bgImage={`${process.env.REACT_APP_IMG_API_URL}${away.imgaeId}.png`}
                         team="away"
                         name={away.name}
                         originalName={away.originalName}
@@ -294,7 +314,7 @@ const Stadium = ({PlayerResult, ClubPrice, error}) => (
                   away.spPosition >= 17 && away.spPosition <= 19 ? (
                       <Player 
                         key={index}
-                        bgImage={`${process.env.REACT_APP_IMG_API_URL}${away.imageId}.png`}
+                        bgImage={`${process.env.REACT_APP_IMG_API_URL}${away.imgaeId}.png`}
                         team="away"
                         name={away.name}
                         originalName={away.originalName}
@@ -314,7 +334,7 @@ const Stadium = ({PlayerResult, ClubPrice, error}) => (
                   away.spPosition >= 12 && away.spPosition <= 16 ? (
                       <Player 
                         key={index}
-                        bgImage={`${process.env.REACT_APP_IMG_API_URL}${away.imageId}.png`}
+                        bgImage={`${process.env.REACT_APP_IMG_API_URL}${away.imgaeId}.png`}
                         team="away"
                         name={away.name}
                         originalName={away.originalName}
@@ -334,7 +354,7 @@ const Stadium = ({PlayerResult, ClubPrice, error}) => (
                   away.spPosition >= 9 && away.spPosition <= 11 ? (
                       <Player 
                         key={index}
-                        bgImage={`${process.env.REACT_APP_IMG_API_URL}${away.imageId}.png`}
+                        bgImage={`${process.env.REACT_APP_IMG_API_URL}${away.imgaeId}.png`}
                         team="away"
                         name={away.name}
                         originalName={away.originalName}
@@ -354,7 +374,7 @@ const Stadium = ({PlayerResult, ClubPrice, error}) => (
                   away.spPosition >= 1 && away.spPosition <= 8 ? (
                       <Player 
                         key={index}
-                        bgImage={`${process.env.REACT_APP_IMG_API_URL}${away.imageId}.png`}
+                        bgImage={`${process.env.REACT_APP_IMG_API_URL}${away.imgaeId}.png`}
                         team="away"
                         name={away.name}
                         originalName={away.originalName}
@@ -374,7 +394,7 @@ const Stadium = ({PlayerResult, ClubPrice, error}) => (
                   away.spPosition === 0 ? (
                       <Player 
                         key={index}
-                        bgImage={`${process.env.REACT_APP_IMG_API_URL}${away.imageId}.png`}
+                        bgImage={`${process.env.REACT_APP_IMG_API_URL}${away.imgaeId}.png`}
                         team="away"
                         name={away.name}
                         originalName={away.originalName}
