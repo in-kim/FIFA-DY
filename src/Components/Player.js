@@ -66,6 +66,7 @@ const Grade = styled.span`
   position:absolute;
   top:0;
   right:-30px;
+  width:25px;
   font-size: 10px;
   line-height:10px;
   font-weight: bold;
@@ -73,6 +74,7 @@ const Grade = styled.span`
   text-shadow: 0 0 5px rgba(0,0,0,0.5);
   background-color:${props=> props.bgColor};
   padding:2px 5px;
+  text-align:center;
 `;
 const Name = styled.span`
   display:block;
@@ -103,7 +105,7 @@ const Player = ({
   spPosition,
   spGrade,
   status,
-  handlePlayerInfoShow
+  handlePlayerInfoShow,
 }) => (
   <Container
     onMouseOver={handlePlayerInfoShow}
