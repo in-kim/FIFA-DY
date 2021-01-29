@@ -84,6 +84,7 @@ const DetailPrecenter = ({PlayerResult, ClubPrice, error, loading}) => (
       <Title>선수 명단</Title>
       <PlayerList>
         {
+          error && error.length > 0 ? error :
           PlayerResult.myPlayer.map((player,index) => (
             <PlayerListItem 
               key={index} 
@@ -131,16 +132,20 @@ const DetailPrecenter = ({PlayerResult, ClubPrice, error, loading}) => (
         }
       </PlayerList>
     </PlayerContainer>
-    <Stadium 
-      PlayerResult={PlayerResult}
-      ClubPrice={ClubPrice}
-      error={error}
-      loading={loading}
-    />
+    {
+      PlayerList && Object.keys(PlayerList) &&
+      <Stadium 
+        PlayerResult={PlayerResult}
+        ClubPrice={ClubPrice}
+        error={error}
+        loading={loading}
+      />
+    }
     <PlayerContainer wide="right: 10px">
       <Title>선수 명단</Title>
       <PlayerList>
         {
+          error && error.length > 0 ? error :
           PlayerResult.enemyPlayer.map((player,index) => (
             <PlayerListItem 
               key={index}

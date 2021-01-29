@@ -33,6 +33,7 @@ const globalStyles = createGlobalStyle`
   }
   body{
     /* font-family:'SDKukdetopokki'; */
+    width:1800px;
     font-family:'Bazzi';
     font-size:14px;
     font-weight:400;

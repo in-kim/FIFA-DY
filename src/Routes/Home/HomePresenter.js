@@ -57,7 +57,7 @@ const SearchButton = styled.button`
   cursor:pointer;
 `;
 const Scroll = styled.div`
-  max-height:480px;
+  max-height:415px;
   padding-top:4px;
   overflow:auto;
 `;
@@ -125,9 +125,41 @@ const MoreButton = styled.button`
   }
 `;
 
+const UserInfoContainer = styled.div`
+  display:flex;
+  width:50%;
+  margin:30px auto 0 auto;
+`;
+
+const UserInfoItem = styled.div`
+  flex:1;
+  margin-left:20px;
+  &:first-child {
+    margin-left:0;
+  };
+  background-color:#ecf0f1;
+  border-radius:5px;
+  box-shadow:-1px -1px 11px 0px rgba(255, 255, 255, 0.3);
+  padding:10px;
+  color:#222;
+`;
+
+const UserInfoTitle = styled.span`
+  display:block;
+  font-size:20px;
+  margin-bottom:20px;
+`;
+const UserInfoText = styled.span`
+  display:block;
+  font-size:15px;
+  margin-bottom:10px;
+  &:last-child{margin-bottom:0;}
+`;
+
 const HomePrecenter = ({
-  list, 
+  result, 
   searchTerm, 
+  notFound,
   handleSubmit,
   updateTerm, 
   UpdateOffset,
@@ -145,6 +177,26 @@ const HomePrecenter = ({
       />
       <SearchButton searchIcon={`${process.env.REACT_APP_URL}/assets/image/button/btn-search.png`}></SearchButton>
     </Form>
+    {
+      result && Object.keys(result).length > 0 && 
+      <UserInfoContainer>
+        <UserInfoItem>
+          <UserInfoTitle>{notFound}</UserInfoTitle>
+          <UserInfoText>레벨 : {result.level}</UserInfoText>
+          <UserInfoText>최고 등급 : {result.maxDivision}</UserInfoText>
+          <UserInfoText>달성일 : {result.achieveMaxDivisionDate}</UserInfoText>
+        </UserInfoItem>
+        <UserInfoItem>
+          <UserInfoTitle>10경기 평균 점유율</UserInfoTitle>
+        </UserInfoItem>
+        <UserInfoItem>
+          <UserInfoTitle>10경기 헤더 시도 비율</UserInfoTitle>
+        </UserInfoItem>
+        <UserInfoItem>
+          <UserInfoTitle>10경기 중거리 슛 시도</UserInfoTitle>
+        </UserInfoItem>
+      </UserInfoContainer>
+    }
 
     <MacthContainer>
       <MacthHeader>
@@ -159,7 +211,7 @@ const HomePrecenter = ({
           error && error.length > 0 ? error : 
           (
             loading ? '로딩중 입니다.' :
-            list && list.length > 0 ? list.map(match => (
+            result && Object.keys(result).length > 0 ? result.gameRecords.map(match => (
               <MacthItem key={match.matchId}>
                 <Date>{match.matchDate.substring(0,10)}</Date>
                 <Name>{match.myNickName}</Name>
@@ -183,7 +235,7 @@ const HomePrecenter = ({
         }
 
         {
-          list && list.length > 0 && <MoreButton onClick={UpdateOffset}>더보기</MoreButton>
+          result && Object.keys(result).length > 0 && <MoreButton onClick={UpdateOffset}>더보기</MoreButton>
         }
       </Scroll>
     </MacthContainer>
@@ -192,8 +244,9 @@ const HomePrecenter = ({
 )
 
 HomePrecenter.propTypes = {
-  list:PropTypes.array,
+  result:PropTypes.object,
   searchTerm:PropTypes.string,
+  notFound:PropTypes.string,
   handleSubmit:PropTypes.func.isRequired,
   updateTerm:PropTypes.func.isRequired,
   UpdateOffset:PropTypes.func.isRequired,

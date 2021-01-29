@@ -5,7 +5,7 @@ import { matchList } from 'api';
 // eslint-disable-next-line import/no-anonymous-default-export
 export default class extends React.Component {
   state= {
-    list:null,
+    result:null,
     searchTerm:"",
     notFound:'',
     isDetail:'',
@@ -23,7 +23,7 @@ export default class extends React.Component {
     this.setState({
       loading:true,
       notFound:inputValue,
-      list:null
+      result:null
     })
     if(searchTerm !== ""){
       this.searchByTerm();
@@ -36,18 +36,18 @@ export default class extends React.Component {
   }
 
   searchByTerm = async () => {
-    const { searchTerm, offset, list:oldList} = this.state;
+    const { searchTerm, offset, result:oldResult} = this.state;
     try{
-      const { data : list } = await matchList.list(searchTerm,offset,10);
+      const { data : result } = await matchList.list(searchTerm,offset,10);
 
       if(offset === 0){
         this.setState({
-          list,
+          result,
           error:null,
         })
       }else {
         this.setState({
-          list: [...oldList, ...list]
+          list: [...oldResult, ...result]
         })
       }
     }catch{
@@ -81,11 +81,13 @@ export default class extends React.Component {
 
 
   render(){
-    const {list, searchTerm, loading, error} = this.state;
+    const {result, searchTerm, notFound, loading, error} = this.state;
+    console.log(this.state);
     return(
       <HomePrecenter 
-        list={list}
+        result={result}
         searchTerm={searchTerm}
+        notFound={notFound}
         handleSubmit={this.handleSubmit}
         updateTerm={this.updateTerm}
         UpdateOffset={this.UpdateOffset}

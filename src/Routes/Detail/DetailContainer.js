@@ -41,7 +41,7 @@ export default class extends React.Component {
 
   render(){
     const { PlayerResult, ClubPrice, error, loading, name } = this.state;
-
+    console.log(this.state);
     return(
       <DetailPrecenter 
         PlayerResult={PlayerResult}
