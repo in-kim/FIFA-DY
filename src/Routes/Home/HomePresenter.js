@@ -62,6 +62,7 @@ const Scroll = styled.div`
   overflow:auto;
 `;
 const MacthContainer = styled.div`
+  position:relative;
   width:50%;
   flex:unset;
   margin:30px auto 0 auto;
@@ -71,6 +72,7 @@ const MacthContainer = styled.div`
   box-shadow:-1px -1px 11px 0px rgba(255, 255, 255, 0.3);
   color:#34495e;
   text-align:center;
+  z-index:1;
 `;
 const MacthHeader = styled.div`
   display:flex;

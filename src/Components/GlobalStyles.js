@@ -44,6 +44,10 @@ const globalStyles = createGlobalStyle`
     width:100%;
     height:100%;
   }
+
+  #root {
+    height:calc(100% + 100px);
+  }
 `;
 
 export default globalStyles;
