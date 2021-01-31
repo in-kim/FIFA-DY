@@ -178,24 +178,24 @@ const HomePrecenter = ({
       <SearchButton searchIcon={`${process.env.REACT_APP_URL}/assets/image/button/btn-search.png`}></SearchButton>
     </Form>
     {
-      result && Object.keys(result).length > 0 && 
-      <UserInfoContainer>
-        <UserInfoItem>
-          <UserInfoTitle>{notFound}</UserInfoTitle>
-          <UserInfoText>레벨 : {result.level}</UserInfoText>
-          <UserInfoText>최고 등급 : {result.maxDivision}</UserInfoText>
-          <UserInfoText>달성일 : {result.achieveMaxDivisionDate}</UserInfoText>
-        </UserInfoItem>
-        <UserInfoItem>
-          <UserInfoTitle>10경기 평균 점유율</UserInfoTitle>
-        </UserInfoItem>
-        <UserInfoItem>
-          <UserInfoTitle>10경기 헤더 시도 비율</UserInfoTitle>
-        </UserInfoItem>
-        <UserInfoItem>
-          <UserInfoTitle>10경기 중거리 슛 시도</UserInfoTitle>
-        </UserInfoItem>
-      </UserInfoContainer>
+      // result && Object.keys(result).length > 0 && 
+      // <UserInfoContainer>
+      //   <UserInfoItem>
+      //     <UserInfoTitle>{notFound}</UserInfoTitle>
+      //     <UserInfoText>레벨 : {result.level}</UserInfoText>
+      //     <UserInfoText>최고 등급 : {result.maxDivision}</UserInfoText>
+      //     <UserInfoText>달성일 : {result.achieveMaxDivisionDate}</UserInfoText>
+      //   </UserInfoItem>
+      //   <UserInfoItem>
+      //     <UserInfoTitle>10경기 평균 점유율</UserInfoTitle>
+      //   </UserInfoItem>
+      //   <UserInfoItem>
+      //     <UserInfoTitle>10경기 헤더 시도 비율</UserInfoTitle>
+      //   </UserInfoItem>
+      //   <UserInfoItem>
+      //     <UserInfoTitle>10경기 중거리 슛 시도</UserInfoTitle>
+      //   </UserInfoItem>
+      // </UserInfoContainer>
     }
 
     <MacthContainer>
