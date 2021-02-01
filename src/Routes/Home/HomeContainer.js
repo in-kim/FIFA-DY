@@ -24,7 +24,12 @@ export default class extends React.Component {
     
     if(searchTerm !== ""){
       this.setState({
-        searchNick:searchTerm
+        list:null,
+        level:null,
+        accessId:null,
+        userInfo:null,
+        searchNick:searchTerm,
+        loading:true
       })
       this.searchByTerm();
     }else{
