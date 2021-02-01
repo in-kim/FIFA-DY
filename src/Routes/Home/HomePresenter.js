@@ -139,29 +139,46 @@ const UserInfoItem = styled.div`
   &:first-child {
     margin-left:0;
   };
-  background-color:#ecf0f1;
+  background-color:rgba(0,0,0,0.2);
   border-radius:5px;
   box-shadow:-1px -1px 11px 0px rgba(255, 255, 255, 0.3);
   padding:10px;
-  color:#222;
+  color:#fff;
 `;
 
 const UserInfoTitle = styled.span`
   display:block;
   font-size:20px;
+  text-align:center;
   margin-bottom:20px;
 `;
 const UserInfoText = styled.span`
-  display:block;
+  display:flex;
   font-size:15px;
   margin-bottom:10px;
   &:last-child{margin-bottom:0;}
 `;
 
+const UserInfoSubTitle = styled.span`
+  display:inline-block;
+  flex:0 0 60px;
+`;
+const UserInfoReulst = styled.span`
+  flex:1;
+  max-width:100%;
+  &.big {
+    display:block;
+    font-size:50px;
+    text-align:center;
+  }
+`;
+
 const HomePrecenter = ({
-  result, 
+  list,
+  userInfo,
+  level, 
   searchTerm, 
-  notFound,
+  searchNick,
   handleSubmit,
   updateTerm, 
   UpdateOffset,
@@ -180,24 +197,36 @@ const HomePrecenter = ({
       <SearchButton searchIcon={`${process.env.REACT_APP_URL}/assets/image/button/btn-search.png`}></SearchButton>
     </Form>
     {
-      // result && Object.keys(result).length > 0 && 
-      // <UserInfoContainer>
-      //   <UserInfoItem>
-      //     <UserInfoTitle>{notFound}</UserInfoTitle>
-      //     <UserInfoText>레벨 : {result.level}</UserInfoText>
-      //     <UserInfoText>최고 등급 : {result.maxDivision}</UserInfoText>
-      //     <UserInfoText>달성일 : {result.achieveMaxDivisionDate}</UserInfoText>
-      //   </UserInfoItem>
-      //   <UserInfoItem>
-      //     <UserInfoTitle>10경기 평균 점유율</UserInfoTitle>
-      //   </UserInfoItem>
-      //   <UserInfoItem>
-      //     <UserInfoTitle>10경기 헤더 시도 비율</UserInfoTitle>
-      //   </UserInfoItem>
-      //   <UserInfoItem>
-      //     <UserInfoTitle>10경기 중거리 슛 시도</UserInfoTitle>
-      //   </UserInfoItem>
-      // </UserInfoContainer>
+      list && Object.keys(list).length > 0 && 
+      <UserInfoContainer>
+        <UserInfoItem>
+          <UserInfoTitle>{searchNick}</UserInfoTitle>
+          <UserInfoText>
+            <UserInfoSubTitle>레벨</UserInfoSubTitle>
+            <UserInfoReulst>{level}</UserInfoReulst>
+          </UserInfoText>
+          <UserInfoText>
+            <UserInfoSubTitle>최고 등급</UserInfoSubTitle>
+            <UserInfoReulst>{userInfo.maxDivision}</UserInfoReulst>
+          </UserInfoText>
+          <UserInfoText>
+            <UserInfoSubTitle>등급 달성일</UserInfoSubTitle>
+            <UserInfoReulst>{userInfo.achieveMaxDivisionDate.substring(0,10)}</UserInfoReulst>
+          </UserInfoText>
+        </UserInfoItem>
+        <UserInfoItem>
+          <UserInfoTitle>10경기 평균 점유율</UserInfoTitle>
+          <UserInfoReulst className="big">{userInfo.possessionRatio} %</UserInfoReulst>
+        </UserInfoItem>
+        <UserInfoItem>
+          <UserInfoTitle>10경기 헤딩 슈팅 비율</UserInfoTitle>
+          <UserInfoReulst className="big">{userInfo.headerShootRatio} %</UserInfoReulst>
+        </UserInfoItem>
+        <UserInfoItem>
+          <UserInfoTitle>10경기 중거리 슈팅 비율</UserInfoTitle>
+          <UserInfoReulst className="big">{userInfo.midRangeShootRatio} %</UserInfoReulst>
+        </UserInfoItem>
+      </UserInfoContainer>
     }
 
     <MacthContainer>
@@ -213,7 +242,7 @@ const HomePrecenter = ({
           error && error.length > 0 ? error : 
           (
             loading ? '로딩중 입니다.' :
-            result && Object.keys(result).length > 0 ? result.gameRecords.map(match => (
+            list && list.length > 0 ? list.map(match => (
               <MacthItem key={match.matchId}>
                 <Date>{match.matchDate.substring(0,10)}</Date>
                 <Name>{match.myNickName}</Name>
@@ -237,7 +266,7 @@ const HomePrecenter = ({
         }
 
         {
-          result && Object.keys(result).length > 0 && <MoreButton onClick={UpdateOffset}>더보기</MoreButton>
+          list && list.length > 0 && <MoreButton onClick={UpdateOffset}>더보기</MoreButton>
         }
       </Scroll>
     </MacthContainer>
@@ -246,9 +275,12 @@ const HomePrecenter = ({
 )
 
 HomePrecenter.propTypes = {
-  result:PropTypes.object,
+  list:PropTypes.array,
+  accessId:PropTypes.string,
+  level:PropTypes.number,
+  userInfo:PropTypes.object,
   searchTerm:PropTypes.string,
-  notFound:PropTypes.string,
+  searchNick:PropTypes.string,
   handleSubmit:PropTypes.func.isRequired,
   updateTerm:PropTypes.func.isRequired,
   UpdateOffset:PropTypes.func.isRequired,

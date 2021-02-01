@@ -5,9 +5,12 @@ import { matchList } from 'api';
 // eslint-disable-next-line import/no-anonymous-default-export
 export default class extends React.Component {
   state= {
-    result:null,
+    list:null,
+    level:null,
+    accessId:null,
+    userInfo:null,
     searchTerm:"",
-    notFound:'',
+    searchNick:'',
     isDetail:'',
     error:null,
     loading:false,
@@ -17,15 +20,12 @@ export default class extends React.Component {
   handleSubmit = event => {
     //reload 제어
     event.preventDefault();
-    const {target} = event;
-    const { 0 :{defaultValue : inputValue} } = target.children;
     const { searchTerm } = this.state;
-    this.setState({
-      loading:true,
-      notFound:inputValue,
-      result:null
-    })
+    
     if(searchTerm !== ""){
+      this.setState({
+        searchNick:searchTerm
+      })
       this.searchByTerm();
     }else{
       this.setState({
@@ -36,18 +36,28 @@ export default class extends React.Component {
   }
 
   searchByTerm = async () => {
-    const { searchTerm, offset, result:oldResult} = this.state;
+    const { searchTerm, offset, list:oldList} = this.state;
     try{
-      const { data : result } = await matchList.list(searchTerm,offset,10);
+      const { data : {
+          gameRecords:list,
+          myAccessId:accessId,
+          myLevel:level
+      } } = await matchList.list(searchTerm,offset,10);
 
       if(offset === 0){
+        console.log(await matchList.userInfo(accessId));
+        const {data:userInfo} = await matchList.userInfo(accessId);
         this.setState({
-          result,
+          list,
+          level,
+          userInfo,
           error:null,
         })
       }else {
         this.setState({
-          list: [...oldResult, ...result]
+          list: [...oldList, ...list],
+          accessId,
+          level
         })
       }
     }catch{
@@ -81,13 +91,16 @@ export default class extends React.Component {
 
 
   render(){
-    const {result, searchTerm, notFound, loading, error} = this.state;
+    const {list, userInfo, level, searchTerm, searchNick, loading, error} = this.state;
+
     console.log(this.state);
     return(
       <HomePrecenter 
-        result={result}
+        list={list}
+        userInfo={userInfo}
+        level={level}
         searchTerm={searchTerm}
-        notFound={notFound}
+        searchNick={searchNick}
         handleSubmit={this.handleSubmit}
         updateTerm={this.updateTerm}
         UpdateOffset={this.UpdateOffset}
