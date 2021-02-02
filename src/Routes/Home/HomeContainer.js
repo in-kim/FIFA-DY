@@ -50,7 +50,6 @@ export default class extends React.Component {
       } } = await matchList.list(searchTerm,offset,10);
 
       if(offset === 0){
-        console.log(await matchList.userInfo(accessId));
         const {data:userInfo} = await matchList.userInfo(accessId);
         this.setState({
           list,
@@ -98,7 +97,6 @@ export default class extends React.Component {
   render(){
     const {list, userInfo, level, searchTerm, searchNick, loading, error} = this.state;
 
-    console.log(this.state);
     return(
       <HomePrecenter 
         list={list}
