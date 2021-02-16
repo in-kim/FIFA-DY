@@ -2,9 +2,7 @@
 
 피파온라인 전적검색 사이트
 
-# GitHub Url
-
-https://in-kim.github.io/FIFA-DY/
+# 홈페이지 Url
 
 # Screens
 
@@ -22,7 +20,7 @@ https://in-kim.github.io/FIFA-DY/
 
 - [x] Macth List
 - [x] Macth Detail
-- [] club value
+- [x] club value
 
 # Font
 
