@@ -17,23 +17,31 @@ export default class extends React.Component {
     offset:0,
   }
 
-  handleSubmit = event => {
+  handleSubmit = async event => {
     //reload 제어
     event.preventDefault();
     const { searchTerm } = this.state;
     
     if(searchTerm !== ""){
-      this.setState({
+      await this.setState({
         list:null,
         level:null,
         accessId:null,
         userInfo:null,
         searchNick:searchTerm,
+        offset:0,
         loading:true
       })
+
       this.searchByTerm();
     }else{
       this.setState({
+        list:null,
+        level:null,
+        accessId:null,
+        userInfo:null,
+        searchNick:"",
+        offset:0,
         error:'검색어를 입력 해주세요.',
         loading:false
       })
@@ -41,13 +49,14 @@ export default class extends React.Component {
   }
 
   searchByTerm = async () => {
-    const { searchTerm, offset, list:oldList} = this.state;
+    const { searchTerm, offset, list:oldList, userInfo} = this.state;
     try{
       const { data : {
           gameRecords:list,
           myAccessId:accessId,
           myLevel:level
       } } = await matchList.list(searchTerm,offset,10);
+
 
       if(offset === 0){
         const {data:userInfo} = await matchList.userInfo(accessId);
@@ -61,7 +70,8 @@ export default class extends React.Component {
         this.setState({
           list: [...oldList, ...list],
           accessId,
-          level
+          level,
+          userInfo
         })
       }
     }catch{

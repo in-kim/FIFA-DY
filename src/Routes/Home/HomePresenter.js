@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from 'prop-types';
 import styled from "styled-components";
 import Footer from 'Components/Footer'
+import Loading from "Components/Loding";
 
 const Container = styled.div`
   display:flex;
@@ -241,7 +242,7 @@ const HomePrecenter = ({
         {
           error && error.length > 0 ? error : 
           (
-            loading ? '로딩중 입니다.' :
+            loading ? <Loading/> :
             list && list.length > 0 ? list.map(match => (
               <MacthItem key={match.matchId}>
                 <Date>{match.matchDate.substring(0,10)}</Date>
