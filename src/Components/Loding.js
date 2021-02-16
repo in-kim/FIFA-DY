@@ -1,5 +1,6 @@
 import React from 'react';
-import styled from 'styled-components';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import styled from 'styled-components'
 
 const Item = styled.span`
   display:flex;
@@ -10,8 +11,12 @@ const Item = styled.span`
   justify-content:center;
 `;
 
-const Loading = () => (
-  <Item>로딩중입니다.</Item>
-)
 
-export default Loading;
+export default function Loading() {
+
+  return(
+    <Item>
+      <CircularProgress/>
+    </Item>
+  )
+}
