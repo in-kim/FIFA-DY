@@ -5,6 +5,17 @@ import Loading from 'Components/Loding';
 import Stadium from 'Components/Stadium';
 import Footer from "Components/Footer";
 
+const Container = styled.div`
+  position:relative;
+  width:100%;
+  height:calc(100% - 30px);
+  overflow:auto;
+
+  @media screen and (max-width:1800px){
+    width:1800px;
+  }
+`;
+
 const PlayerContainer = styled.div`
   position:absolute;
   top: calc(5% + 130px);
@@ -79,7 +90,7 @@ const Flex = styled.span`
 
 const DetailPrecenter = ({PlayerResult, ClubPrice, error, loading}) => (
   loading ? <Loading /> :
-  <>
+  <Container>
     <PlayerContainer wide="left: 10px">
       <Title>선수 명단</Title>
       <PlayerList>
@@ -195,7 +206,7 @@ const DetailPrecenter = ({PlayerResult, ClubPrice, error, loading}) => (
     </PlayerContainer>
 
     <Footer></Footer>
-  </>
+  </Container>
 )
 
 DetailPrecenter.propTypes = {

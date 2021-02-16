@@ -7,19 +7,28 @@ import Loading from "Components/Loding";
 const Container = styled.div`
   display:flex;
   flex-direction:column;
-  width:100%;
+  width:1024px;
   height:100%;
-  padding:30px;
+  margin:0 auto;
+  @media only screen and (max-width:1024px){
+    width:100%;
+    padding:30px 15px;
+  }
 `;
 const Logo = styled.div`
   position:absolute;
   right:0;
   bottom:0;
-  width:320px;  
-  height:320px;
+  width:320px;
+  height:320px;  
   background:url(${props => props.logoImage}) no-repeat center;
   background-size:320px;
   opacity:0.2;
+
+  @media only screen and (max-width:500px){
+    width:320px;
+    height:auto;
+  }
 `;
 const Cover = styled.div`
   width:100%;
@@ -34,6 +43,10 @@ const Form = styled.form`
   width:320px;
   flex:0 0 43px;
   margin:10px auto 0 auto;
+
+  @media only screen and (max-width:500px){
+    width:100%;
+  }
 `;
 
 const Input = styled.input`
@@ -44,6 +57,12 @@ const Input = styled.input`
   padding:0 10px 15px 10px;
   border-bottom:5px solid #fff;
   box-sizing:border-box;
+
+  @media only screen and (max-width:500px){
+    width:100%;
+    padding:0 10px 10px 10px;
+    border-bottom:1px solid #fff;
+  }
 `;
 
 const SearchButton = styled.button`
@@ -61,10 +80,14 @@ const Scroll = styled.div`
   max-height:415px;
   padding-top:4px;
   overflow:auto;
+
+  @media only screen and (max-width:500px){
+    max-height:313px;
+  }
 `;
 const MacthContainer = styled.div`
   position:relative;
-  width:50%;
+  width:100%;
   flex:unset;
   margin:30px auto 0 auto;
   padding:20px;
@@ -74,6 +97,11 @@ const MacthContainer = styled.div`
   color:#34495e;
   text-align:center;
   z-index:1;
+
+  @media only screen and (max-width:500px){
+    margin:10px auto 0 auto;
+    padding:10px;
+  }
 `;
 const MacthHeader = styled.div`
   display:flex;
@@ -83,6 +111,12 @@ const HeaderItem = styled.span`
   padding-bottom:5px;
   border-bottom:3px solid #34495e;
   margin-bottom:20px;
+
+  @media only screen and (max-width:500px){
+    &:first-child{display:none;}
+    &:last-child{display:none;}
+    margin-bottom:10px;
+  }
 `;
 const MacthItem = styled.div`
   display:flex;
@@ -90,6 +124,10 @@ const MacthItem = styled.div`
   
   &:not(:last-child){
     margin-bottom:30px;
+
+    @media only screen and (max-width:500px){
+      margin-bottom:10px;
+    }
   }
 `;
 const Name = styled.span`
@@ -97,10 +135,18 @@ const Name = styled.span`
   color:#9b59b6;
 `;
 const Score = styled.span`flex:1; font-size:18px;`;
-const Date = styled.span`flex:1;`;
+const Date = styled.span`
+  flex:1;
+  @media only screen and (max-width:500px){
+    display:none;
+  }
+`;
 const MacthResult = styled.span`
   flex:1;
   color:${props => props.color};
+  @media only screen and (max-width:500px){
+    display:none;
+  }
 `;
 const DetailButton = styled.a`
   font-size:14px;
@@ -109,6 +155,16 @@ const DetailButton = styled.a`
   border-radius:5px;
   margin:0 10px;
   cursor:pointer;
+
+  @media only screen and (max-width:500px){
+    font-size:10px;
+    min-width:50px;
+    border:0;
+    border-bottom:1px solid #34495e;
+    border-radius:unset;
+    padding:0;
+    vertical-align:middle;
+  }
 `;
 
 const MoreButton = styled.button`
@@ -126,12 +182,25 @@ const MoreButton = styled.button`
     font-size:1.3rem;
     transition:.3s;
   }
+
+  @media only screen and (max-width:500px){
+    font-size:10px;
+  }
 `;
 
 const UserInfoContainer = styled.div`
   display:flex;
-  width:50%;
+  flex-wrap:wrap;
+  width:100%;
   margin:30px auto 0 auto;
+
+  @media only screen and (max-width:768px){
+    box-shadow:-1px -1px 11px 0px rgba(255, 255, 255, 0.3);
+  }
+
+  @media only screen and (max-width:500px){
+    margin:10px auto 0 auto;
+  }
 `;
 
 const UserInfoItem = styled.div`
@@ -139,12 +208,23 @@ const UserInfoItem = styled.div`
   margin-left:20px;
   &:first-child {
     margin-left:0;
+
+    @media only screen and (max-width:768px){
+      display:none;
+    }
   };
   background-color:rgba(0,0,0,0.2);
   border-radius:5px;
   box-shadow:-1px -1px 11px 0px rgba(255, 255, 255, 0.3);
   padding:10px;
   color:#fff;
+
+  @media only screen and (max-width:768px){
+    display:flex;
+    flex-direction:column;
+    margin:0;
+    box-shadow:unset;
+  }
 `;
 
 const UserInfoTitle = styled.span`
@@ -152,6 +232,13 @@ const UserInfoTitle = styled.span`
   font-size:20px;
   text-align:center;
   margin-bottom:20px;
+  @media only screen and (max-width:768px){
+    margin-bottom:10px;
+    text-align:center;
+  }
+  @media only screen and (max-width:500px){
+    font-size:12px;
+  }
 `;
 const UserInfoText = styled.span`
   display:flex;
@@ -171,6 +258,14 @@ const UserInfoReulst = styled.span`
     display:block;
     font-size:50px;
     text-align:center;
+
+    @media only screen and (max-width:768px){
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      flex:1;
+      font-size:30px;
+    }
   }
 `;
 
@@ -187,7 +282,7 @@ const HomePrecenter = ({
   loading
 }) => (
   <Container>
-    <Logo logoImage={`${process.env.REACT_APP_URL}/assets/image/logo.png`} />
+    <Logo logoImage={`/assets/image/logo.png`} />
     <Cover bgImage="https://fo4.dn.nexoncdn.co.kr/live/externalAssets/common/playersAction/p101000250.png"></Cover>
     <Form onSubmit={handleSubmit}>
       <Input 
@@ -195,13 +290,13 @@ const HomePrecenter = ({
         value={searchTerm}
         onChange={updateTerm}
       />
-      <SearchButton searchIcon={`${process.env.REACT_APP_URL}/assets/image/button/btn-search.png`}></SearchButton>
+      <SearchButton searchIcon={`/assets/image/button/btn-search.png`}></SearchButton>
     </Form>
     {
       list && Object.keys(list).length > 0 && 
       <UserInfoContainer>
         <UserInfoItem>
-          <UserInfoTitle>{searchNick}</UserInfoTitle>
+          <UserInfoTitle>{searchNick==="" ? "닉네임":searchNick}</UserInfoTitle>
           <UserInfoText>
             <UserInfoSubTitle>레벨</UserInfoSubTitle>
             <UserInfoReulst>{level}</UserInfoReulst>

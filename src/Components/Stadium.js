@@ -3,10 +3,12 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import Player from 'Components/Player';
 
-const Container = styled.div`
+const StadiumContainer = styled.div`
+  position:relative;
   width:100%;
   height:100%;
   padding:50px;
+  box-sizing:border-box;
 `;
 const Cover = styled.div`
   position:absolute;
@@ -34,6 +36,10 @@ const Nickname = styled.span`
   flex:1; 
   font-size:50px;
   text-shadow: 4px 3px 0 ${props => props.color};
+
+  @media only screen and (max-width:768px){
+    margin:10px auto 0 auto;
+  }
 `;
 
 const Score = styled.span`
@@ -69,7 +75,7 @@ const SoccerField = styled.div`
   display:flex;
   width:70%;
   height:830px;
-  background:url(${props => props.bgImage}) no-repeat;
+  background:url(${props => props.bgImage}) no-repeat center;
   background-size:cover;
 `;
 
@@ -89,8 +95,8 @@ const PositionArea = styled.div`
 const Stadium = ({PlayerResult, ClubPrice, error}) => (
   <>
     {
-      <Container>
-        <Cover bgImage={`${process.env.REACT_APP_URL}/assets/image/bg_stadium.jpg`}></Cover>
+      <StadiumContainer>
+        <Cover bgImage={`/assets/image/bg_stadium.jpg`}></Cover>
         <VersusContainer>
           <Nickname 
             color={
@@ -121,7 +127,7 @@ const Stadium = ({PlayerResult, ClubPrice, error}) => (
             </Price>
           </Nickname>
         </VersusContainer>
-        <SoccerField bgImage={`${process.env.REACT_APP_URL}/assets/image/bg_field.jpg`}>
+        <SoccerField bgImage={`/assets/image/bg_field.jpg`}>
           <TeamContainer>
             <PositionArea>
               {
@@ -410,7 +416,7 @@ const Stadium = ({PlayerResult, ClubPrice, error}) => (
             </PositionArea>
           </TeamContainer>
         </SoccerField>
-      </Container>
+      </StadiumContainer>
     }
   </>
 )

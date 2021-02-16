@@ -102,8 +102,6 @@ export default class extends React.Component {
     this.searchByTerm();
   }
 
-
-
   render(){
     const {list, userInfo, level, searchTerm, searchNick, loading, error} = this.state;
 
