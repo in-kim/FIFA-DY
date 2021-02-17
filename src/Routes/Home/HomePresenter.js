@@ -10,6 +10,7 @@ const Container = styled.div`
   width:1024px;
   height:100%;
   margin:0 auto;
+  box-sizing:border-box;
   @media only screen and (max-width:1024px){
     width:100%;
     padding:30px 15px;
@@ -35,10 +36,10 @@ const Cover = styled.div`
   flex:0 0 300px;
   max-height:300px;
   background:url(${props => props.bgImage}) no-repeat center;
-  background-size:300px;
+  background-size:500px;
 
   @media only screen and (max-width:500px){
-    max-height:100px;
+    max-height: 140px;
     background-size:250px;
     margin-bottom:10px;
   }
@@ -205,7 +206,9 @@ const UserInfoContainer = styled.div`
   }
 
   @media only screen and (max-width:500px){
+    position:relative;
     margin:10px auto 0 auto;
+    padding-top:100px;
   }
 `;
 
@@ -214,9 +217,18 @@ const UserInfoItem = styled.div`
   margin-left:20px;
   &:first-child {
     margin-left:0;
+    background-color:rgba(255,255,255,0.8);
+    color:#222;
 
     @media only screen and (max-width:768px){
-      display:none;
+      position:absolute;
+      top:0;
+      left:0;
+      display:flex;
+      flex-direction:row;
+      align-items:center;
+      width:100%;
+      padding-top:40px;
     }
   };
   background-color:rgba(0,0,0,0.2);
@@ -238,12 +250,31 @@ const UserInfoTitle = styled.span`
   font-size:20px;
   text-align:center;
   margin-bottom:20px;
+  ${
+    props => props.userInfo ? 
+    'background-color:#000; color:#fff;' :
+    'background-color:#fff; color:#222;' 
+  }
+  
+  padding:10px 0;
+  border-radius:12px;
   @media only screen and (max-width:768px){
     margin-bottom:10px;
     text-align:center;
   }
   @media only screen and (max-width:500px){
     font-size:12px;
+
+    ${
+      props => props.userInfo && 
+      `
+        position:absolute; 
+        top:0; 
+        left:0;
+        width:100%;
+        border-radius:0;
+      `
+    }
   }
 `;
 const UserInfoText = styled.span`
@@ -251,15 +282,44 @@ const UserInfoText = styled.span`
   font-size:15px;
   margin-bottom:10px;
   &:last-child{margin-bottom:0;}
+
+  @media only screen and (max-width:500px){
+    ${props => props.userInfo && 
+      `
+        display:block;
+        flex:1;
+        margin-bottom:0;
+        text-align:center;
+      `
+    }
+  }
 `;
 
 const UserInfoSubTitle = styled.span`
   display:inline-block;
   flex:0 0 60px;
+
+  @media only screen and (max-width:500px){
+    ${props => props.userInfo && `
+        display:inline-block;
+        padding:5px 10px;
+        background-color:#000;
+        color:#fff;
+        border-radius:5px;
+    `}
+  }
 `;
 const UserInfoReulst = styled.span`
   flex:1;
   max-width:100%;
+
+  @media only screen and (max-width:500px){
+    ${props => props.userInfo && `
+      display:block;
+      margin-top:10px;
+    `}
+  }
+
   &.big {
     display:block;
     font-size:50px;
@@ -302,18 +362,18 @@ const HomePrecenter = ({
       list && Object.keys(list).length > 0 && 
       <UserInfoContainer>
         <UserInfoItem>
-          <UserInfoTitle>{searchNick==="" ? "닉네임":searchNick}</UserInfoTitle>
-          <UserInfoText>
-            <UserInfoSubTitle>레벨</UserInfoSubTitle>
-            <UserInfoReulst>{level}</UserInfoReulst>
+          <UserInfoTitle userInfo={true}>{searchNick==="" ? "닉네임":searchNick}</UserInfoTitle>
+          <UserInfoText userInfo={true}>
+            <UserInfoSubTitle userInfo={true}>레벨</UserInfoSubTitle>
+            <UserInfoReulst userInfo={true}>{level}</UserInfoReulst>
           </UserInfoText>
-          <UserInfoText>
-            <UserInfoSubTitle>최고 등급</UserInfoSubTitle>
-            <UserInfoReulst>{userInfo.maxDivision}</UserInfoReulst>
+          <UserInfoText userInfo={true}>
+            <UserInfoSubTitle userInfo={true}>최고 등급</UserInfoSubTitle>
+            <UserInfoReulst userInfo={true}>{userInfo.maxDivision}</UserInfoReulst>
           </UserInfoText>
-          <UserInfoText>
-            <UserInfoSubTitle>등급 달성일</UserInfoSubTitle>
-            <UserInfoReulst>{userInfo.achieveMaxDivisionDate.substring(0,10)}</UserInfoReulst>
+          <UserInfoText userInfo={true}>
+            <UserInfoSubTitle userInfo={true}>등급 달성일</UserInfoSubTitle>
+            <UserInfoReulst userInfo={true}>{userInfo.achieveMaxDivisionDate.substring(0,10)}</UserInfoReulst>
           </UserInfoText>
         </UserInfoItem>
         <UserInfoItem>
