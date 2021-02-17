@@ -11,6 +11,7 @@ const  Container = styled.div`
   text-align:left;
   padding:10px;
   box-sizing:border-box;
+  opacity:0.3;
 `;
 
 const Item = styled.p`
@@ -23,6 +24,7 @@ const Footer = () => (
     <Item>Frontend Developer : Dongry (ehddls960617@gmail.com)</Item>
     <Item>Backend  Developer : Lee dobby (swj03095@naver.com)</Item>
     <Item>Team : GSD (Generic Stupid Developer)</Item>
+    <Item>Logo : Kwon YuJin(dbwlsqh036@naver.com)</Item>
   </Container>
 )
 
