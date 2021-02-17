@@ -36,6 +36,12 @@ const Cover = styled.div`
   max-height:300px;
   background:url(${props => props.bgImage}) no-repeat center;
   background-size:300px;
+
+  @media only screen and (max-width:500px){
+    max-height:100px;
+    background-size:250px;
+    margin-bottom:10px;
+  }
 `;
 
 const Form = styled.form`
@@ -283,7 +289,7 @@ const HomePrecenter = ({
 }) => (
   <Container>
     <Logo logoImage={`/assets/image/logo.png`} />
-    <Cover bgImage="https://fo4.dn.nexoncdn.co.kr/live/externalAssets/common/playersAction/p101000250.png"></Cover>
+    <Cover bgImage="/assets/image/page_logo.png"></Cover>
     <Form onSubmit={handleSubmit}>
       <Input 
         placeholder="구단주명을 입력하세요."
