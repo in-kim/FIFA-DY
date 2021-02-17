@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 const  Container = styled.div`
   position:absolute;
-  bottom:0;
+  bottom:-100px;
   left:0;
   z-index:0;
   width:100%;
@@ -22,7 +22,7 @@ const Footer = () => (
     <Item>Data based on NEXON DEVELOPERS</Item>
     <Item>Frontend Developer : Dongry (ehddls960617@gmail.com)</Item>
     <Item>Backend  Developer : Lee dobby (swj03095@naver.com)</Item>
-    <Item>Group : GSD (Generic Stupid Developer)</Item>
+    <Item>Team : GSD (Generic Stupid Developer)</Item>
   </Container>
 )
 
