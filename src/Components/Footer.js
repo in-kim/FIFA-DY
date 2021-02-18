@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 const  Container = styled.div`
   position:absolute;
-  bottom:-100px;
+  bottom:0;
   left:0;
   z-index:0;
   width:100%;
@@ -11,7 +11,11 @@ const  Container = styled.div`
   text-align:left;
   padding:10px;
   box-sizing:border-box;
-  opacity:0.3;
+  opacity:0.5;
+
+  @media only screen and (max-width:500px){
+    font-size:10px;
+  }
 `;
 
 const Item = styled.p`
