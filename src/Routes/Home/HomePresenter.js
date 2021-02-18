@@ -144,6 +144,7 @@ const MacthItem = styled.div`
 const Name = styled.span`
   flex:1; 
   color:#9b59b6;
+  ${props => props.click && 'cursor:pointer;'}
 
   @media only screen and (max-width:500px){
     overflow:hidden;
@@ -433,7 +434,7 @@ const HomePrecenter = ({
                   </DetailButton>
                   {match.enemyScore}
                 </Score>
-                <Name onClick={handleRecordUpdate}>
+                <Name onClick={handleRecordUpdate} click={true}>
                   {match.enemyNickName}
                 </Name>
                 <MacthResult
