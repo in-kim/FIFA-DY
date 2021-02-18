@@ -20,10 +20,10 @@ const Logo = styled.div`
   position:absolute;
   right:0;
   bottom:0;
-  width:320px;
-  height:320px;  
+  width:300px;
+  height:230px;  
   background:url(${props => props.logoImage}) no-repeat center;
-  background-size:320px;
+  background-size:300px;
   opacity:0.2;
 
   @media only screen and (max-width:500px){
@@ -33,10 +33,10 @@ const Logo = styled.div`
 `;
 const Cover = styled.div`
   width:100%;
-  flex:0 0 300px;
-  max-height:300px;
+  flex:0 0 250px;
+  max-height:250px;
   background:url(${props => props.bgImage}) no-repeat center;
-  background-size:500px;
+  background-size:400px;
 
   @media only screen and (max-width:500px){
     max-height: 140px;
@@ -47,7 +47,7 @@ const Cover = styled.div`
 
 const Form = styled.form`
   position:relative;
-  width:320px;
+  width:350px;
   flex:0 0 43px;
   margin:10px auto 0 auto;
 
@@ -58,7 +58,7 @@ const Form = styled.form`
 
 const Input = styled.input`
   all:unset;
-  width:320px;
+  width:350px;
   font-size:20px;
   background-color:#222;
   padding:0 10px 15px 10px;
@@ -84,19 +84,19 @@ const SearchButton = styled.button`
   cursor:pointer;
 `;
 const Scroll = styled.div`
-  max-height:415px;
+  max-height:400px;
   padding-top:4px;
   overflow:auto;
 
   @media only screen and (max-width:500px){
-    max-height:313px;
+    max-height:200px;
   }
 `;
 const MacthContainer = styled.div`
   position:relative;
   width:100%;
   flex:unset;
-  margin:30px auto 0 auto;
+  margin:20px auto 0 auto;
   padding:20px;
   background-color:#ecf0f1;
   border-radius:5px;
@@ -120,7 +120,10 @@ const HeaderItem = styled.span`
   margin-bottom:20px;
 
   @media only screen and (max-width:500px){
-    &:first-child{display:none;}
+    &:first-child{
+      flex:0 0 50px;
+      max-width:50px;
+    }
     &:last-child{display:none;}
     margin-bottom:10px;
   }
@@ -128,9 +131,10 @@ const HeaderItem = styled.span`
 const MacthItem = styled.div`
   display:flex;
   align-items:center;
+  min-height:30px;
   
   &:not(:last-child){
-    margin-bottom:30px;
+    margin-bottom:10px;
 
     @media only screen and (max-width:500px){
       margin-bottom:10px;
@@ -140,12 +144,20 @@ const MacthItem = styled.div`
 const Name = styled.span`
   flex:1; 
   color:#9b59b6;
+
+  @media only screen and (max-width:500px){
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+  }
 `;
 const Score = styled.span`flex:1; font-size:18px;`;
 const Date = styled.span`
   flex:1;
   @media only screen and (max-width:500px){
-    display:none;
+    flex:0 0 50px;
+    max-width:50px;
+    font-size:11px;
   }
 `;
 const MacthResult = styled.span`
@@ -177,21 +189,26 @@ const DetailButton = styled.a`
 const MoreButton = styled.button`
   width:100%;
   height:29px;
-  font-family:'SDKukdetopokki';
+  font-family:'Bazzi';
   font-size:15px;
   color:#130f40;
   text-align:center;
   border:0;
   cursor:pointer;
   outline:none;
+  margin-top:20px;
+  background-color:transparent;
   
-  &:hover{
-    font-size:1.3rem;
-    transition:.3s;
+  @media only screen and (min-width:768px){
+    &:hover{
+      font-size:1.3rem;
+      transition:.3s;
+    }
   }
 
   @media only screen and (max-width:500px){
-    font-size:10px;
+    height:18px;
+    margin-top:10px;
   }
 `;
 
@@ -199,7 +216,7 @@ const UserInfoContainer = styled.div`
   display:flex;
   flex-wrap:wrap;
   width:100%;
-  margin:30px auto 0 auto;
+  margin:20px auto 0 auto;
 
   @media only screen and (max-width:768px){
     box-shadow:-1px -1px 11px 0px rgba(255, 255, 255, 0.3);
@@ -342,6 +359,7 @@ const HomePrecenter = ({
   searchTerm, 
   searchNick,
   handleSubmit,
+  handleRecordUpdate,
   updateTerm, 
   UpdateOffset,
   error, 
@@ -415,7 +433,9 @@ const HomePrecenter = ({
                   </DetailButton>
                   {match.enemyScore}
                 </Score>
-                <Name>{match.enemyNickName}</Name>
+                <Name onClick={handleRecordUpdate}>
+                  {match.enemyNickName}
+                </Name>
                 <MacthResult
                   color={
                     match.gameResult === '승' ? '#3498db' : 
@@ -426,11 +446,10 @@ const HomePrecenter = ({
             )): '검색어를 입력 해주세요.'
           )
         }
-
-        {
-          list && list.length > 0 && <MoreButton onClick={UpdateOffset}>더보기</MoreButton>
-        }
       </Scroll>
+      {
+        list && list.length > 0 && <MoreButton onClick={UpdateOffset}>더보기</MoreButton>
+      }
     </MacthContainer>
     <Footer />
   </Container>
@@ -444,6 +463,7 @@ HomePrecenter.propTypes = {
   searchTerm:PropTypes.string,
   searchNick:PropTypes.string,
   handleSubmit:PropTypes.func.isRequired,
+  handleRecordUpdate:PropTypes.func.isRequired,
   updateTerm:PropTypes.func.isRequired,
   UpdateOffset:PropTypes.func.isRequired,
   loading:PropTypes.bool.isRequired,

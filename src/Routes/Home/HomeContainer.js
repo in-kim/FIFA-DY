@@ -48,6 +48,23 @@ export default class extends React.Component {
     }
   }
 
+  handleRecordUpdate = async (event) => {
+    const {data:searchTerm} = event.target.childNodes[0];
+
+    await this.setState({
+      searchTerm,
+      list:null,
+      level:null,
+      accessId:null,
+      userInfo:null,
+      searchNick:searchTerm,
+      offset:0,
+      loading:true
+    })
+
+    this.searchByTerm()
+  }
+
   searchByTerm = async () => {
     const { searchTerm, offset, list:oldList, userInfo} = this.state;
     try{
@@ -113,6 +130,7 @@ export default class extends React.Component {
         searchTerm={searchTerm}
         searchNick={searchNick}
         handleSubmit={this.handleSubmit}
+        handleRecordUpdate={this.handleRecordUpdate}
         updateTerm={this.updateTerm}
         UpdateOffset={this.UpdateOffset}
         loading={loading}
