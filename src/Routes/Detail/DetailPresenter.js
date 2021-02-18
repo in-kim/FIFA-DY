@@ -14,6 +14,20 @@ const Container = styled.div`
   @media screen and (max-width:1800px){
     width:1800px;
   }
+  @media screen and (max-width:768px){
+    display:none;
+  }
+`;
+
+const NoText = styled.div`
+  @media screen and (max-width:768px){
+    display:flex;
+    width:100%;
+    height:100%;
+    justify-content:center;
+    align-items:center;
+    font-size:30px;
+  }
 `;
 
 const PlayerContainer = styled.div`
@@ -90,38 +104,101 @@ const Flex = styled.span`
 
 const DetailPrecenter = ({PlayerResult, ClubPrice, error, loading}) => (
   loading ? <Loading /> :
-  <Container>
-    <PlayerContainer wide="left: 10px">
-      <Title>선수 명단</Title>
-      <PlayerList>
-        {
-          error && error.length > 0 ? error :
-          PlayerResult.myPlayer.map((player,index) => (
-            <PlayerListItem 
-              key={index} 
-              order={player.spPosition}
-            >
-              {
-                <>
-                  <Flex>
-                    <Position 
-                      LineColor={
-                        player.spPosition === 0 ? '#e9a216' : 
-                        player.spPosition > 0 && player.spPosition < 9 ? '#1476ff' :
-                        player.spPosition > 8 && player.spPosition < 20 ? '#03cd7a' :
-                        player.spPosition > 19 && player.spPosition < 28 ? '#f6425f' : '#c2c5ca'
-                      }
-                    >{player.positionDescription}</Position>
+  <>
+    <NoText>모바일 페이지는 준비중입니다.</NoText>
+    <Container>
+      <PlayerContainer wide="left: 10px">
+        <Title>선수 명단</Title>
+        <PlayerList>
+          {
+            error && error.length > 0 ? error :
+            PlayerResult.myPlayer.map((player,index) => (
+              <PlayerListItem 
+                key={index} 
+                order={player.spPosition}
+              >
+                {
+                  <>
+                    <Flex>
+                      <Position 
+                        LineColor={
+                          player.spPosition === 0 ? '#e9a216' : 
+                          player.spPosition > 0 && player.spPosition < 9 ? '#1476ff' :
+                          player.spPosition > 8 && player.spPosition < 20 ? '#03cd7a' :
+                          player.spPosition > 19 && player.spPosition < 28 ? '#f6425f' : '#c2c5ca'
+                        }
+                      >{player.positionDescription}</Position>
+                      <Section>
+                        <Name>
+                          <SeasonImage src={player.seasonImgUrl}/>
+                          {player.originalName}
+                        </Name>
+                        <Price>{player.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} BP</Price>
+                      </Section>
+                    </Flex>
                     <Section>
-                      <Name>
-                        <SeasonImage src={player.seasonImgUrl}/>
-                        {player.originalName}
-                      </Name>
-                      <Price>{player.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} BP</Price>
+                      <Grade 
+                          bgColor={
+                            player.spGrade === 1 ? "#45494f" : 
+                            player.spGrade > 4 && player.spGrade < 8? "#c2c5ca" : 
+                            player.spGrade > 7 ? "#e8c337" : "#c37653"
+                          }
+
+                          color={
+                            player.spGrade === 1 ? "#fff" : 
+                            player.spGrade > 4 && player.spGrade < 8? "#333" : 
+                            player.spGrade > 7 ? "#333" : "#c25453"
+                          }
+                        
+                        >{player.spGrade}</Grade>
                     </Section>
-                  </Flex>
-                  <Section>
-                    <Grade 
+                  </>
+                }
+              </PlayerListItem>
+            ))
+          }
+        </PlayerList>
+      </PlayerContainer>
+      {
+        PlayerList && Object.keys(PlayerList) &&
+        <Stadium 
+          PlayerResult={PlayerResult}
+          ClubPrice={ClubPrice}
+          error={error}
+          loading={loading}
+        />
+      }
+      <PlayerContainer wide="right: 10px">
+        <Title>선수 명단</Title>
+        <PlayerList>
+          {
+            error && error.length > 0 ? error :
+            PlayerResult.enemyPlayer.map((player,index) => (
+              <PlayerListItem 
+                key={index}
+                order={player.spPosition}
+              >
+                {
+                  <>
+                    <Flex>
+                      <Position 
+                        LineColor={
+                          player.spPosition === 0 ? '#e9a216' : 
+                          player.spPosition > 0 && player.spPosition < 9 ? '#1476ff' :
+                          player.spPosition > 8 && player.spPosition < 20 ? '#03cd7a' :
+                          player.spPosition > 19 && player.spPosition < 28 ? '#f6425f' : '#c2c5ca'
+                        }
+                      >{player.positionDescription}</Position>
+                      <Section>
+                        <Name>
+                          <SeasonImage src={player.seasonImgUrl}/>
+                          {player.originalName}
+                        </Name>
+                        <Price>{player.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} BP</Price>
+                      </Section>
+                    </Flex>
+                    <Section>
+                      <Grade 
                         bgColor={
                           player.spGrade === 1 ? "#45494f" : 
                           player.spGrade > 4 && player.spGrade < 8? "#c2c5ca" : 
@@ -135,78 +212,18 @@ const DetailPrecenter = ({PlayerResult, ClubPrice, error, loading}) => (
                         }
                       
                       >{player.spGrade}</Grade>
-                  </Section>
-                </>
-              }
-            </PlayerListItem>
-          ))
-        }
-      </PlayerList>
-    </PlayerContainer>
-    {
-      PlayerList && Object.keys(PlayerList) &&
-      <Stadium 
-        PlayerResult={PlayerResult}
-        ClubPrice={ClubPrice}
-        error={error}
-        loading={loading}
-      />
-    }
-    <PlayerContainer wide="right: 10px">
-      <Title>선수 명단</Title>
-      <PlayerList>
-        {
-          error && error.length > 0 ? error :
-          PlayerResult.enemyPlayer.map((player,index) => (
-            <PlayerListItem 
-              key={index}
-              order={player.spPosition}
-            >
-              {
-                <>
-                  <Flex>
-                    <Position 
-                      LineColor={
-                        player.spPosition === 0 ? '#e9a216' : 
-                        player.spPosition > 0 && player.spPosition < 9 ? '#1476ff' :
-                        player.spPosition > 8 && player.spPosition < 20 ? '#03cd7a' :
-                        player.spPosition > 19 && player.spPosition < 28 ? '#f6425f' : '#c2c5ca'
-                      }
-                    >{player.positionDescription}</Position>
-                    <Section>
-                      <Name>
-                        <SeasonImage src={player.seasonImgUrl}/>
-                        {player.originalName}
-                      </Name>
-                      <Price>{player.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} BP</Price>
                     </Section>
-                  </Flex>
-                  <Section>
-                    <Grade 
-                      bgColor={
-                        player.spGrade === 1 ? "#45494f" : 
-                        player.spGrade > 4 && player.spGrade < 8? "#c2c5ca" : 
-                        player.spGrade > 7 ? "#e8c337" : "#c37653"
-                      }
+                  </>
+                }
+              </PlayerListItem>
+            ))
+          }
+        </PlayerList>
+      </PlayerContainer>
 
-                      color={
-                        player.spGrade === 1 ? "#fff" : 
-                        player.spGrade > 4 && player.spGrade < 8? "#333" : 
-                        player.spGrade > 7 ? "#333" : "#c25453"
-                      }
-                    
-                    >{player.spGrade}</Grade>
-                  </Section>
-                </>
-              }
-            </PlayerListItem>
-          ))
-        }
-      </PlayerList>
-    </PlayerContainer>
-
-    <Footer></Footer>
-  </Container>
+      <Footer></Footer>
+    </Container>
+  </>
 )
 
 DetailPrecenter.propTypes = {
