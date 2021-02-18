@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import styled from "styled-components";
 import Footer from 'Components/Footer'
 import Loading from "Components/Loding";
+import Advertisement from "Components/Advertisement";
 
 const Container = styled.div`
   display:flex;
@@ -367,6 +368,7 @@ const HomePrecenter = ({
   loading
 }) => (
   <Container>
+    <Advertisement />
     <Logo logoImage={`/assets/image/logo.png`} />
     <Cover bgImage="/assets/image/page_logo.png"></Cover>
     <Form onSubmit={handleSubmit}>
