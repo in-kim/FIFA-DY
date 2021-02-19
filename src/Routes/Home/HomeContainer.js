@@ -6,12 +6,12 @@ import { matchList } from 'api';
 export default class extends React.Component {
   state= {
     list:null,
+    userClubData:null,
     level:null,
     accessId:null,
     userInfo:null,
     searchTerm:"",
     searchNick:'',
-    isDetail:'',
     error:null,
     loading:false,
     offset:0,
@@ -48,16 +48,14 @@ export default class extends React.Component {
     }
   }
 
-  handleRecordUpdate = async (event) => {
-    const {data:searchTerm} = event.target.childNodes[0];
-
+  handleRecordUpdate = async (nickName) => {
     await this.setState({
-      searchTerm,
+      searchTerm:nickName,
       list:null,
       level:null,
       accessId:null,
       userInfo:null,
-      searchNick:searchTerm,
+      searchNick:nickName,
       offset:0,
       loading:true
     })
@@ -74,13 +72,13 @@ export default class extends React.Component {
           myLevel:level
       } } = await matchList.list(searchTerm,offset,10);
 
-
       if(offset === 0){
         const {data:userInfo} = await matchList.userInfo(accessId);
         this.setState({
           list,
           level,
           userInfo,
+          accessId,
           error:null,
         })
       }else {
@@ -118,14 +116,28 @@ export default class extends React.Component {
 
     this.searchByTerm();
   }
+  
+  loadUserClubData = async (accessId) => {
+    const {data:userClubData} = await await matchList.userResult(accessId);
+    this.setState({
+      userClubData
+    })
+  }
+
+  resetUserClusbData = () => {
+    this.setState({
+      userClubData:null
+    })
+  }
 
   render(){
-    const {list, userInfo, level, searchTerm, searchNick, loading, error} = this.state;
+    const {list, userInfo,userClubData, level, searchTerm, searchNick, loading, error} = this.state;
 
     return(
       <HomePrecenter 
         list={list}
         userInfo={userInfo}
+        userClubData={userClubData}
         level={level}
         searchTerm={searchTerm}
         searchNick={searchNick}
@@ -133,6 +145,8 @@ export default class extends React.Component {
         handleRecordUpdate={this.handleRecordUpdate}
         updateTerm={this.updateTerm}
         UpdateOffset={this.UpdateOffset}
+        loadUserClubData={this.loadUserClubData}
+        resetUserClusbData={this.resetUserClusbData}
         loading={loading}
         error={error}
       />
