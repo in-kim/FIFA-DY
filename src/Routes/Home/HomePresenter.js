@@ -4,6 +4,8 @@ import styled from "styled-components";
 import Footer from 'Components/Footer'
 import Loading from "Components/Loding";
 import Advertisement from "Components/Advertisement";
+import UserInfoPop from "Components/UserInfo"
+import { object } from "prop-types";
 
 const Container = styled.div`
   display:flex;
@@ -145,13 +147,9 @@ const MacthItem = styled.div`
 const Name = styled.span`
   flex:1; 
   color:#9b59b6;
-  ${props => props.click && 'cursor:pointer;'}
-
-  @media only screen and (max-width:500px){
-    overflow:hidden;
-    text-overflow:ellipsis;
-    white-space:nowrap;
-  }
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
 `;
 const Score = styled.span`flex:1; font-size:18px;`;
 const Date = styled.span`
@@ -352,11 +350,60 @@ const UserInfoReulst = styled.span`
       font-size:30px;
     }
   }
+
 `;
+const DropboxContainer = styled.div`
+  position:relative;
+  flex:1;
+  width:100%;
+`;
+
+const Dropbox = styled.div`
+  opacity:0;
+  position:absolute;
+  width:100px;
+  height:0;
+  top:100%;
+  left:50%;
+  transform:translateX(-50%);
+  background-color:rgba(0,0,0,0.8);
+  z-index:0;
+  overflow:hidden;
+
+  &.active{
+    height:auto;
+    transition:.3s;
+    opacity:1;
+    z-index:1;
+  }
+`;
+
+const DropItem = styled.p`
+  font-size:14px;
+  color:#fff;
+  border-bottom:1px solid #fff;
+  text-align:left;
+  padding:10px;
+  cursor:pointer;
+  &:last-child{
+    border-bottom:0;
+  }
+`;
+
+function dropDown(e) {
+  let {nextSibling:target} = e.target;
+
+  if(target.classList.contains('active') === false){
+    target.classList.add("active");
+  }else{
+    target.classList.remove("active");
+  }
+}
 
 const HomePrecenter = ({
   list,
   userInfo,
+  userClubData,
   level, 
   searchTerm, 
   searchNick,
@@ -364,6 +411,8 @@ const HomePrecenter = ({
   handleRecordUpdate,
   updateTerm, 
   UpdateOffset,
+  loadUserClubData,
+  resetUserClusbData,
   error, 
   loading
 }) => (
@@ -383,7 +432,9 @@ const HomePrecenter = ({
       list && Object.keys(list).length > 0 && 
       <UserInfoContainer>
         <UserInfoItem>
-          <UserInfoTitle userInfo={true}>{searchNick==="" ? "닉네임":searchNick}</UserInfoTitle>
+          <UserInfoTitle userInfo={true}>
+            {searchNick==="" ? "닉네임":searchNick}
+          </UserInfoTitle>
           <UserInfoText userInfo={true}>
             <UserInfoSubTitle userInfo={true}>레벨</UserInfoSubTitle>
             <UserInfoReulst userInfo={true}>{level}</UserInfoReulst>
@@ -428,7 +479,7 @@ const HomePrecenter = ({
             list && list.length > 0 ? list.map(match => (
               <MacthItem key={match.matchId}>
                 <Date>{match.matchDate.substring(0,10)}</Date>
-                <Name>{match.myNickName}</Name>
+                <Name onClick={() => {loadUserClubData(match.myAccessId)}}>{match.myNickName}</Name>
                 <Score>
                   {match.myScore}
                   <DetailButton onClick={() => window.open(`/#/detail/${searchTerm}/${match.matchId}`,'_blank')}>
@@ -436,9 +487,16 @@ const HomePrecenter = ({
                   </DetailButton>
                   {match.enemyScore}
                 </Score>
-                <Name onClick={handleRecordUpdate} click={true}>
-                  {match.enemyNickName}
-                </Name>
+                <DropboxContainer>
+                  <Name onClick={dropDown}>
+                    {match.enemyNickName}
+                  </Name>
+                  <Dropbox>
+                    <DropItem onClick={() => handleRecordUpdate(match.enemyNickName)}>전적검색</DropItem>
+                    <DropItem onClick={() => {loadUserClubData(match.enemyAccessId)}}>정보보기</DropItem>
+                  </Dropbox>
+                  
+                </DropboxContainer>
                 <MacthResult
                   color={
                     match.gameResult === '승' ? '#3498db' : 
@@ -454,6 +512,9 @@ const HomePrecenter = ({
         list && list.length > 0 && <MoreButton onClick={UpdateOffset}>더보기</MoreButton>
       }
     </MacthContainer>
+    {
+      userClubData && <UserInfoPop userClubData={userClubData} resetUserClusbData={resetUserClusbData}/>
+    }
     <Footer />
   </Container>
 )
@@ -463,12 +524,15 @@ HomePrecenter.propTypes = {
   accessId:PropTypes.string,
   level:PropTypes.number,
   userInfo:PropTypes.object,
+  userClubData:PropTypes.object,
   searchTerm:PropTypes.string,
   searchNick:PropTypes.string,
   handleSubmit:PropTypes.func.isRequired,
   handleRecordUpdate:PropTypes.func.isRequired,
   updateTerm:PropTypes.func.isRequired,
   UpdateOffset:PropTypes.func.isRequired,
+  loadUserClubData:PropTypes.func.isRequired,
+  resetUserClusbData:PropTypes.func.isRequired,
   loading:PropTypes.bool.isRequired,
   error:PropTypes.string
 }
