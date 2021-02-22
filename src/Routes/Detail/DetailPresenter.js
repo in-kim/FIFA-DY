@@ -8,7 +8,7 @@ import Footer from "Components/Footer";
 const Container = styled.div`
   position:relative;
   width:100%;
-  height:calc(100% - 30px);
+  height:100%;
   overflow:auto;
 
   @media screen and (max-width:1800px){
@@ -20,6 +20,7 @@ const Container = styled.div`
 `;
 
 const NoText = styled.div`
+  display:none;
   @media screen and (max-width:768px){
     display:flex;
     width:100%;
