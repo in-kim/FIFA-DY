@@ -5,7 +5,6 @@ import Footer from 'Components/Footer'
 import Loading from "Components/Loding";
 import Advertisement from "Components/Advertisement";
 import UserInfoPop from "Components/UserInfo"
-import { object } from "prop-types";
 
 const Container = styled.div`
   display:flex;
@@ -150,6 +149,7 @@ const Name = styled.span`
   overflow:hidden;
   text-overflow:ellipsis;
   white-space:nowrap;
+  cursor:pointer;
 `;
 const Score = styled.span`flex:1; font-size:18px;`;
 const Date = styled.span`
@@ -480,7 +480,8 @@ const HomePrecenter = ({
               list && list.length > 0 ? list.map(match => (
                 <MacthItem key={match.matchId}>
                   <Date>{match.matchDate.substring(0,10)}</Date>
-                  <Name onClick={() => {loadUserClubData(match.myAccessId)}}>{match.myNickName}</Name>
+                  {/* <Name onClick={() => {loadUserClubData(match.myAccessId)}}>{match.myNickName}</Name> */}
+                  <Name onClick={() => alert('준비중입니다.')}>{match.myNickName}</Name>
                   <Score>
                     {match.myScore}
                     <DetailButton onClick={() => window.open(`/#/detail/${searchTerm}/${match.matchId}`,'_blank')}>
@@ -494,7 +495,8 @@ const HomePrecenter = ({
                     </Name>
                     <Dropbox>
                       <DropItem onClick={() => handleRecordUpdate(match.enemyNickName)}>전적검색</DropItem>
-                      <DropItem onClick={() => {loadUserClubData(match.enemyAccessId)}}>정보보기</DropItem>
+                      <DropItem onClick={() => alert('준비중입니다.')}>정보보기</DropItem>
+                      {/* <DropItem onClick={() => {loadUserClubData(match.enemyAccessId)}}>정보보기</DropItem> */}
                     </Dropbox>
                     
                   </DropboxContainer>
