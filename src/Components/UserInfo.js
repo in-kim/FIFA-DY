@@ -1,7 +1,28 @@
 import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-
+const MobileTxt = styled.div`
+  display:none;
+  @media screen and (max-width:1200px){
+    position:absolute;
+    left:50%;
+    top:50%;
+    transform:translateX(-50%) translateY(-50%);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    width:80%;
+    height:90%;
+    background-color:#ccc;
+    border-radius:25px;
+    padding:15px 30px;
+    font-size:2rem;
+    color:#000;
+    word-break:keep-all;
+    text-align:center;
+    z-index:1;
+  }
+`;
 const Container = styled.div`
   position:absolute;
   left:50%;
@@ -17,6 +38,10 @@ const Container = styled.div`
   z-index:1;
   padding:15px 30px;
   overflow:auto;
+
+  @media screen and (max-width:1200px){
+    display:none;
+  }
 `;
 
 const UserName = styled.h3`
@@ -112,6 +137,10 @@ const Player = styled.span`
   background:url(${props => props.bgImage}) no-repeat;
   background-size:cover;
 
+  &:hover{
+    z-index:6;
+  }
+
   ${props => props.position === 0? 
     `top: auto; left: 50%; bottom: -200px;` : 
     props => props.position === 1 ? 
@@ -161,13 +190,13 @@ const Player = styled.span`
     props => props.position === 23 ? 
     `top: 4%; left: 88%; z-index:5;` :
     props => props.position === 24 ? 
-    `top: 0; left: 58%; z-index:5` :
+    `top: 0; left: 68%; z-index:5` :
     props => props.position === 25 ? 
     `top: 0%; left: 50%; z-index:5;` :
     props => props.position === 26 ? 
-    `top: 0; left: 42%; z-index:5` :
+    `top: 0; left: 32%; z-index:5` :
     props => props.position === 27 ? 
-    `top: 4%; left: 12%; z-index:5;` : 'display:none'
+    `top: 4%; left: 12%; z-index:5;` : 'display:none;'
   }
 `;
 const NameContainer = styled.div`
@@ -293,84 +322,89 @@ const Close = styled.button`
 
 
 const UserInfo = ({userClubData, resetUserClusbData}) => (
-  <Container>
-    <Close onClick={resetUserClusbData} bgImage="/assets/image/button/btn_close.png">닫기</Close>
-    <UserName>{userClubData.nickName}</UserName>
-    <ClubItemContainer>
-      <ClubItem>
-        <ClubItemTitle>총 급여</ClubItemTitle>
-        <ClubItemResult>
-          <Item styled={`color:#25c7f5`}>{userClubData.totalClubPay}</Item> 
-          <Item styled={`color:#b7b9bc;`}>/ 190</Item>
-        </ClubItemResult>
-      </ClubItem>
-      <ClubItem>
-        <ClubItemTitle>선수 가치 총합(교체 포함)</ClubItemTitle>
-        <ClubItemResult>
-          <Item styled={`color:#25c7f5`}>
-            {userClubData.clubPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
-          </Item>
-        </ClubItemResult>
-      </ClubItem>
-      <ClubItem>
-        <ClubItemTitle>평균 능력치(최대150 OVR 기준)</ClubItemTitle>
+  <>
+    <MobileTxt>
+      모바일페이지는 준비중 입니다.
+      <Close onClick={resetUserClusbData} bgImage="/assets/image/button/btn_close.png">닫기</Close>
+    </MobileTxt>
+    <Container>
+      <Close onClick={resetUserClusbData} bgImage="/assets/image/button/btn_close.png">닫기</Close>
+      <UserName>{userClubData.nickName}</UserName>
+      <ClubItemContainer>
+        <ClubItem>
+          <ClubItemTitle>총 급여</ClubItemTitle>
+          <ClubItemResult>
+            <Item styled={`color:#25c7f5`}>{userClubData.totalClubPay}</Item> 
+            <Item styled={`color:#b7b9bc;`}>/ 190</Item>
+          </ClubItemResult>
+        </ClubItem>
+        <ClubItem>
+          <ClubItemTitle>선수 가치 총합(교체 포함)</ClubItemTitle>
+          <ClubItemResult>
+            <Item styled={`color:#25c7f5`}>
+              {userClubData.clubPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+            </Item>
+          </ClubItemResult>
+        </ClubItem>
         {/* 일부값 / 평균값 * 100 */}
-        <ClubItemResult>
-          <GrapeContainer>
-            <Item styled={`color:#f6425f; flex:1; max-width:20px;`}>FW</Item> 
-            <Grape value={111/150*100} bgColor="#f6425f"></Grape>
-            <Item>111</Item>
-          </GrapeContainer>
-          <GrapeContainer>
-            <Item styled={`color:#03d28c; flex:1; max-width:20px; `}>MF</Item> 
-            <Grape value={109/150*100} bgColor="#03d28c"></Grape>
-            <Item>109</Item>
-          </GrapeContainer>
-          <GrapeContainer>
-            <Item styled={`color:#2b7def; flex:1; max-width:20px;`}>DF</Item> 
-            <Grape value={102/150*100} bgColor="#2b7def"></Grape>
-            <Item>102</Item>
-          </GrapeContainer>
-        </ClubItemResult>
-      </ClubItem>
-      <ClubItem>
-        <ClubItemTitle>선수 인원(명)</ClubItemTitle>
-        <ClubItemResult>
-          <Item styled={`color:#25c7f5`}>11</Item>
-        </ClubItemResult>
-      </ClubItem>
-    </ClubItemContainer>
-    <SquadContainer>
-      <Squad bgImage="http://s.nx.com/s2/game/fo4/obt/datacenter/squad/bg.png">
-        <PlayerContainer>
-          {
-            userClubData.players.map(player => (
-              <Player bgImage={player.cardImageUrl} position={player.spPosition} key={player.spId}>
-                <Thumb bgImage={`${process.env.REACT_APP_IMG_API_URL}${player.imageId}.png`}></Thumb>
-                <Season></Season>
-                <Ovr>{player.ablilty}</Ovr>
-                <Position>{player.positionDescription}</Position>
-                <NameContainer>
-                  <Icon bgImage={player.seasonImgUrl}></Icon>
-                  <Name>{player.originalName}</Name>
-                </NameContainer>
-                <Pay bgImage={'http://s.nx.com/s2/game/fo4/obt/datacenter/squad/ico_pay.png'}>{player.pay}</Pay>
-                <Grade 
-                  bgColor={
-                    player.spGrade === 1 ? '#45494f' :
-                    player.spGrade > 1 && player.spGrade < 5 ? '#c37653' :
-                    player.spGrade > 4 && player.spGrade < 8? '#c2c5ca' : '#e8c337'
-                  }
-                >{player.spGrade}</Grade>
-              </Player>
-            ))
-          }
-        </PlayerContainer>
-      </Squad>
-    </SquadContainer>
-    
-  </Container>
-  
+        {/* <ClubItem>
+          <ClubItemTitle>평균 능력치(최대150 OVR 기준)</ClubItemTitle>
+          <ClubItemResult>
+            <GrapeContainer>
+              <Item styled={`color:#f6425f; flex:1; max-width:20px;`}>FW</Item> 
+              <Grape value={111/150*100} bgColor="#f6425f"></Grape>
+              <Item>111</Item>
+            </GrapeContainer>
+            <GrapeContainer>
+              <Item styled={`color:#03d28c; flex:1; max-width:20px; `}>MF</Item> 
+              <Grape value={109/150*100} bgColor="#03d28c"></Grape>
+              <Item>109</Item>
+            </GrapeContainer>
+            <GrapeContainer>
+              <Item styled={`color:#2b7def; flex:1; max-width:20px;`}>DF</Item> 
+              <Grape value={102/150*100} bgColor="#2b7def"></Grape>
+              <Item>102</Item>
+            </GrapeContainer>
+          </ClubItemResult>
+        </ClubItem> */}
+        <ClubItem>
+          <ClubItemTitle>선수 인원(명)</ClubItemTitle>
+          <ClubItemResult>
+            <Item styled={`color:#25c7f5`}>11</Item>
+          </ClubItemResult>
+        </ClubItem>
+      </ClubItemContainer>
+      <SquadContainer>
+        <Squad bgImage="http://s.nx.com/s2/game/fo4/obt/datacenter/squad/bg.png">
+          <PlayerContainer>
+            {
+              userClubData.players.map(player => (
+                <Player bgImage={player.cardImageUrl} position={player.spPosition} key={player.spId}>
+                  <Thumb bgImage={`${process.env.REACT_APP_IMG_API_URL}${player.imageId}.png`}></Thumb>
+                  <Season></Season>
+                  <Ovr>{player.ablilty}</Ovr>
+                  <Position>{player.positionDescription}</Position>
+                  <NameContainer>
+                    <Icon bgImage={player.seasonImgUrl}></Icon>
+                    <Name>{player.originalName}</Name>
+                  </NameContainer>
+                  <Pay bgImage={'http://s.nx.com/s2/game/fo4/obt/datacenter/squad/ico_pay.png'}>{player.pay}</Pay>
+                  <Grade 
+                    bgColor={
+                      player.spGrade === 1 ? '#45494f' :
+                      player.spGrade > 1 && player.spGrade < 5 ? '#c37653' :
+                      player.spGrade > 4 && player.spGrade < 8? '#c2c5ca' : '#e8c337'
+                    }
+                  >{player.spGrade}</Grade>
+                </Player>
+              ))
+            }
+          </PlayerContainer>
+        </Squad>
+      </SquadContainer>
+      
+    </Container>
+  </>
 )
 
 export default UserInfo;
