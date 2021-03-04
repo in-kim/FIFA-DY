@@ -390,14 +390,18 @@ const DropItem = styled.p`
   }
 `;
 
-function dropDown(e) {
-  let {nextSibling:target} = e.target;
-
+function dropDown(id) {
+  let target = document.getElementById(id);
   if(target.classList.contains('active') === false){
     target.classList.add("active");
   }else{
     target.classList.remove("active");
   }
+}
+
+function dropUp(id){
+  let target = document.getElementById(id);
+  target.classList.remove("active");
 }
 
 const HomePrecenter = ({
@@ -489,14 +493,13 @@ const HomePrecenter = ({
                     {match.enemyScore}
                   </Score>
                   <DropboxContainer>
-                    <Name onClick={dropDown}>
+                    <Name onClick={() => dropDown(match.matchId)}>
                       {match.enemyNickName}
                     </Name>
-                    <Dropbox>
-                      <DropItem onClick={() => handleRecordUpdate(match.enemyNickName)}>전적검색</DropItem>
+                    <Dropbox onMouseLeave={() => dropUp(match.matchId)} id={match.matchId}>
+                      <DropItem onClick={() => {handleRecordUpdate(match.enemyNickName)}}>전적검색</DropItem>
                       <DropItem onClick={() => {loadUserClubData(match.enemyAccessId)}}>정보보기</DropItem>
                     </Dropbox>
-                    
                   </DropboxContainer>
                   <MacthResult
                     color={
