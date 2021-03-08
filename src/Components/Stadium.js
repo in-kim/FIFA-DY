@@ -100,30 +100,30 @@ const Stadium = ({PlayerResult, ClubPrice, error}) => (
         <VersusContainer>
           <Nickname 
             color={
-              PlayerResult.gameResult === "무" ? "#7A7A7A": 
-              PlayerResult.gameResult === "승" ? "#3498db" : "#e74c3c"
+              PlayerResult?.gameResult === "무" ? "#7A7A7A": 
+              PlayerResult?.gameResult === "승" ? "#3498db" : "#e74c3c"
             }
           >
-            {PlayerResult.myNickName}
+            {PlayerResult?.myNickName}
             <Price>
-              {ClubPrice.myClub.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} BP
+              {ClubPrice?.myClub.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} BP
             </Price>
           </Nickname>
-          <Score>{PlayerResult.myScore}</Score>
+          <Score>{PlayerResult?.myScore}</Score>
           <Versus>
             <VersusFirst>V</VersusFirst>
             <VersusLast>S</VersusLast>
           </Versus>
-          <Score>{PlayerResult.enemyScore}</Score>
+          <Score>{PlayerResult?.enemyScore}</Score>
           <Nickname
             color={
-              PlayerResult.gameResult === "무" ? "#7A7A7A": 
-              PlayerResult.gameResult === "승" ? "#e74c3c" : "#3498db"
+              PlayerResult?.gameResult === "무" ? "#7A7A7A": 
+              PlayerResult?.gameResult === "승" ? "#e74c3c" : "#3498db"
             }
           >
-            {PlayerResult.enemyNickName}
+            {PlayerResult?.enemyNickName}
             <Price>
-              {ClubPrice.enemyClub.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} BP
+              {ClubPrice?.enemyClub.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} BP
             </Price>
           </Nickname>
         </VersusContainer>
@@ -131,7 +131,7 @@ const Stadium = ({PlayerResult, ClubPrice, error}) => (
           <TeamContainer>
             <PositionArea>
               {
-                PlayerResult.myPlayer.map((home,index) => (
+                PlayerResult?.myPlayer.map((home,index) => (
                   home.spPosition === 0 ? (
                       <Player 
                         key={index}
@@ -151,7 +151,7 @@ const Stadium = ({PlayerResult, ClubPrice, error}) => (
             </PositionArea>
             <PositionArea>
               {
-                PlayerResult.myPlayer.map((home,index) => (
+                PlayerResult?.myPlayer.map((home,index) => (
                   home.spPosition >= 1 && home.spPosition <= 8 ? (
                       <Player 
                         key={index}
@@ -171,7 +171,7 @@ const Stadium = ({PlayerResult, ClubPrice, error}) => (
             </PositionArea>
             <PositionArea>
               {
-                PlayerResult.myPlayer.map((home,index) => (
+                PlayerResult?.myPlayer.map((home,index) => (
                   home.spPosition >= 9 && home.spPosition <= 11 ? (
                       <Player 
                         key={index}
@@ -191,7 +191,7 @@ const Stadium = ({PlayerResult, ClubPrice, error}) => (
             </PositionArea>
             <PositionArea>
               {
-                PlayerResult.myPlayer.map((home,index) => (
+                PlayerResult?.myPlayer.map((home,index) => (
                   home.spPosition >= 12 && home.spPosition <= 16 ? (
                       <Player 
                         key={index}
@@ -211,7 +211,7 @@ const Stadium = ({PlayerResult, ClubPrice, error}) => (
             </PositionArea>
             <PositionArea>
               {
-                PlayerResult.myPlayer.map((home,index) => (
+                PlayerResult?.myPlayer.map((home,index) => (
                   home.spPosition >= 17 && home.spPosition <= 19 ? (
                       <Player 
                         key={index}
@@ -231,7 +231,7 @@ const Stadium = ({PlayerResult, ClubPrice, error}) => (
             </PositionArea>
             <PositionArea>
               {
-                PlayerResult.myPlayer.map((home,index) => (
+                PlayerResult?.myPlayer.map((home,index) => (
                   home.spPosition >= 20 && home.spPosition <= 22 ? (
                       <Player 
                         key={index}
@@ -251,7 +251,7 @@ const Stadium = ({PlayerResult, ClubPrice, error}) => (
             </PositionArea>
             <PositionArea>
               {
-                PlayerResult.myPlayer.map((home,index) => (
+                PlayerResult?.myPlayer.map((home,index) => (
                   home.spPosition >= 23 && home.spPosition <= 27 ? (
                       <Player 
                         key={index}
@@ -275,7 +275,7 @@ const Stadium = ({PlayerResult, ClubPrice, error}) => (
           <TeamContainer>
             <PositionArea>
               {
-                PlayerResult.enemyPlayer.map((away,index) => (
+                PlayerResult?.enemyPlayer.map((away,index) => (
                   away.spPosition >= 23 && away.spPosition <= 27 ? (
                       <Player 
                         key={index}
@@ -296,7 +296,7 @@ const Stadium = ({PlayerResult, ClubPrice, error}) => (
             </PositionArea>
             <PositionArea>
               {
-                PlayerResult.enemyPlayer.map((away,index) => (
+                PlayerResult?.enemyPlayer.map((away,index) => (
                   away.spPosition >= 20 && away.spPosition <= 22 ? (
                       <Player 
                         key={index}
@@ -316,7 +316,7 @@ const Stadium = ({PlayerResult, ClubPrice, error}) => (
             </PositionArea>
             <PositionArea>
               {
-                PlayerResult.enemyPlayer.map((away,index) => (
+                PlayerResult?.enemyPlayer.map((away,index) => (
                   away.spPosition >= 17 && away.spPosition <= 19 ? (
                       <Player 
                         key={index}
@@ -336,7 +336,7 @@ const Stadium = ({PlayerResult, ClubPrice, error}) => (
             </PositionArea>
             <PositionArea>
               {
-                PlayerResult.enemyPlayer.map((away,index) => (
+                PlayerResult?.enemyPlayer.map((away,index) => (
                   away.spPosition >= 12 && away.spPosition <= 16 ? (
                       <Player 
                         key={index}
@@ -356,7 +356,7 @@ const Stadium = ({PlayerResult, ClubPrice, error}) => (
             </PositionArea>
             <PositionArea>
               {
-                PlayerResult.enemyPlayer.map((away,index) => (
+                PlayerResult?.enemyPlayer.map((away,index) => (
                   away.spPosition >= 9 && away.spPosition <= 11 ? (
                       <Player 
                         key={index}
@@ -376,7 +376,7 @@ const Stadium = ({PlayerResult, ClubPrice, error}) => (
             </PositionArea>
             <PositionArea>
               {
-                PlayerResult.enemyPlayer.map((away,index) => (
+                PlayerResult?.enemyPlayer.map((away,index) => (
                   away.spPosition >= 1 && away.spPosition <= 8 ? (
                       <Player 
                         key={index}
@@ -396,7 +396,7 @@ const Stadium = ({PlayerResult, ClubPrice, error}) => (
             </PositionArea>
             <PositionArea>
               {
-                PlayerResult.enemyPlayer.map((away,index) => (
+                PlayerResult?.enemyPlayer.map((away,index) => (
                   away.spPosition === 0 ? (
                       <Player 
                         key={index}

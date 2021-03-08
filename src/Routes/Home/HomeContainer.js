@@ -1,70 +1,60 @@
-import React from 'react';
+import React, { useState } from 'react';
 import HomePrecenter from 'Routes/Home/HomePresenter';
 import { matchList } from 'api';
 
-// eslint-disable-next-line import/no-anonymous-default-export
-export default class extends React.Component {
-  state= {
-    list:null,
-    userClubData:null,
-    level:null,
-    accessId:null,
-    userInfo:null,
-    searchTerm:"",
-    searchNick:'',
-    error:null,
-    loading:false,
-    offset:0,
-  }
+const HomeContainer = () => {
+  const [list, setList] = useState(null);
+  const [userClubData, setUserClubData] = useState(null);
+  const [level, setLevel] = useState(null);
+  const [accessId, setAccessId] = useState(null);
+  const [userInfo, setUserInfo] = useState(null);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [searchNick, setSearchNick] = useState("");
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [offset, setOffset] = useState(0);
 
-  handleSubmit = async event => {
+  const handleSubmit = async event => {
     //reload 제어
     event.preventDefault();
-    const { searchTerm } = this.state;
     
     if(searchTerm !== ""){
-      await this.setState({
-        list:null,
-        level:null,
-        accessId:null,
-        userInfo:null,
-        searchNick:searchTerm,
-        offset:0,
-        loading:true
-      })
+      await setList(null);
+      await setLevel(null);
+      await setAccessId(null);
+      await setUserInfo(null);
+      await setSearchNick(searchTerm);
+      await setOffset(0);
+      await setLoading(true);
 
-      this.searchByTerm();
+      searchByTerm();
     }else{
-      this.setState({
-        list:null,
-        level:null,
-        accessId:null,
-        userInfo:null,
-        searchNick:"",
-        offset:0,
-        error:'검색어를 입력 해주세요.',
-        loading:false
-      })
+      setList(null);
+      setLevel(null);
+      setAccessId(null);
+      setUserInfo(null);
+      setSearchNick("");
+      setOffset(0);
+      setError('검색어를 입력 해주세요.');
+      setLoading(false);
     }
   }
 
-  handleRecordUpdate = async (nickName) => {
-    await this.setState({
-      searchTerm:nickName,
-      list:null,
-      level:null,
-      accessId:null,
-      userInfo:null,
-      searchNick:nickName,
-      offset:0,
-      loading:true
-    })
+  const handleRecordUpdate = async (nickName) => {
+    setSearchTerm(nickName)
+    setList(null);
+    setLevel(null);
+    setAccessId(null);
+    setUserInfo(null);
+    setSearchNick(nickName);
+    setOffset(0);
+    setLoading(true);
 
-    this.searchByTerm()
+    searchByTerm()
   }
 
-  searchByTerm = async () => {
-    const { searchTerm, offset, list:oldList, userInfo} = this.state;
+  const searchByTerm = async () => {
+    let oldList = list;
     try{
       const { data : {
           gameRecords:list,
@@ -74,82 +64,63 @@ export default class extends React.Component {
 
       if(offset === 0){
         const {data:userInfo} = await matchList.userInfo(accessId);
-        this.setState({
-          list,
-          level,
-          userInfo,
-          accessId,
-          error:null,
-        })
+        setList(list);
+        setLevel(level);
+        setUserInfo(userInfo);
+        setAccessId(accessId);
+        setError(null);
       }else {
-        this.setState({
-          list: [...oldList, ...list],
-          accessId,
-          level,
-          userInfo
-        })
+        setList([...oldList, ...list]);
+        setAccessId(accessId);
+        setLevel(level);
+        setUserInfo(userInfo);
       }
     }catch{
-      this.setState({
-        error:'검색결과가 없습니다.'
-      })
+      setError('검색결과가 없습니다.');
     }finally{
-      this.setState({
-        loading:false
-      })
+      setLoading(false);
     }
   }
 
-  updateTerm = event => {
+  const updateTerm = event => {
     const { target: {value} } = event;
-    this.setState({
-      searchTerm:value
-    })
-  }
-  
-  UpdateOffset = async () => {
-    const {offset} = this.state;
-
-    await this.setState({
-      offset:offset+10
-    })
-
-    this.searchByTerm();
-  }
-  
-  loadUserClubData = async (accessId) => {
-    const {data:userClubData} = await await matchList.userResult(accessId);
-    this.setState({
-      userClubData
-    })
+    setSearchTerm(value)
   }
 
-  resetUserClusbData = () => {
-    this.setState({
-      userClubData:null
-    })
+  const UpdateOffset = async () => {
+    await setOffset(offset+10)
+
+    searchByTerm();
   }
 
-  render(){
-    const {list, userInfo,userClubData, level, searchTerm, searchNick, loading, error} = this.state;
+  const loadUserClubData = async (accessId) => {
+    const {data} = await await matchList.userResult(accessId);
 
-    return(
-      <HomePrecenter 
-        list={list}
-        userInfo={userInfo}
-        userClubData={userClubData}
-        level={level}
-        searchTerm={searchTerm}
-        searchNick={searchNick}
-        handleSubmit={this.handleSubmit}
-        handleRecordUpdate={this.handleRecordUpdate}
-        updateTerm={this.updateTerm}
-        UpdateOffset={this.UpdateOffset}
-        loadUserClubData={this.loadUserClubData}
-        resetUserClusbData={this.resetUserClusbData}
-        loading={loading}
-        error={error}
-      />
-    )
+    setUserClubData(data)
   }
+
+  const resetUserClusbData = () => {
+    setUserClubData(null)
+  }
+
+  return(
+    <HomePrecenter 
+      list={list}
+      userInfo={userInfo}
+      userClubData={userClubData}
+      level={level}
+      searchTerm={searchTerm}
+      searchNick={searchNick}
+      handleSubmit={handleSubmit}
+      handleRecordUpdate={handleRecordUpdate}
+      updateTerm={updateTerm}
+      UpdateOffset={UpdateOffset}
+      loadUserClubData={loadUserClubData}
+      resetUserClusbData={resetUserClusbData}
+      loading={loading}
+      error={error}
+    />
+  )
 }
+
+export default HomeContainer;

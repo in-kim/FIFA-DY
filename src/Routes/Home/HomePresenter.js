@@ -434,6 +434,9 @@ const HomePrecenter = ({
         <SearchButton searchIcon={`/assets/image/button/btn-search.png`}></SearchButton>
       </Form>
       {
+        console.log(list)
+      }
+      {
         list && Object.keys(list).length > 0 && 
         <UserInfoContainer>
           <UserInfoItem>
@@ -446,24 +449,25 @@ const HomePrecenter = ({
             </UserInfoText>
             <UserInfoText userInfo={true}>
               <UserInfoSubTitle userInfo={true}>최고 등급</UserInfoSubTitle>
-              <UserInfoReulst userInfo={true}>{userInfo.maxDivision}</UserInfoReulst>
+              {/* userInfo?.maxDivision */}
+              <UserInfoReulst userInfo={true}>{userInfo ? userInfo.maxDivision : ''}</UserInfoReulst>
             </UserInfoText>
             <UserInfoText userInfo={true}>
               <UserInfoSubTitle userInfo={true}>등급 달성일</UserInfoSubTitle>
-              <UserInfoReulst userInfo={true}>{userInfo.achieveMaxDivisionDate.substring(0,10)}</UserInfoReulst>
+              <UserInfoReulst userInfo={true}>{userInfo?.achieveMaxDivisionDate.substring(0,10)}</UserInfoReulst>
             </UserInfoText>
           </UserInfoItem>
           <UserInfoItem>
             <UserInfoTitle>10경기 평균 점유율</UserInfoTitle>
-            <UserInfoReulst className="big">{userInfo.possessionRatio} %</UserInfoReulst>
+            <UserInfoReulst className="big">{userInfo?.possessionRatio} %</UserInfoReulst>
           </UserInfoItem>
           <UserInfoItem>
             <UserInfoTitle>10경기 헤딩 슈팅 비율</UserInfoTitle>
-            <UserInfoReulst className="big">{userInfo.headerShootRatio} %</UserInfoReulst>
+            <UserInfoReulst className="big">{userInfo?.headerShootRatio} %</UserInfoReulst>
           </UserInfoItem>
           <UserInfoItem>
             <UserInfoTitle>10경기 중거리 슈팅 비율</UserInfoTitle>
-            <UserInfoReulst className="big">{userInfo.midRangeShootRatio} %</UserInfoReulst>
+            <UserInfoReulst className="big">{userInfo?.midRangeShootRatio} %</UserInfoReulst>
           </UserInfoItem>
         </UserInfoContainer>
       }

@@ -113,7 +113,7 @@ const DetailPrecenter = ({PlayerResult, ClubPrice, error, loading}) => (
         <PlayerList>
           {
             error && error.length > 0 ? error :
-            PlayerResult.myPlayer.map((player,index) => (
+            PlayerResult?.myPlayer.map((player,index) => (
               <PlayerListItem 
                 key={index} 
                 order={player.spPosition}
@@ -174,7 +174,7 @@ const DetailPrecenter = ({PlayerResult, ClubPrice, error, loading}) => (
         <PlayerList>
           {
             error && error.length > 0 ? error :
-            PlayerResult.enemyPlayer.map((player,index) => (
+            PlayerResult?.enemyPlayer.map((player,index) => (
               <PlayerListItem 
                 key={index}
                 order={player.spPosition}
