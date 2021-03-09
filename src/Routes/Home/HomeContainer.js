@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import HomePrecenter from 'Routes/Home/HomePresenter';
 import { matchList } from 'api';
 
@@ -14,20 +14,19 @@ const HomeContainer = () => {
   const [loading, setLoading] = useState(false);
   const [offset, setOffset] = useState(0);
 
-  const handleSubmit = async event => {
+  // 검색 시 호출
+  const handleSubmit = event => {
     //reload 제어
     event.preventDefault();
     
     if(searchTerm !== ""){
-      await setList(null);
-      await setLevel(null);
-      await setAccessId(null);
-      await setUserInfo(null);
-      await setSearchNick(searchTerm);
-      await setOffset(0);
-      await setLoading(true);
-
-      searchByTerm();
+      setList(null);
+      setLevel(null);
+      setAccessId(null);
+      setUserInfo(null);
+      setSearchNick(searchTerm);
+      setOffset(0);
+      setLoading(true);
     }else{
       setList(null);
       setLevel(null);
@@ -39,32 +38,35 @@ const HomeContainer = () => {
       setLoading(false);
     }
   }
-
-  const handleRecordUpdate = async (nickName) => {
+  
+  // 전적검색 버튼 클릭 시 호출
+  const handleRecordUpdate = (nickName) => {
     setSearchTerm(nickName)
+    setSearchNick(nickName);
     setList(null);
     setLevel(null);
     setAccessId(null);
     setUserInfo(null);
-    setSearchNick(nickName);
     setOffset(0);
     setLoading(true);
-
-    searchByTerm()
   }
 
+
+  // 검색 시 api 호출
   const searchByTerm = async () => {
     let oldList = list;
+
     try{
       const { data : {
-          gameRecords:list,
-          myAccessId:accessId,
-          myLevel:level
+        gameRecords:list,
+        myAccessId:accessId,
+        myLevel:level
       } } = await matchList.list(searchTerm,offset,10);
 
       if(offset === 0){
         const {data:userInfo} = await matchList.userInfo(accessId);
-        setList(list);
+        setList(list);;
+        
         setLevel(level);
         setUserInfo(userInfo);
         setAccessId(accessId);
@@ -82,26 +84,47 @@ const HomeContainer = () => {
     }
   }
 
+  // 검색 input value update
   const updateTerm = event => {
     const { target: {value} } = event;
     setSearchTerm(value)
   }
 
-  const UpdateOffset = async () => {
-    await setOffset(offset+10)
-
-    searchByTerm();
+  // 더보기 버튼 클릭시 호출
+  const UpdateOffset = () => {
+    setOffset(offset+10)
   }
 
+  // 닉네임 & 정보보기 클릭 시 호출
   const loadUserClubData = async (accessId) => {
-    const {data} = await await matchList.userResult(accessId);
+    const {data} = await matchList.userResult(accessId);
 
     setUserClubData(data)
   }
 
+  // 유저 클럽 정보 팝업 닫기
   const resetUserClusbData = () => {
     setUserClubData(null)
   }
+
+  useEffect(() => {
+    async function fetchData() {
+      setOffset(0);
+      await searchByTerm();
+    }
+    if(searchNick !== ""){
+      fetchData()
+    }
+  },[searchNick])
+
+  useEffect(()=> {
+    async function fetchData() {
+      await searchByTerm();
+    }
+    if(offset !== 0){
+      fetchData()
+    }
+  },[offset])
 
   return(
     <HomePrecenter 
