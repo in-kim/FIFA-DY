@@ -434,9 +434,6 @@ const HomePrecenter = ({
         <SearchButton searchIcon={`/assets/image/button/btn-search.png`}></SearchButton>
       </Form>
       {
-        console.log(list)
-      }
-      {
         list && Object.keys(list).length > 0 && 
         <UserInfoContainer>
           <UserInfoItem>
