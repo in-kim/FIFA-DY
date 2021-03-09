@@ -4,15 +4,19 @@ import styled from "styled-components";
 import Footer from 'Components/Footer'
 import Loading from "Components/Loding";
 import Advertisement from "Components/Advertisement";
-import UserInfoPop from "Components/UserInfo"
+import UserInfoPop from "Components/UserInfo";
+import SideMenu from "Components/SideMenu";
 
 const Container = styled.div`
+  position:relative;
   display:flex;
   flex-direction:column;
   width:1024px;
   height:100%;
   margin:0 auto;
   box-sizing:border-box;
+  padding-top:50px;
+
   @media only screen and (max-width:1024px){
     width:100%;
     padding:30px 15px;
@@ -422,8 +426,11 @@ const HomePrecenter = ({
 }) => (
   <>
     <Container>
+      {/* 광고 */}
       <Advertisement />
-      <Logo logoImage={`/assets/image/logo.png`} />
+      {/* menu */}
+      <SideMenu />
+      
       <Cover bgImage="/assets/image/page_logo.png"></Cover>
       <Form onSubmit={handleSubmit}>
         <Input 
@@ -517,10 +524,13 @@ const HomePrecenter = ({
           list && list.length > 0 && <MoreButton onClick={UpdateOffset}>더보기</MoreButton>
         }
       </MacthContainer>
-      {
-        userClubData && <UserInfoPop userClubData={userClubData} resetUserClusbData={resetUserClusbData}/>
-      }
     </Container>
+    
+    {
+      userClubData && <UserInfoPop userClubData={userClubData} resetUserClusbData={resetUserClusbData}/>
+    }
+
+    <Logo logoImage={`/assets/image/logo.png`} />
     <Footer />
   </>
 )
