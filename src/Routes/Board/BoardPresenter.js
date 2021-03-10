@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import SideMenu from 'Components/SideMenu';
 import Footer from 'Components/Footer'
+import {Link} from 'react-router-dom';
 
 const Container = styled.div`
   position:relative;
@@ -10,11 +11,36 @@ const Container = styled.div`
   margin:0 auto;
   padding-top:80px;
 `;
+const Header = styled.div`
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:20px;
+`;
 
 const Title = styled.h1`
-  width:100%;
+  flex:1;
+  max-width:calc(100% - 60px);
   font-size:30px;
-  margin-bottom:10px;
+`;
+
+const WriteButton = styled.span`
+  flex:1;
+  max-width:60px;
+
+ & > a {
+  border:1px solid #fff;
+  font-size:20px;
+  color:#fff;
+  background-color:transparent;
+  padding:5px 10px;
+
+  &:hover {
+    border:1px solid #ddd;
+    background-color:#fff;
+    color:#222;
+  }
+ }
 `;
 
 const TableHeader = styled.div`
@@ -26,13 +52,15 @@ const TableHeader = styled.div`
 `;
 
 const TableRow = styled.div`
-  display:flex;
-  align-items:center;
-  background-color:#fff;
-  font-size:20px;
-  color:#222;
-  border:1px solid #fff;
-  border-bottom:1px solid #000;
+  & > a {
+    display:flex;
+    align-items:center;
+    background-color:#fff;
+    font-size:20px;
+    color:#222;
+    border:1px solid #fff;
+    border-bottom:1px solid #000;
+  }
 `;
 
 const TableItem = styled.span`
@@ -43,12 +71,17 @@ const TableItem = styled.span`
 `;
 
 
-const BoardPresenter = ({page}) => {
+const BoardPresenter = ({page, id}) => {
   return (
     <>
       <Container>
         <SideMenu/>
-        <Title>{page} 게시판</Title>
+        <Header>
+          <Title>{page} 게시판</Title>
+          <WriteButton>
+            <Link to={`/board/${id}/edit`}>글쓰기</Link>
+          </WriteButton>
+        </Header>
         <TableHeader>
           <TableItem size="5">No</TableItem>
           <TableItem size="15">제목</TableItem>
@@ -56,16 +89,20 @@ const BoardPresenter = ({page}) => {
           <TableItem size="15">등록일</TableItem>
         </TableHeader>
         <TableRow>
-          <TableItem size="5">1</TableItem>
-          <TableItem size="15">안녕하세요.</TableItem>
-          <TableItem size="65">안녕하세요. 이요한 입니다. 죄송합니다.</TableItem>
-          <TableItem size="15">2021.06.11</TableItem>
+          <Link to={`/board/${id}/detail/11111`}>
+            <TableItem size="5">1</TableItem>
+            <TableItem size="15">안녕하세요.</TableItem>
+            <TableItem size="65">안녕하세요. 이요한 입니다. 죄송합니다.</TableItem>
+            <TableItem size="15">2021.06.11</TableItem>
+          </Link>
         </TableRow>
         <TableRow>
-          <TableItem size="5">2</TableItem>
-          <TableItem size="15">안녕하세요.</TableItem>
-          <TableItem size="65">안녕하세요. 이요한 입니다. 죄송합니다.</TableItem>
-          <TableItem size="15">2021.06.11</TableItem>
+          <Link to={`/board/${id}/detail/22222`}>
+            <TableItem size="5">2</TableItem>
+            <TableItem size="15">안녕하세요.</TableItem>
+            <TableItem size="65">안녕하세요. 이요한 입니다. 죄송합니다.</TableItem>
+            <TableItem size="15">2021.06.11</TableItem>
+          </Link>
         </TableRow>
       </Container>
       <Footer />
