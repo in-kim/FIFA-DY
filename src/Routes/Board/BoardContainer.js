@@ -4,6 +4,7 @@ import BoardPresenter from './BoardPresenter';
 const BoardContainer = (props) => {
   const {match:{params:{id:pageName}}} = props;
   const [page,setPage] = useState('');
+  const pageId = pageName;
 
   const updateTitle = () => {
     
@@ -21,7 +22,10 @@ const BoardContainer = (props) => {
   },[pageName])
 
   return(
-    <BoardPresenter page={page}/>
+    <BoardPresenter 
+      page={page} 
+      id={pageId}
+    />
   )
 }
 
