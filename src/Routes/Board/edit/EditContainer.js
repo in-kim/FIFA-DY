@@ -1,25 +1,25 @@
-import React, { useEffect } from'react';
+import React, { useEffect, useState } from'react';
 import EditPresenter from './EditPresenter';
 
 const EditContainer = (props) => {
   const {match:{id}} = props;
-  let pageName = "";
+  const [pageName,setPageName] = useState(""); 
   
   useEffect(()=> {
     switch(id){
       case "1":
-        pageName="커뮤니티"
+        setPageName("커뮤니티")
         return pageName;
       case "2":
-        pageName="건의"
+        setPageName("건의")
         return pageName;
       case "3":
-          pageName="공지사항"
+        setPageName("공지사항")
           return pageName;
       default:
         return "error";
     }
-  },[id])
+  },[id,pageName])
 
   return (
     <EditPresenter pageName={pageName}/>
