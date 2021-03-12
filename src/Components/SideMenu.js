@@ -68,13 +68,13 @@ const SideMenu = () => {
             <Link to="/">홈</Link>
           </Item>
           <Item>
-            <Link to="/board/1/list">커뮤니티</Link>
+            <Link to="/board/community/list">커뮤니티</Link>
           </Item>
           <Item>
-            <Link to="/board/2/list">건의 게시판</Link>
+            <Link to="/board/tendinous/list">건의 게시판</Link>
           </Item>
           <Item>
-            <Link to="/board/3/list">공지사항</Link>
+            <Link to="/board/notice/list">공지사항</Link>
           </Item>
         </List>
       </SideMenuContainer>

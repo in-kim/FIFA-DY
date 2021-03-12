@@ -2,28 +2,26 @@ import React, { useEffect, useState } from 'react';
 import BoardPresenter from './BoardPresenter';
 
 const BoardContainer = (props) => {
-  const {match:{params:{id:pageName}}} = props;
-  const [page,setPage] = useState('');
-  const pageId = pageName;
+  const {match:{params:{page}}} = props;
+  const [pageName,setpageName] = useState('');
+  const pageId = page;
 
   const updateTitle = () => {
-    
-    if(pageName==="1"){
-      setPage('커뮤니티');
-    }else if(pageName==="2"){
-      setPage('건의');
-    }else if(pageName==="3"){
-      setPage('공지사항');
+    if(page==="community"){
+      setpageName('커뮤니티');
+    }else if(page==="tendinous"){
+      setpageName('건의');
+    }else if(page==="notice"){
+      setpageName('공지사항');
     }
   }
 
   useEffect(() => {
     updateTitle();
-  },[pageName])
-
+  },[page])
   return(
     <BoardPresenter 
-      page={page} 
+      page={pageName} 
       id={pageId}
     />
   )
