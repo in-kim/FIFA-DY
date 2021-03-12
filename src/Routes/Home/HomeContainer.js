@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import HomePrecenter from 'Routes/Home/HomePresenter';
 import { matchList } from 'api';
 
@@ -14,24 +14,30 @@ const HomeContainer = () => {
   const [loading, setLoading] = useState(false);
   const [offset, setOffset] = useState(0);
 
+  console.log('빠져든다~~~ 무한루프~~~')
+
+  // 공통으로 state 초기화 시키는 함수
+  const updateData = () => {
+    setList(null);
+    setLevel(null);
+    setAccessId(null);
+    setUserInfo(null);
+  }
+
   // 검색 시 호출
   const handleSubmit = event => {
     //reload 제어
     event.preventDefault();
     
     if(searchTerm !== ""){
-      setList(null);
-      setLevel(null);
-      setAccessId(null);
-      setUserInfo(null);
+      updateData();
+
       setSearchNick(searchTerm);
       setOffset(0);
       setLoading(true);
     }else{
-      setList(null);
-      setLevel(null);
-      setAccessId(null);
-      setUserInfo(null);
+      updateData();
+
       setSearchNick("");
       setOffset(0);
       setError('검색어를 입력 해주세요.');
@@ -41,19 +47,17 @@ const HomeContainer = () => {
   
   // 전적검색 버튼 클릭 시 호출
   const handleRecordUpdate = (nickName) => {
+    updateData();
+
     setSearchTerm(nickName)
     setSearchNick(nickName);
-    setList(null);
-    setLevel(null);
-    setAccessId(null);
-    setUserInfo(null);
     setOffset(0);
     setLoading(true);
   }
 
 
   // 검색 시 api 호출
-  const searchByTerm = async () => {
+  const searchByTerm = async() => {
     let oldList = list;
 
     try{
@@ -65,17 +69,17 @@ const HomeContainer = () => {
 
       if(offset === 0){
         const {data:userInfo} = await matchList.userInfo(accessId);
-        setList(list);;
-        
-        setLevel(level);
-        setUserInfo(userInfo);
-        setAccessId(accessId);
-        setError(null);
+          setList(list);
+          
+          setLevel(level);
+          setUserInfo(userInfo);
+          setAccessId(accessId);
+          setError(null);
       }else {
-        setList([...oldList, ...list]);
-        setAccessId(accessId);
-        setLevel(level);
-        setUserInfo(userInfo);
+          setList([...oldList, ...list]);
+          setAccessId(accessId);
+          setLevel(level);
+          setUserInfo(userInfo);
       }
     }catch{
       setError('검색결과가 없습니다.');
