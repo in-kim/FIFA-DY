@@ -20,7 +20,6 @@ const EditContainer = (props) => {
         return "error";
     }
   },[id])
-  console.log(pageName);
 
   return (
     <EditPresenter pageName={pageName}/>
