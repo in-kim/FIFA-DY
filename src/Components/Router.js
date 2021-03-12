@@ -15,6 +15,7 @@ export default () => (
         <Route path="/detail/:name/:id/" component={Detail} />
         <Route path="/board/:page/list" exact component={Board} />
         <Route path="/board/:page/detail/:contentId" exact component={BoardDetail} />
+        <Route path="/board/:page/write" exact component={BoardEdit} />
         <Route path="/board/:page/edit/:contentId" exact component={BoardEdit} />
         <Redirect from="*" to="/"/>
       </Switch>

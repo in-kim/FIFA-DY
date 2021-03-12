@@ -64,8 +64,8 @@ const ClubItem = styled.div`
   padding:10px;
   box-sizing:border-box;
 `;
-const ClubItemTitle = styled.p`margin-bottom:10px;`;
-const ClubItemResult = styled.p`
+const ClubItemTitle = styled.span`display:block; margin-bottom:10px;`;
+const ClubItemResult = styled.span`
   flex:1; 
   display:flex;
   flex-wrap:wrap;
@@ -347,7 +347,7 @@ const UserInfo = ({userClubData, resetUserClusbData}) => (
           </ClubItemResult>
         </ClubItem>
         {/* 일부값 / 평균값 * 100 */}
-        {/* <ClubItem>
+        <ClubItem>
           <ClubItemTitle>평균 능력치(최대150 OVR 기준)</ClubItemTitle>
           <ClubItemResult>
             <GrapeContainer>
@@ -366,7 +366,7 @@ const UserInfo = ({userClubData, resetUserClusbData}) => (
               <Item>102</Item>
             </GrapeContainer>
           </ClubItemResult>
-        </ClubItem> */}
+        </ClubItem>
         <ClubItem>
           <ClubItemTitle>선수 인원(명)</ClubItemTitle>
           <ClubItemResult>

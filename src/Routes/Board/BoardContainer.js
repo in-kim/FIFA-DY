@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import BoardPresenter from './BoardPresenter';
 
 const BoardContainer = (props) => {
@@ -6,7 +6,7 @@ const BoardContainer = (props) => {
   const [pageName,setpageName] = useState('');
   const pageId = page;
 
-  const updateTitle = () => {
+  const updateTitle = useCallback(() => {
     if(page==="community"){
       setpageName('커뮤니티');
     }else if(page==="tendinous"){
@@ -14,11 +14,11 @@ const BoardContainer = (props) => {
     }else if(page==="notice"){
       setpageName('공지사항');
     }
-  }
+  },[page]);
 
   useEffect(() => {
     updateTitle();
-  },[page])
+  },[updateTitle,page])
   return(
     <BoardPresenter 
       page={pageName} 
