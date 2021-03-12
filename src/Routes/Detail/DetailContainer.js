@@ -32,7 +32,7 @@ const DetailContainer = (props) => {
     }
     
     updateData();
-  },[])
+  },[props])
 
   return(
     <DetailPrecenter 
