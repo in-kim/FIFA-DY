@@ -7,7 +7,168 @@ import Advertisement from "Components/Advertisement";
 import UserInfoPop from "Components/UserInfo";
 import SideMenu from "Components/SideMenu";
 
-const Container = styled.div`
+const HomePrecenter = ({
+  list,
+  userInfo,
+  userClubData,
+  level, 
+  searchTerm, 
+  searchNick,
+  handleSubmit,
+  handleRecordUpdate,
+  updateTerm, 
+  UpdateOffset,
+  loadUserClubData,
+  resetUserClusbData,
+  error, 
+  loading,
+}) => 
+  {
+    const [dropId,setDropId] = useState("");
+    const ref = useRef(null);
+
+    const dropDown = useCallback(() => {
+      let target = document.getElementById(dropId);
+      if(target.classList.contains('active') === false){
+        target.classList.add("active");
+      }
+    }
+    ,[dropId]);
+    const dropUp = useCallback(() =>{
+      let target = document.getElementById(dropId);
+      if(target){
+        target.classList.remove("active");
+        setDropId("");
+      }
+    },[dropId]);
+
+    useEffect(() => {
+      let target = ref.current;
+
+      if(dropId){
+        dropDown()
+      }
+
+      target.addEventListener('click', dropUp);
+      return () => {
+        target.removeEventListener('click',dropUp);
+      }
+    },[dropDown, dropUp, dropId])
+
+    return (
+      <Container ref={ref}>
+        <ContainerBox>
+          {/* 광고 */}
+          <Advertisement />
+          {/* menu */}
+          <SideMenu />
+          
+          <Cover bgImage="/assets/image/page_logo.png"></Cover>
+          <Form onSubmit={handleSubmit}>
+            <Input 
+              placeholder="구단주명을 입력하세요."
+              value={searchTerm}
+              onChange={updateTerm}
+            />
+            <SearchButton searchIcon={`/assets/image/button/btn-search.png`}></SearchButton>
+          </Form>
+          {
+            list && Object.keys(list).length > 0 && 
+            <UserInfoContainer>
+              <UserInfoItem>
+                <UserInfoTitle userInfo={true}>
+                  {searchNick==="" ? "닉네임":searchNick}
+                </UserInfoTitle>
+                <UserInfoText userInfo={true}>
+                  <UserInfoSubTitle userInfo={true}>레벨</UserInfoSubTitle>
+                  <UserInfoReulst userInfo={true}>{level}</UserInfoReulst>
+                </UserInfoText>
+                <UserInfoText userInfo={true}>
+                  <UserInfoSubTitle userInfo={true}>최고 등급</UserInfoSubTitle>
+                  {/* userInfo?.maxDivision */}
+                  <UserInfoReulst userInfo={true}>{userInfo ? userInfo.maxDivision : ''}</UserInfoReulst>
+                </UserInfoText>
+                <UserInfoText userInfo={true}>
+                  <UserInfoSubTitle userInfo={true}>등급 달성일</UserInfoSubTitle>
+                  <UserInfoReulst userInfo={true}>{userInfo?.achieveMaxDivisionDate.substring(0,10)}</UserInfoReulst>
+                </UserInfoText>
+              </UserInfoItem>
+              <UserInfoItem>
+                <UserInfoTitle>10경기 평균 점유율</UserInfoTitle>
+                <UserInfoReulst className="big">{userInfo?.possessionRatio} %</UserInfoReulst>
+              </UserInfoItem>
+              <UserInfoItem>
+                <UserInfoTitle>10경기 헤딩 슈팅 비율</UserInfoTitle>
+                <UserInfoReulst className="big">{userInfo?.headerShootRatio} %</UserInfoReulst>
+              </UserInfoItem>
+              <UserInfoItem>
+                <UserInfoTitle>10경기 중거리 슈팅 비율</UserInfoTitle>
+                <UserInfoReulst className="big">{userInfo?.midRangeShootRatio} %</UserInfoReulst>
+              </UserInfoItem>
+            </UserInfoContainer>
+          }
+
+          <MacthContainer>
+            <MacthHeader>
+              <HeaderItem>매치일시</HeaderItem>
+              <HeaderItem>내팀</HeaderItem>
+              <HeaderItem>스코어</HeaderItem>
+              <HeaderItem>상대팀</HeaderItem>
+              <HeaderItem>결과</HeaderItem>
+            </MacthHeader>
+            <Scroll>
+              {
+                error && error.length > 0 ? error : 
+                (
+                  loading ? <Loading/> :
+                  list && list.length > 0 ? list.map(match => (
+                    <MacthItem key={match.matchId}>
+                      <Date>{match.matchDate.substring(0,10)}</Date>
+                      <Name onClick={() => {loadUserClubData(match.myAccessId)}}>{match.myNickName}</Name>
+                      <Score>
+                        {match.myScore}
+                        <DetailButton onClick={() => window.open(`/#/detail/${searchTerm}/${match.matchId}`,'_blank')}>
+                            자세히 보기
+                        </DetailButton>
+                        {match.enemyScore}
+                      </Score>
+                      <DropboxContainer>
+                        <Name onClick={() => setDropId(match.matchId)}>
+                          {match.enemyNickName}
+                        </Name>
+                        <Dropbox id={match.matchId}>
+                          <DropItem onClick={() => {handleRecordUpdate(match.enemyNickName)}}>전적검색</DropItem>
+                          <DropItem onClick={() => {loadUserClubData(match.enemyAccessId)}}>정보보기</DropItem>
+                        </Dropbox>
+                      </DropboxContainer>
+                      <MacthResult
+                        color={
+                          match.gameResult === '승' ? '#3498db' : 
+                          match.gameResult === '패' ? '#e74c3c' : '#34495e'
+                        }
+                      >{match.gameResult}</MacthResult>
+                    </MacthItem>
+                  )): '검색어를 입력 해주세요.'
+                )
+              }
+            </Scroll>
+            {
+              list && list.length > 0 && <MoreButton onClick={UpdateOffset}>더보기</MoreButton>
+            }
+          </MacthContainer>
+        </ContainerBox>
+        
+        {
+          userClubData && <UserInfoPop userClubData={userClubData} resetUserClusbData={resetUserClusbData}/>
+        }
+
+        <Logo logoImage={`/assets/image/logo.png`} />
+        <Footer />
+      </Container>
+    )
+  }
+
+  const Container = styled.div`
   width:100%;
   height:100%;
 `;
@@ -399,166 +560,6 @@ const DropItem = styled.p`
   }
 `;
 
-const HomePrecenter = ({
-  list,
-  userInfo,
-  userClubData,
-  level, 
-  searchTerm, 
-  searchNick,
-  handleSubmit,
-  handleRecordUpdate,
-  updateTerm, 
-  UpdateOffset,
-  loadUserClubData,
-  resetUserClusbData,
-  error, 
-  loading,
-}) => 
-  {
-    const [dropId,setDropId] = useState("");
-    const ref = useRef(null);
-
-    const dropDown = useCallback(() => {
-      let target = document.getElementById(dropId);
-      if(target.classList.contains('active') === false){
-        target.classList.add("active");
-      }
-    }
-    ,[dropId]);
-    const dropUp = useCallback(() =>{
-      let target = document.getElementById(dropId);
-      if(target){
-        target.classList.remove("active");
-        setDropId("");
-      }
-    },[dropId]);
-
-    useEffect(() => {
-      let target = ref.current;
-
-      if(dropId){
-        dropDown()
-      }
-
-      target.addEventListener('click', dropUp);
-      return () => {
-        target.removeEventListener('click',dropUp);
-      }
-    },[dropDown, dropUp, dropId])
-
-    return (
-      <Container ref={ref}>
-        <ContainerBox>
-          {/* 광고 */}
-          <Advertisement />
-          {/* menu */}
-          <SideMenu />
-          
-          <Cover bgImage="/assets/image/page_logo.png"></Cover>
-          <Form onSubmit={handleSubmit}>
-            <Input 
-              placeholder="구단주명을 입력하세요."
-              value={searchTerm}
-              onChange={updateTerm}
-            />
-            <SearchButton searchIcon={`/assets/image/button/btn-search.png`}></SearchButton>
-          </Form>
-          {
-            list && Object.keys(list).length > 0 && 
-            <UserInfoContainer>
-              <UserInfoItem>
-                <UserInfoTitle userInfo={true}>
-                  {searchNick==="" ? "닉네임":searchNick}
-                </UserInfoTitle>
-                <UserInfoText userInfo={true}>
-                  <UserInfoSubTitle userInfo={true}>레벨</UserInfoSubTitle>
-                  <UserInfoReulst userInfo={true}>{level}</UserInfoReulst>
-                </UserInfoText>
-                <UserInfoText userInfo={true}>
-                  <UserInfoSubTitle userInfo={true}>최고 등급</UserInfoSubTitle>
-                  {/* userInfo?.maxDivision */}
-                  <UserInfoReulst userInfo={true}>{userInfo ? userInfo.maxDivision : ''}</UserInfoReulst>
-                </UserInfoText>
-                <UserInfoText userInfo={true}>
-                  <UserInfoSubTitle userInfo={true}>등급 달성일</UserInfoSubTitle>
-                  <UserInfoReulst userInfo={true}>{userInfo?.achieveMaxDivisionDate.substring(0,10)}</UserInfoReulst>
-                </UserInfoText>
-              </UserInfoItem>
-              <UserInfoItem>
-                <UserInfoTitle>10경기 평균 점유율</UserInfoTitle>
-                <UserInfoReulst className="big">{userInfo?.possessionRatio} %</UserInfoReulst>
-              </UserInfoItem>
-              <UserInfoItem>
-                <UserInfoTitle>10경기 헤딩 슈팅 비율</UserInfoTitle>
-                <UserInfoReulst className="big">{userInfo?.headerShootRatio} %</UserInfoReulst>
-              </UserInfoItem>
-              <UserInfoItem>
-                <UserInfoTitle>10경기 중거리 슈팅 비율</UserInfoTitle>
-                <UserInfoReulst className="big">{userInfo?.midRangeShootRatio} %</UserInfoReulst>
-              </UserInfoItem>
-            </UserInfoContainer>
-          }
-
-          <MacthContainer>
-            <MacthHeader>
-              <HeaderItem>매치일시</HeaderItem>
-              <HeaderItem>내팀</HeaderItem>
-              <HeaderItem>스코어</HeaderItem>
-              <HeaderItem>상대팀</HeaderItem>
-              <HeaderItem>결과</HeaderItem>
-            </MacthHeader>
-            <Scroll>
-              {
-                error && error.length > 0 ? error : 
-                (
-                  loading ? <Loading/> :
-                  list && list.length > 0 ? list.map(match => (
-                    <MacthItem key={match.matchId}>
-                      <Date>{match.matchDate.substring(0,10)}</Date>
-                      <Name onClick={() => {loadUserClubData(match.myAccessId)}}>{match.myNickName}</Name>
-                      <Score>
-                        {match.myScore}
-                        <DetailButton onClick={() => window.open(`/#/detail/${searchTerm}/${match.matchId}`,'_blank')}>
-                            자세히 보기
-                        </DetailButton>
-                        {match.enemyScore}
-                      </Score>
-                      <DropboxContainer>
-                        <Name onClick={() => setDropId(match.matchId)}>
-                          {match.enemyNickName}
-                        </Name>
-                        <Dropbox id={match.matchId}>
-                          <DropItem onClick={() => {handleRecordUpdate(match.enemyNickName)}}>전적검색</DropItem>
-                          <DropItem onClick={() => {loadUserClubData(match.enemyAccessId)}}>정보보기</DropItem>
-                        </Dropbox>
-                      </DropboxContainer>
-                      <MacthResult
-                        color={
-                          match.gameResult === '승' ? '#3498db' : 
-                          match.gameResult === '패' ? '#e74c3c' : '#34495e'
-                        }
-                      >{match.gameResult}</MacthResult>
-                    </MacthItem>
-                  )): '검색어를 입력 해주세요.'
-                )
-              }
-            </Scroll>
-            {
-              list && list.length > 0 && <MoreButton onClick={UpdateOffset}>더보기</MoreButton>
-            }
-          </MacthContainer>
-        </ContainerBox>
-        
-        {
-          userClubData && <UserInfoPop userClubData={userClubData} resetUserClusbData={resetUserClusbData}/>
-        }
-
-        <Logo logoImage={`/assets/image/logo.png`} />
-        <Footer />
-      </Container>
-    )
-  }
 HomePrecenter.propTypes = {
   list:PropTypes.array,
   accessId:PropTypes.string,
