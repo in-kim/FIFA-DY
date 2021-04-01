@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import HomePrecenter from 'Routes/Home/HomePresenter';
 import { matchList } from 'api';
 
@@ -14,7 +14,8 @@ const HomeContainer = () => {
   const [loading, setLoading] = useState(false);
   const [offset, setOffset] = useState(0);
 
-  console.log('빠져든다~~~ 무한루프~~~')
+  // 'accessId' is assigned a value but never used 방지 consol.log
+  console.log(accessId);
 
   // 공통으로 state 초기화 시키는 함수
   const updateData = () => {
@@ -119,7 +120,7 @@ const HomeContainer = () => {
     if(searchNick !== ""){
       fetchData()
     }
-  },[searchNick])
+  },[searchNick, searchByTerm])
 
   useEffect(()=> {
     async function fetchData() {
@@ -128,7 +129,7 @@ const HomeContainer = () => {
     if(offset !== 0){
       fetchData()
     }
-  },[offset])
+  },[offset, searchByTerm])
 
   return(
     <HomePrecenter 
