@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import HomePrecenter from 'Routes/Home/HomePresenter';
-import { matchList } from 'api';
+import { matchListApi } from 'api';
 
 const HomeContainer = () => {
   const [list, setList] = useState(null);
@@ -66,10 +66,10 @@ const HomeContainer = () => {
         gameRecords:list,
         myAccessId:accessId,
         myLevel:level
-      } } = await matchList.list(searchTerm,offset,10);
+      } } = await matchListApi.list(searchTerm,offset,10);
 
       if(offset === 0){
-        const {data:userInfo} = await matchList.userInfo(accessId);
+        const {data:userInfo} = await matchListApi.userInfo(accessId);
           setList(list);
           
           setLevel(level);
@@ -102,7 +102,7 @@ const HomeContainer = () => {
 
   // 닉네임 & 정보보기 클릭 시 호출
   const loadUserClubData = async (accessId) => {
-    const {data} = await matchList.userResult(accessId);
+    const {data} = await matchListApi.userResult(accessId);
 
     setUserClubData(data)
   }
