@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import DetailPrecenter from 'Routes/Detail/DetailPresenter';
-import {matchList} from 'api';
+import {matchListApi} from 'api';
 
 const DetailContainer = (props) => {
   const [PlayerResult,setPlayerResult] = useState(null);
@@ -18,8 +18,8 @@ const DetailContainer = (props) => {
           match: {params:{id}}, 
           match: {params:{name}}, 
         } = props;
-        const {data:PlayerData} = await matchList.detail(name,id);
-        const {data:ClubPrice} = await matchList.clubPrice(name,id);
+        const {data:PlayerData} = await matchListApi.detail(name,id);
+        const {data:ClubPrice} = await matchListApi.clubPrice(name,id);
 
         setPlayerResult(PlayerData)
         setClubPrice(ClubPrice)
