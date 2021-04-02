@@ -4,7 +4,7 @@ const api = axios.create({
   baseURL:"https://fifa-record-api.link/api",
 })
 
-export const matchList = {
+export const matchListApi = {
   list: (term,offset,limit) => api.get(`/record/match/${term}`,{
     params:{
       offset:offset,
