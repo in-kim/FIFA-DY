@@ -14,7 +14,7 @@ class MacthList extends Component{
       } 
     } = this.props;
 
-    console.log('맞아?',this.props);
+    console.log('맞아?',macthList);
     console.log('error',error);
     console.log('loading',loading);
     console.log('macthList',macthList);
