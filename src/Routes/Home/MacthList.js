@@ -1,23 +1,47 @@
 import React, {Compoennt, Component} from 'react';
+import {toJS} from 'mobx'
 import { observer, inject } from "mobx-react";
 import styled from 'styled-components';
 
 import Loading from '../../Components/Loding';
 
 @inject('search')
+@inject('clubData')
 @observer
 class MacthList extends Component{
+
+  state={
+    dropId:'',
+  }
+
+  dropDown = (id) => {
+    let target = document.getElementById(id);
+    if (target.classList.contains('active') === false) {
+      target.classList.add("active");
+    }
+  }
+
+  dropUp = (id) => {
+    let target = document.getElementById(id);
+    if (target) {
+      target.classList.remove("active");
+      this.setState({dropId:''});
+    }
+  };
+
   render(){
     const { 
       search:{
-        error, loading, macthList, searchTerm, UpdateOffset
-      } 
+        error, loading, searchTerm, 
+        RecordList, myAccessId, myLevel,
+        UpdateOffset, handleRecordUpdate
+      }, 
+      clubData:{
+        loadUserClubData
+      }
     } = this.props;
+    
 
-    console.log('맞아?',macthList);
-    console.log('error',error);
-    console.log('loading',loading);
-    console.log('macthList',macthList);
     return(
       <MacthContainer>
         <MacthHeader>
@@ -32,10 +56,10 @@ class MacthList extends Component{
             error && error.length > 0 ? error : 
             (
               loading ? <Loading/> :
-              macthList && macthList.length > 0 ? macthList.map(match => (
+              RecordList && RecordList.length > 0 ? RecordList.map(match => (
                 <MacthItem key={match.matchId}>
                   <Date>{match.matchDate.substring(0,10)}</Date>
-                  <Name /*onClick={() => {loadUserClubData(match.myAccessId)}}*/>{match.myNickName}</Name>
+                  <Name onClick={() => {loadUserClubData(match.myAccessId)}}>{match.myNickName}</Name>
                   <Score>
                     {match.myScore}
                     <DetailButton onClick={() => window.open(`/#/detail/${searchTerm}/${match.matchId}`,'_blank')}>
@@ -43,15 +67,15 @@ class MacthList extends Component{
                     </DetailButton>
                     {match.enemyScore}
                   </Score>
-                  {/* <DropboxContainer>
-                    <Name onClick={() => setDropId(match.matchId)}>
+                  <DropboxContainer>
+                    <Name onClick={() => this.dropDown(match.matchId)}>
                       {match.enemyNickName}
                     </Name>
                     <Dropbox id={match.matchId}>
                       <DropItem onClick={() => {handleRecordUpdate(match.enemyNickName)}}>전적검색</DropItem>
                       <DropItem onClick={() => {loadUserClubData(match.enemyAccessId)}}>정보보기</DropItem>
                     </Dropbox>
-                  </DropboxContainer> */}
+                  </DropboxContainer>
                   <MacthResult
                     color={
                       match.gameResult === '승' ? '#3498db' : 
@@ -64,7 +88,7 @@ class MacthList extends Component{
           }
         </Scroll>
         {
-          macthList && macthList.length > 0 && <MoreButton onClick={UpdateOffset}>더보기</MoreButton>
+          RecordList && RecordList.length > 0 && <MoreButton onClick={UpdateOffset}>더보기</MoreButton>
         }
       </MacthContainer>
     )
@@ -196,6 +220,44 @@ const Scroll = styled.div`
 
   @media only screen and (max-width:500px){
     max-height:200px;
+  }
+`;
+
+const DropboxContainer = styled.div`
+  position:relative;
+  flex:1;
+  width:100%;
+`;
+
+const Dropbox = styled.div`
+  opacity:0;
+  position:absolute;
+  width:100px;
+  height:0;
+  top:100%;
+  left:50%;
+  transform:translateX(-50%);
+  background-color:rgba(0,0,0,0.8);
+  z-index:0;
+  overflow:hidden;
+
+  &.active{
+    height:auto;
+    transition:.3s;
+    opacity:1;
+    z-index:1;
+  }
+`;
+
+const DropItem = styled.p`
+  font-size:14px;
+  color:#fff;
+  border-bottom:1px solid #fff;
+  text-align:left;
+  padding:10px;
+  cursor:pointer;
+  &:last-child{
+    border-bottom:0;
   }
 `;
 

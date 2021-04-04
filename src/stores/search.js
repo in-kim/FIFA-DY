@@ -3,11 +3,15 @@ import { matchListApi } from 'api';
 
 export default class SearchStore{
   @observable searchTerm = '';
+  @observable nickName = '';
+
   @observable offset = 0;
 
-  @observable matchList = null;
+  @observable RecordList = [];
+  @observable myAccessId = '';
+  @observable myLevel = '';
 
-  @observable error = '';
+  @observable error = null;
   @observable loading = false;
 
   constructor(root){
@@ -22,19 +26,41 @@ export default class SearchStore{
 
   // 더보기 버튼 클릭시 호출
   @action UpdateOffset = () => {
-    this.offset = this.offset + 10
+    this.offset = this.offset + 10;
+
+    this.fetchData();
   }
 
   @action fetchData = async() => {
-    try {
-      const {data} = await matchListApi.list(this.searchTerm,0,10);
-      this.matchList = data;
-      console.log(data);
-      console.log(toJS(this.matchList));
-    } catch {
-      this.error = '검색된 결과가 없습니다.'
-    } finally{
-      this.loading=false;
+    if(this.offset === 0){
+      try {
+        const {
+          data:{
+            gameRecords,
+            myAccessId,
+            myLevel
+          }
+        } = await matchListApi.list(this.searchTerm,this.offset,10);
+        
+        this.RecordList = gameRecords;
+        this.myAccessId = myAccessId;
+        this.myLevel = myLevel;
+      } catch {
+        this.error = '검색된 결과가 없습니다.'
+      } finally{
+        this.loading=false;
+      }
+    }else{
+      try {
+        const { data:{gameRecords} } = await matchListApi.list(this.searchTerm, this.offset, 10);
+        console.log(toJS(gameRecords));
+        this.RecordList = { ...this.RecordList, ...gameRecords};
+        console.log(toJS(this.RecordList));
+      } catch {
+        this.error = '더 볼 수 있는 데이터가 없습니다.'
+      } finally {
+        this.loading = false;
+      }
     }
   }
 
@@ -44,6 +70,7 @@ export default class SearchStore{
 
     if(this.searchTerm !== ""){
       this.loading=true;
+      this.offset=0;
       this.fetchData();
     }else{
       this.error = '검색어를 입력 해주세요.';
@@ -51,7 +78,14 @@ export default class SearchStore{
     }
   }
 
-  
+  @action handleRecordUpdate = (nickName) => {
+    this.searchTerm = nickName; // 검색어 변경
+    this.nickName = nickName;
+    this.offset = 0;
+    this.loading = true;
+
+    this.fetchData();
+  }
 
   
 }
