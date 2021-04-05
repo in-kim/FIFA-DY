@@ -1,5 +1,4 @@
-import React, {Compoennt, Component} from 'react';
-import {toJS} from 'mobx'
+import React, {Component} from 'react';
 import { observer, inject } from "mobx-react";
 import styled from 'styled-components';
 
@@ -9,39 +8,19 @@ import Loading from '../../Components/Loding';
 @inject('clubData')
 @observer
 class MacthList extends Component{
-
-  state={
-    dropId:'',
-  }
-
-  dropDown = (id) => {
-    let target = document.getElementById(id);
-    if (target.classList.contains('active') === false) {
-      target.classList.add("active");
-    }
-  }
-
-  dropUp = (id) => {
-    let target = document.getElementById(id);
-    if (target) {
-      target.classList.remove("active");
-      this.setState({dropId:''});
-    }
-  };
-
   render(){
     const { 
       search:{
         error, loading, searchTerm, 
-        RecordList, myAccessId, myLevel,
+        RecordList,
         UpdateOffset, handleRecordUpdate
       }, 
       clubData:{
-        loadUserClubData
-      }
+        loadUserClubDetailData
+      },
+      setDropId,
     } = this.props;
     
-
     return(
       <MacthContainer>
         <MacthHeader>
@@ -59,7 +38,7 @@ class MacthList extends Component{
               RecordList && RecordList.length > 0 ? RecordList.map(match => (
                 <MacthItem key={match.matchId}>
                   <Date>{match.matchDate.substring(0,10)}</Date>
-                  <Name onClick={() => {loadUserClubData(match.myAccessId)}}>{match.myNickName}</Name>
+                  <Name onClick={() => {loadUserClubDetailData(match.myAccessId)}}>{match.myNickName}</Name>
                   <Score>
                     {match.myScore}
                     <DetailButton onClick={() => window.open(`/#/detail/${searchTerm}/${match.matchId}`,'_blank')}>
@@ -68,12 +47,12 @@ class MacthList extends Component{
                     {match.enemyScore}
                   </Score>
                   <DropboxContainer>
-                    <Name onClick={() => this.dropDown(match.matchId)}>
+                    <Name onClick={() => setDropId(match.matchId)}>
                       {match.enemyNickName}
                     </Name>
                     <Dropbox id={match.matchId}>
                       <DropItem onClick={() => {handleRecordUpdate(match.enemyNickName)}}>전적검색</DropItem>
-                      <DropItem onClick={() => {loadUserClubData(match.enemyAccessId)}}>정보보기</DropItem>
+                      <DropItem onClick={() => {loadUserClubDetailData(match.enemyAccessId)}}>정보보기</DropItem>
                     </Dropbox>
                   </DropboxContainer>
                   <MacthResult
