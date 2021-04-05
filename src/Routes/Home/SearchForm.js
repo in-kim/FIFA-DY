@@ -2,9 +2,6 @@ import React, { Component } from 'react';
 import styled from 'styled-components'
 import { observer, inject } from "mobx-react";
 
-import Advertisement from "../../Components/Advertisement";
-import SideMenu from "../../Components/SideMenu";
-
 @inject('search')
 @observer
 class SearchForm extends Component {
