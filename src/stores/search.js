@@ -1,9 +1,8 @@
-import { observable, action, makeObservable, toJS} from 'mobx';
+import { observable, action, makeObservable} from 'mobx';
 import { matchListApi } from 'api';
 
 export default class SearchStore{
   @observable searchTerm = '';
-  @observable nickName = '';
 
   @observable offset = 0;
 
@@ -19,6 +18,7 @@ export default class SearchStore{
     this.root = root;
   }
 
+  // 검색 input value update
   @action updateTerm = event => {
     const { target: {value} } = event;
     this.searchTerm = value;
@@ -31,7 +31,10 @@ export default class SearchStore{
     this.fetchData();
   }
 
+  // 매치 리스트 api 호출
   @action fetchData = async() => {
+    const {clubData} = this.root;
+
     if(this.offset === 0){
       try {
         const {
@@ -42,24 +45,38 @@ export default class SearchStore{
           }
         } = await matchListApi.list(this.searchTerm,this.offset,10);
         
-        this.RecordList = gameRecords;
+        // 매치리스트 초기화
+        this.RecordList = [];
+
+        gameRecords.forEach(item => {
+          this.RecordList.push(item);
+        })
+
         this.myAccessId = myAccessId;
         this.myLevel = myLevel;
       } catch {
         this.error = '검색된 결과가 없습니다.'
       } finally{
         this.loading=false;
+        
+        // 검색된 클럽 요약 정보 호출
+        clubData.loadUserClubSimpleData()
       }
     }else{
+      
       try {
         const { data:{gameRecords} } = await matchListApi.list(this.searchTerm, this.offset, 10);
-        console.log(toJS(gameRecords));
-        this.RecordList = { ...this.RecordList, ...gameRecords};
-        console.log(toJS(this.RecordList));
+
+        gameRecords.forEach(item => {
+          this.RecordList.push(item);
+        })
       } catch {
         this.error = '더 볼 수 있는 데이터가 없습니다.'
       } finally {
         this.loading = false;
+
+        // 검색된 클럽 요약 정보 호출
+        clubData.loadUserClubSimpleData()
       }
     }
   }
@@ -74,13 +91,11 @@ export default class SearchStore{
       this.fetchData();
     }else{
       this.error = '검색어를 입력 해주세요.';
-      console.log(this.error);
     }
   }
 
   @action handleRecordUpdate = (nickName) => {
     this.searchTerm = nickName; // 검색어 변경
-    this.nickName = nickName;
     this.offset = 0;
     this.loading = true;
 
