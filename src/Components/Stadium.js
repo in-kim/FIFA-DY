@@ -92,7 +92,24 @@ const PositionArea = styled.div`
   max-width:14.28%;
 `;
 
+
+function positionChange(spId){
+  let positionName = '';
+  if(spId === 0){
+    positionName="GK";
+  }else if(spId >= 1 && spId <= 8){
+    positionName="D";
+  }else if(spId >= 9 && spId <= 19){
+    positionName="M";
+  }else if(spId >= 20 && spId <= 27){
+    positionName="S";
+  }
+
+  return positionName
+}
+
 const Stadium = ({PlayerResult, ClubPrice, error}) => (
+
   <>
     {
       <StadiumContainer>
@@ -136,14 +153,8 @@ const Stadium = ({PlayerResult, ClubPrice, error}) => (
                       <Player 
                         key={index}
                         bgImage={`${process.env.REACT_APP_IMG_API_URL}${home.imageId}.png`}
-                        team="home"
-                        name={home.name}
-                        originalName={home.originalName}
-                        positionName={home.positionDescription}
-                        positionId="GK"
-                        spPosition={home.spPosition}
-                        spGrade={home.spGrade}
-                        status={home.status}
+                        item={home}
+                        positionId={positionChange(home.spId)}
                       />
                   ) : null
                 ))
@@ -156,14 +167,8 @@ const Stadium = ({PlayerResult, ClubPrice, error}) => (
                       <Player 
                         key={index}
                         bgImage={`${process.env.REACT_APP_IMG_API_URL}${home.imageId}.png`}
-                        team="home"
-                        name={home.name}
-                        originalName={home.originalName}
-                        positionName={home.positionDescription}
-                        positionId="D"
-                        spPosition={home.spPosition}
-                        spGrade={home.spGrade}
-                        status={home.status}
+                        positionId={positionChange(home.spId)}
+                        item={home}
                       />
                   ) : null
                 ))
@@ -176,14 +181,8 @@ const Stadium = ({PlayerResult, ClubPrice, error}) => (
                       <Player 
                         key={index}
                         bgImage={`${process.env.REACT_APP_IMG_API_URL}${home.imageId}.png`}
-                        team="home"
-                        name={home.name}
-                        originalName={home.originalName}
-                        positionId="M"
-                        positionName={home.positionDescription}
-                        spPosition={home.spPosition}
-                        spGrade={home.spGrade}
-                        status={home.status}
+                        item={home}
+                        positionId={positionChange(home.spId)}
                       />
                   ) : null
                 ))
@@ -196,14 +195,8 @@ const Stadium = ({PlayerResult, ClubPrice, error}) => (
                       <Player 
                         key={index}
                         bgImage={`${process.env.REACT_APP_IMG_API_URL}${home.imageId}.png`}
-                        team="home"
-                        name={home.name}
-                        originalName={home.originalName}
-                        positionName={home.positionDescription}
-                        positionId="M"
-                        spPosition={home.spPosition}
-                        spGrade={home.spGrade}
-                        status={home.status}
+                        item={home}
+                        positionId={positionChange(home.spId)}
                       />
                   ) : null
                 ))
@@ -216,14 +209,8 @@ const Stadium = ({PlayerResult, ClubPrice, error}) => (
                       <Player 
                         key={index}
                         bgImage={`${process.env.REACT_APP_IMG_API_URL}${home.imageId}.png`}
-                        team="home"
-                        name={home.name}
-                        originalName={home.originalName}
-                        positionName={home.positionDescription}
-                        positionId="M"
-                        spPosition={home.spPosition}
-                        spGrade={home.spGrade}
-                        status={home.status}
+                        item={home}
+                        positionId={positionChange(home.spId)}
                       />
                   ) : null
                 ))
@@ -236,14 +223,8 @@ const Stadium = ({PlayerResult, ClubPrice, error}) => (
                       <Player 
                         key={index}
                         bgImage={`${process.env.REACT_APP_IMG_API_URL}${home.imageId}.png`}
-                        team="home"
-                        name={home.name}
-                        originalName={home.originalName}
-                        positionName={home.positionDescription}
-                        positionId="S"
-                        spPosition={home.spPosition}
-                        spGrade={home.spGrade}
-                        status={home.status}
+                        item={home}
+                        positionId={positionChange(home.spId)}
                       />
                   ) : null
                 ))
@@ -256,14 +237,8 @@ const Stadium = ({PlayerResult, ClubPrice, error}) => (
                       <Player 
                         key={index}
                         bgImage={`${process.env.REACT_APP_IMG_API_URL}${home.imageId}.png`}
-                        team="home"
-                        name={home.name}
-                        originalName={home.originalName}
-                        positionName={home.positionDescription}
-                        positionId="S"
-                        spPosition={home.spPosition}
-                        spGrade={home.spGrade}
-                        status={home.status}
+                        item={home}
+                        positionId={positionChange(home.spId)}
                       />
                   ) : null
                 ))
@@ -280,15 +255,8 @@ const Stadium = ({PlayerResult, ClubPrice, error}) => (
                       <Player 
                         key={index}
                         bgImage={`${process.env.REACT_APP_IMG_API_URL}${away.imageId}.png`}
-                        team="away"
-                        name={away.name}
-                        originalName={away.originalName}
-                        positionName={away.positionDescription}
-                        positionId="S"
-                        spPosition={away.spPosition}
-                        spGrade={away.spGrade}
-                        status={away.status}
-                        seasonImage={away.seasonImgUrl}
+                        item={away}
+                        positionId={positionChange(away.spId)}
                       />
                   ) : null
                 ))
@@ -301,14 +269,8 @@ const Stadium = ({PlayerResult, ClubPrice, error}) => (
                       <Player 
                         key={index}
                         bgImage={`${process.env.REACT_APP_IMG_API_URL}${away.imageId}.png`}
-                        team="away"
-                        name={away.name}
-                        originalName={away.originalName}
-                        positionName={away.positionDescription}
-                        spPosition={away.spPosition}
-                        positionId="S"
-                        spGrade={away.spGrade}
-                        status={away.status}
+                        item={away}
+                        positionId={positionChange(away.spId)}
                       />
                   ) : null
                 ))
@@ -321,14 +283,8 @@ const Stadium = ({PlayerResult, ClubPrice, error}) => (
                       <Player 
                         key={index}
                         bgImage={`${process.env.REACT_APP_IMG_API_URL}${away.imageId}.png`}
-                        team="away"
-                        name={away.name}
-                        originalName={away.originalName}
-                        positionName={away.positionDescription}
-                        positionId="M"
-                        spPosition={away.spPosition}
-                        spGrade={away.spGrade}
-                        status={away.status}
+                        item={away}
+                        positionId={positionChange(away.spId)}
                       />
                   ) : null
                 ))
@@ -341,14 +297,8 @@ const Stadium = ({PlayerResult, ClubPrice, error}) => (
                       <Player 
                         key={index}
                         bgImage={`${process.env.REACT_APP_IMG_API_URL}${away.imageId}.png`}
-                        team="away"
-                        name={away.name}
-                        originalName={away.originalName}
-                        positionName={away.positionDescription}
-                        spPosition={away.spPosition}
-                        positionId="M"
-                        spGrade={away.spGrade}
-                        status={away.status}
+                        item={away}
+                        positionId={positionChange(away.spId)}
                       />
                   ) : null
                 ))
@@ -361,14 +311,8 @@ const Stadium = ({PlayerResult, ClubPrice, error}) => (
                       <Player 
                         key={index}
                         bgImage={`${process.env.REACT_APP_IMG_API_URL}${away.imageId}.png`}
-                        team="away"
-                        name={away.name}
-                        originalName={away.originalName}
-                        positionName={away.positionDescription}
-                        positionId="M"
-                        spPosition={away.spPosition}
-                        spGrade={away.spGrade}
-                        status={away.status}
+                        item={away}
+                        positionId={positionChange(away.spId)}
                       />
                   ) : null
                 ))
@@ -381,14 +325,8 @@ const Stadium = ({PlayerResult, ClubPrice, error}) => (
                       <Player 
                         key={index}
                         bgImage={`${process.env.REACT_APP_IMG_API_URL}${away.imageId}.png`}
-                        team="away"
-                        name={away.name}
-                        originalName={away.originalName}
-                        positionName={away.positionDescription}
-                        positionId="D"
-                        spPosition={away.spPosition}
-                        spGrade={away.spGrade}
-                        status={away.status}
+                        item={away}
+                        positionId={positionChange(away.spId)}
                       />
                   ) : null
                 ))
@@ -401,14 +339,8 @@ const Stadium = ({PlayerResult, ClubPrice, error}) => (
                       <Player 
                         key={index}
                         bgImage={`${process.env.REACT_APP_IMG_API_URL}${away.imageId}.png`}
-                        team="away"
-                        name={away.name}
-                        originalName={away.originalName}
-                        positionName={away.positionDescription}
-                        positionId="GK"
-                        spPosition={away.spPosition}
-                        spGrade={away.spGrade}
-                        status={away.status}
+                        item={away}
+                        positionId={positionChange(away.spId)}
                       />
                   ) : null
                 ))
