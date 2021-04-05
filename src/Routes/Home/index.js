@@ -1,18 +1,45 @@
-import React from 'react';
+import React, {useCallback, useEffect, useRef, useState} from "react";
 import styled from 'styled-components';
 
-import HomeContainer from 'Routes/Home/HomeContainer';
 import SearchForm from 'Routes/Home/SearchForm'
+import MacthList from './MacthList';
+import UserInfo from "./UserInfo";
+import UserInfoPop from '../../Components/UserInfo'
 
 import Advertisement from "../../Components/Advertisement";
 import SideMenu from "../../Components/SideMenu";
 
 import Footer from '../../Components/Footer';
-import MacthList from './MacthList';
 
 const Home = () => {
+  const [dropId,setDropId] = useState("");
+  const ref = useRef(null);
+
+  // 드랍다운 메뉴 
+  const dropMenu = useCallback(() => {
+    let target = document.getElementById(dropId);
+    if(target.classList.contains('active') === false){
+      target.classList.add("active");
+    }else{
+      target.classList.remove("active");
+      setDropId("");
+    }
+  },[dropId])
+
+  useEffect(() => {
+    let target = ref.current;
+
+    if(dropId){
+      dropMenu()
+      target.addEventListener('click', dropMenu);
+    }
+
+    return () => {
+      target.removeEventListener('click',dropMenu);
+    }
+  },[dropMenu, dropId])
   return (
-    <Container>
+    <Container ref={ref}>
       <ContainerBox>
         {/* 광고 */}
         <Advertisement />
@@ -22,9 +49,12 @@ const Home = () => {
         <Cover bgImage="/assets/image/page_logo.png"></Cover>
         {/* 검색 */}
         <SearchForm />
+        {/* 유저 정보 */}
+        <UserInfo />
         {/* 전적 리스트 */}
-        <MacthList />
+        <MacthList setDropId={setDropId} />
       </ContainerBox>
+      <UserInfoPop />
       {/* 팀 로고 */}
       <Logo logoImage={`/assets/image/logo.png`} />
       <Footer />
