@@ -6,16 +6,23 @@ export default class SearchStore{
 
   @observable offset = 0;
 
-  @observable RecordList = [];
+  @observable RecordList = null;
   @observable myAccessId = '';
   @observable myLevel = '';
 
-  @observable error = null;
+  @observable error = '';
   @observable loading = false;
 
   constructor(root){
     makeObservable(this)
     this.root = root;
+  }
+
+  // 데이터 초기화
+  @action resetData = () => {
+    this.loading = true;
+    this.offset = 0;
+    this.error = '';
   }
 
   // 검색 input value update
@@ -45,28 +52,35 @@ export default class SearchStore{
           }
         } = await matchListApi.list(this.searchTerm,this.offset,10);
         
+        // club 요약 데이터 초기화
+        clubData.clubSimpleData = null;
         // 매치리스트 초기화
-        this.RecordList = [];
-
-        gameRecords.forEach(item => {
-          this.RecordList.push(item);
-        })
-
+        this.RecordList = null;
+        // 매치리스트 업데이트
+        this.RecordList = gameRecords;
+        // 
         this.myAccessId = myAccessId;
+        // 
         this.myLevel = myLevel;
       } catch {
         this.error = '검색된 결과가 없습니다.'
       } finally{
         this.loading=false;
-        
-        // 검색된 클럽 요약 정보 호출
-        clubData.loadUserClubSimpleData()
+
+        if(this.error === ''){
+          // 검색된 클럽 요약 정보 호출
+          clubData.loadUserClubSimpleData()
+        }else{
+          // club 요약 데이터 삭제
+          clubData.clubSimpleData = null;
+        }
       }
     }else{
       
       try {
         const { data:{gameRecords} } = await matchListApi.list(this.searchTerm, this.offset, 10);
 
+        // 매치리스트 업데이트
         gameRecords.forEach(item => {
           this.RecordList.push(item);
         })
@@ -74,9 +88,6 @@ export default class SearchStore{
         this.error = '더 볼 수 있는 데이터가 없습니다.'
       } finally {
         this.loading = false;
-
-        // 검색된 클럽 요약 정보 호출
-        clubData.loadUserClubSimpleData()
       }
     }
   }
@@ -86,8 +97,7 @@ export default class SearchStore{
     event.preventDefault();
 
     if(this.searchTerm !== ""){
-      this.loading=true;
-      this.offset=0;
+      this.resetData();
       this.fetchData();
     }else{
       this.error = '검색어를 입력 해주세요.';
@@ -95,10 +105,13 @@ export default class SearchStore{
   }
 
   @action handleRecordUpdate = (nickName) => {
+    const { clubData } = this.root;
+    
     this.searchTerm = nickName; // 검색어 변경
-    this.offset = 0;
-    this.loading = true;
+    this.resetData();
 
+    // club 요약 데이터 초기화
+    clubData.clubSimpleData = null;
     this.fetchData();
   }
 
