@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import SearchForm from 'Routes/Home/SearchForm'
 import MacthList from './MacthList';
 import UserInfo from "./UserInfo";
-import UserInfoPop from '../../Components/UserInfo'
+import UserInfoPop from './UserInfoPop'
 
 import Advertisement from "../../Components/Advertisement";
 import SideMenu from "../../Components/SideMenu";
