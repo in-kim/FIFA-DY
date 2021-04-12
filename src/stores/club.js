@@ -2,6 +2,8 @@ import { observable, makeObservable, action, toJS } from "mobx";
 import { matchListApi } from 'api';
 
 export default class clubStore{
+  @observable nickName = '';
+
   @observable clubSimpleData=null;
   @observable clubDetailData=null;
   @observable loading=false;
@@ -13,11 +15,12 @@ export default class clubStore{
   }
 
   @action loadUserClubSimpleData = async () => {
-    const {search:{myAccessId}} = this.root;
+    const { search: { myAccessId, searchTerm}} = this.root;
     this.loading = true;
     try{
       const {data} = await matchListApi.userInfo(myAccessId);
       this.clubSimpleData = data;
+      this.nickName = searchTerm;
     }catch{
       this.error = 'loadUserClubSimpleData error'
     }finally{
