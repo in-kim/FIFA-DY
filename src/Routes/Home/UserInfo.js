@@ -11,10 +11,11 @@ class UserInfo extends Component {
   render() {
     const { 
       clubData:{
+        nickName,
         clubSimpleData,
         error, loading
       }, 
-      search:{myLevel, searchTerm}
+      search:{myLevel}
     } = this.props;
 
     console.log(this.props);
@@ -28,7 +29,7 @@ class UserInfo extends Component {
               <UserInfoItem>
                 <UserInfoTitle userInfo={true}>
                   {
-                    searchTerm==="" ? "닉네임":searchTerm
+                    nickName==="" ? "닉네임":nickName
                   }
                 </UserInfoTitle>
                 <UserInfoText userInfo={true}>
