@@ -48,7 +48,7 @@ export const TableHeader = styled.div`
 `;
 
 export const TableRow = styled.div`
-  & > a {
+  & > * {
     display:flex;
     align-items:center;
     background-color:#fff;
