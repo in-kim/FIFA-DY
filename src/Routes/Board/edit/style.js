@@ -18,16 +18,40 @@ export const Form = styled.form`
   font-family:inherit;
 `;
 
+export const InputContainer = styled.div`
+  display:flex;
+  margin-bottom:20px;
+  `;
+  export const InputBox = styled.div`
+  display:flex;
+  flex:1; 
+  margin-right:20px;
+  align-items:center;
+  border-bottom:2px solid #fff;
+
+  &:last-child{
+    margin-right:0;
+  }
+  & > input {
+    font-size:20px;
+  }
+`;
+export const Label = styled.div`
+  flex:1;
+  font-size:20px;
+  margin-right:10px;
+  word-break:keep-all;
+`;
+
 export const Input = styled.input`
   width:100%;
   font-family:inherit;
-  font-size:30px;
+  font-size:20px;
   color:#fff;
   background-color:transparent;
-  border:2px solid #fff;
-  border-radius:10px;
-  margin-bottom:20px;
+  border:0;
   padding:10px 20px;
+  outline:none;
 `;
 
 export const TextArea = styled.textarea`
@@ -35,9 +59,8 @@ export const TextArea = styled.textarea`
   min-height:300px;
   font-family:inherit;
   font-size:20px;
-  color:#fff;
-  background-color:transparent;
-  border:2px solid #fff;
+  color:#222;
+  background-color:#fff;
   border-radius:10px;
   line-height:20px;
   margin-bottom:30px;
