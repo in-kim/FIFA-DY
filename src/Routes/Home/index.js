@@ -1,10 +1,10 @@
 import React, {useCallback, useEffect, useRef, useState} from "react";
 import styled from 'styled-components';
 
-import SearchForm from 'Routes/Home/SearchForm'
-import MacthList from './MacthList';
-import UserInfo from "./UserInfo";
-import UserInfoPop from './UserInfoPop'
+import SearchForm from '../../Components/Home/SearchForm'
+import MacthList from '../../Components/Home/MacthList';
+import UserInfo from "../../Components/Home/UserInfo";
+import UserInfoPop from '../../Components/Home/UserInfoPop'
 
 import Advertisement from "../../Components/Advertisement";
 import SideMenu from "../../Components/SideMenu";

@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import { observer, inject } from "mobx-react";
 import styled from 'styled-components';
 
-import Loading from '../../Components/Loding';
+import Loading from '../Loding';
 
 @inject('search')
 @inject('clubData')

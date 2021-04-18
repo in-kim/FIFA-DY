@@ -18,8 +18,6 @@ class UserInfo extends Component {
       search:{myLevel}
     } = this.props;
 
-    console.log(this.props);
-
     return (
       error ? error : 
         loading ? <Loading /> : (

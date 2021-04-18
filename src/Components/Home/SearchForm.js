@@ -7,8 +7,6 @@ import { observer, inject } from "mobx-react";
 class SearchForm extends Component {
   render(){
     const {search} = this.props;
-
-    console.log(search.searchTerm);
     return(
       <>
         <Form onSubmit={search.handleSubmit}>
