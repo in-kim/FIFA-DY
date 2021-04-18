@@ -34,8 +34,6 @@ export default class clubStore{
       // 닉네임 & 정보보기 클릭 시 호출
       const {data} = await matchListApi.userResult(accessId);
       this.clubDetailData = data;
-
-      console.log(toJS(this.clubDetailData));
     } catch{
       this.error='loadUserClubDetailData error'
     } finally{
