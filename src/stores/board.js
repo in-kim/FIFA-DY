@@ -72,7 +72,7 @@ export default class board{
     } catch {
       console.log('handleEditData api error');
     }finally{
-      console.log('success');
+      alert('등록 되었습니다.');
       this.history.push(`/board/${this.pageId}/list`);
       this.resetForm();
     }
