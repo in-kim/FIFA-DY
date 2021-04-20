@@ -48,6 +48,11 @@ const globalStyles = createGlobalStyle`
   #root {
     height:100%;
   }
+
+  input,button{
+    outline:none;
+    cursor:pointer;
+  }
 `;
 
 export default globalStyles;
