@@ -57,6 +57,9 @@ export const TableRow = styled.div`
     border:1px solid #fff;
     border-bottom:1px solid #000;
   }
+  * > *:nth-child(2n-1){
+    background-color:#ddd
+  }
 `;
 
 export const TableItem = styled.span`
@@ -64,4 +67,29 @@ export const TableItem = styled.span`
   max-width:${props => props.size}%;
   text-align:center;
   padding:10px 20px;
+`;
+
+export const PagingContainer = styled.div`
+  display:flex;
+  width:100%;
+  align-itmes:center;
+  justify-content:center;
+  margin-top:30px;
+`;
+
+export const PagingItem = styled.span`
+  flex:1;
+  max-width:30px;
+  height:30px;
+  line-height:30px;
+  border:1px solid #fff;
+  font-size:16px;
+  text-align:center;  
+  margin-right:10px;
+  cursor:pointer;
+
+  &.active{
+    color:#222;
+    background-color:#fff;
+  }
 `;
