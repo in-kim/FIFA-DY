@@ -123,8 +123,7 @@ const DetailPrecenter = ({PlayerResult, ClubPrice, error, loading}) => (
           }
         </PlayerList>
       </PlayerContainer>
-
-      <Footer></Footer>
+      <Footer/>
     </Container>
   </>
 )
