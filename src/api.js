@@ -19,16 +19,37 @@ export const matchListApi = {
 }
 
 export const BoardApi = {
-  list: (boardId) => api.get(`/board/${boardId}/posts`),
+  list: (boardId,division,keyword,page) => api.get(`/board/${boardId}/posts`,{
+    params: {
+      division: division,
+      keyword: keyword,
+      page: page
+    }
+  }),
   detail: (postId) => api.get(`/board/posts/${postId}`),
-  edit:(boardId,creator,password,title,content) => 
+  edit: (boardId, creator, password, title, text) =>
     api.post(`/board/${boardId}/post`,{
       creator: creator,
       postPassword: password,
       title: title,
-      text: content,
+      text: text,
     }
   ),
-  modify:(postId) => api.put(`/api/board/post/${postId}`),
-  delete:(postId) => api.delete(`api/board/posts/${postId}`),
+  modify: (postId, creator, password, title, text) => 
+    api.put(`/board/post/${postId}`,{
+      creator: creator,
+      postPassword:password,
+      title:title,
+      text:text
+    }),
+  velification:(contentId,password) => api.get(`/board/${contentId}/valid-password`,{
+    params: {
+      password  :password
+    }
+  }),
+  delete:(postId,password) => api.delete(`/board/post/${postId}`,{
+    params:{
+      postPassword :password
+    }
+  }),
 }
