@@ -11,11 +11,28 @@ export const matchListApi = {
       limit:limit
     }
   }),
+  
+  //
   userInfo: (id) => api.get(`/record/user-info/${id}`),
+  
+  //
   detail: (nickname,id) => 
   api.get(`/record/match-info/${nickname}/${id}`),
+
+  //
   clubPrice: (nickname,id) => api.get(`/record/match-club-price?nickName=${nickname}&matchId=${id}`),
-  userResult: (id) => api.get(`/user/${id}`)
+
+  //
+  userResult: (id) => api.get(`/user/${id}`),
+
+  // top ranking
+  topRank: (page, size) => api.get(`/record/club-rank`, {
+    params: {
+      page: page,
+      size: size,
+      sort: 'clubPrice,DESC',
+    }
+  })
 }
 
 export const BoardApi = {
@@ -51,5 +68,5 @@ export const BoardApi = {
     params:{
       postPassword :password
     }
-  }),
+  })
 }
