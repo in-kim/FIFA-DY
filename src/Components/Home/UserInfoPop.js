@@ -34,7 +34,7 @@ class UserInfo extends Component{
                     clubDetailData.clubPrice ? 
                       clubDetailData.clubPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") 
                       : ''
-                  }
+                  } BP
                 </Item>
               </ClubItemResult>
             </ClubItem>
@@ -139,7 +139,7 @@ const Container = styled.div`
   background-color:#ccc;
   border-radius:25px;
   color:#000;
-  z-index:1;
+  z-index:11;
   padding:15px 30px;
   overflow:auto;
 
