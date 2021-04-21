@@ -8,6 +8,7 @@ import UserInfoPop from '../../Components/Home/UserInfoPop'
 
 import Advertisement from "../../Components/Advertisement";
 import SideMenu from "../../Components/SideMenu";
+import TopRank from '../../Components/TopRank';
 
 import Footer from '../../Components/Footer';
 
@@ -57,6 +58,7 @@ const Home = () => {
       <UserInfoPop />
       {/* 팀 로고 */}
       <Logo logoImage={`/assets/image/logo.png`} />
+      <TopRank />
       <Footer />
     </Container>
   )
