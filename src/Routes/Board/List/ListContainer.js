@@ -15,7 +15,6 @@ const ListContainer = (props) => {
   const [keyword,setKeyword] = useState('');
 
   const resetData = () => {
-    console.log("!!!!!!!!!")
     setPageNumber(1);
   }
 
@@ -25,7 +24,7 @@ const ListContainer = (props) => {
     } else if (pageId === "51") {
       setPageName('커뮤니티')
     } else {
-      history.go('/');
+      history.push('/');
     }
   } 
 
@@ -72,7 +71,6 @@ const ListContainer = (props) => {
   }
   
   useEffect(() => {
-    console.log('???');
     updatePageName();
     resetData();
     fecthList();
