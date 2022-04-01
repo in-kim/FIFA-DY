@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL:"https://fifa-record-api.link/api",
+  baseURL:"http://fifa-record-api.link/api",
 })
 
 export const matchListApi = {
