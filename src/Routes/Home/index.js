@@ -14,6 +14,7 @@ import Footer from '../../Components/Footer';
 
 const Home = () => {
   const [dropId,setDropId] = useState("");
+  const [isModal, setIsModal] = useState(true);
   const ref = useRef(null);
 
   // 드랍다운 메뉴 
@@ -45,7 +46,7 @@ const Home = () => {
         {/* 광고 */}
         <Advertisement />
         {/* menu */}
-        <SideMenu />
+        {/* <SideMenu /> */}
         {/* 메인 로고 */}
         <Cover bgImage="/assets/image/page_logo.png"></Cover>
         {/* 검색 */}
@@ -58,7 +59,20 @@ const Home = () => {
       <UserInfoPop />
       {/* 팀 로고 */}
       <Logo logoImage={`/assets/image/logo.png`} />
-      <TopRank />
+      {/* ranking */}
+      {/* <TopRank /> */}
+
+      {
+        isModal && (
+          <Modal onClick={() => setIsModal(false)}>
+            <div>
+              <p>🚧 공사중 🚧</p>
+              <p>Coming soon~ </p>
+            </div>
+          </Modal>
+        )
+      }
+
       <Footer />
     </Container>
   )
@@ -114,5 +128,31 @@ const Logo = styled.div`
     height:auto;
   }
 `;
+
+const Modal = styled.div`
+  position:absolute; left:0; top:0; z-index: 99999;
+  display: flex; align-items: center; justify-content: center;
+  width:100%; height:100%;
+
+  background-color: rgb(0 0 0/.2);
+  backdrop-filter: blur(10px);
+
+  & > div{
+    font-size:50px; color:#000;
+    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 10%), 0 4px 6px -4px rgb(0 0 0 / 10%);
+    background: #fff;
+
+    border-radius: 15px;
+    padding:50px;
+
+    & > p{
+      text-align: center;
+
+      &:first-child{
+        margin-bottom: 30px;
+      }
+    }
+  }
+`
 
 export default Home
